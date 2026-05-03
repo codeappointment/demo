@@ -35,15 +35,15 @@
                 <p class="affiliation-right" , id="affiliation">সহকারী অধ্যাপক,.... মেডিকেল কলেজ</p>
                 <p class="reg" , id="BMDC">BMDC no: A-58221</p>
             </div>
-            
+
         </div>
 
         <div class="divider"></div>
 
         <div class="patient-row">
-            <div class="field"><strong>Name:</strong> <span>Begum Ruhun Naher</span></div>
-            <div class="field"><strong>Age:</strong> <span>67</span></div>
-            <div class="field"><strong>Date:</strong> <span>04/10/2025</span></div>
+            <div class="field"><strong>Name:</strong> <span id ="patientName", class= "patient-name">Begum Ruhun Naher</span></div>
+            <div class="field"><strong>Age:</strong> <span id= "age", class ="age" >67</span></div>
+            <div class="field"><strong>Date:</strong> <span id ="date", class = "date">04/10/2025</span></div>
         </div>
 
         <div class="content">
@@ -98,10 +98,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
-
-        <div class="footer">
-            <span>Medicine prescription</span>
         </div>
     </div>
 </body>

@@ -8,8 +8,9 @@ body {
 
 .page {
     max-width: 900px;
+    height: 1000px;
     margin: 32px auto;
-    padding: 20px;
+    padding: 50px;
     background: #ffffff;
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.08);
     border-radius: 8px;
@@ -103,12 +104,13 @@ body {
 }
 
 .header-center {
-    margin-top: 20px;
+    margin-top: 12px;
     background: #0d9920;
     padding: 0.4rem;
-    max-width: 40%;
+    max-width: 28%;
     text-align: center;
     border-radius: 8px;
+    line-height: 1.1;
     margin-left: 0;
     font-family: kalpurush, 'Times New Roman', Times, serif;
     margin-bottom: 0;
@@ -209,6 +211,7 @@ body {
 
 .patient-row .field span {
     font-weight: 400;
+    cursor: pointer;
 }
 
 .content {
@@ -226,6 +229,7 @@ body {
     /*divider between c/c and rx*/
     padding-right: 20px;
     max-width: 40%;
+    height: 700px;
     border-right: 2px solid black;
 }
 
@@ -333,11 +337,12 @@ body {
     .header-left .doctor-name {
         border: none !important;
         background: transparent !important;
-        outline: none !important;
+        /* outline: none !important; */
         padding: 0 !important;
         margin: 0 !important;
         width: auto !important;
         font-size: 1.1rem !important;
+        font-weight: 900;
         display: block !important;
         font-family: kalpurush, 'Times New Roman', Times, serif;
     }
@@ -423,14 +428,17 @@ body {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         margin: 0;
+        margin-left: 1.1rem;
+        margin-right: 1.07rem;
         margin-top: 7px;
     }
 
     .header-center .specialist {
         display: inline-block !important;
         padding: 0.08rem;
-        font-weight: 30;
+        font-weight: 600;
         font-size: 1.1rem;
+        line-height: 1;
         margin: 0;
     }
 
@@ -440,10 +448,14 @@ body {
     }
 
     .header-left,
-    .header-center,
     .header-right {
         flex: 1 !important;
         max-width: 33.33% !important;
+    }
+    .header-center {
+        
+        flex: 1 !important;
+        max-width: 28% !important;
     }
 
     .content {
@@ -477,13 +489,16 @@ body {
 
     /* Ensure borders are visible */
     .divider {
+        margin-top: 1rem;
         background: #10893e !important;
+        height: 1px;
+        padding: 0;
         -webkit-print-color-adjust: exact !important;
         color-scheme: exact !important;
     }
 
     .column-left {
-        border-right: 2px solid black !important;
+        border-right: 1.5px solid black !important;
     }
 
 }
