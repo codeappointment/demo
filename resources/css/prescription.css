@@ -1,0 +1,411 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background: #b9b9b9;
+    color: #1b1b18;
+}
+
+.page {
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 32px;
+    background: #ffffff;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 15px 15px 15px 15px;
+}
+
+.header-left {
+    max-width: 60%;
+    /* line-height: 1.2; */
+    font-family: kalpurush, 'Times New Roman', Times, serif;
+    /* background: rgb(134, 238, 130); */
+}
+.header-right {
+    max-width: 40%;
+    /* line-height: 1.2; */
+    font-family: kalpurush, 'Times New Roman', Times, serif;
+    /* background: violet; */
+}
+
+@font-face {
+    font-family: 'Kalpurush';
+     font-family: 'Kalpurush', 'Times New Roman', Times, serif;
+    src: url('C:/Users/Zubayer/Herd/demo/storage/Kalpurush.ttf') format('truetype');
+}
+.header-left .doctor-name,
+.header-left .specialist {
+    
+    font-weight: 700;
+    font-family: kalpurush, 'Times New Roman', Times, serif;
+    font-size: 1.4rem;
+    width: 80%;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-top: 0;
+    margin-bottom: 0;
+    field-sizing: content-box;
+    background: transparent;
+    line-height: 1.2;
+    margin: 0;
+    margin-bottom: 0;
+    outline: none;
+    border: none;
+}
+
+
+.doctor-name:hover{
+   cursor:  pointer;
+}
+
+.header-left .doctor-qual,
+.header-left .doctor-affiliation,
+.header-left .title {
+    border: none;
+    font-family: kalpurush, 'Times New Roman', Times, serif;
+    width: 70%;
+    height: 0;
+    background: transparent;
+    min-height: 1lh;
+    /* scrollbar-width: none; */
+    /* resize: none; # this was for input elements */ 
+    font-size: 0.96rem;
+    padding: 0;
+    line-height: 1.2;
+    margin: 0;
+    field-sizing: content-box;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+
+
+.header-left .doctor-qual {
+    
+    color: #b80f0f;
+}
+
+.header-left .doctor-affiliation {
+    
+    color: #3e1089;
+}
+
+.header-left .title {
+    
+    color: #10893e;
+}
+
+.header-right {
+    text-align: right;
+    line-height: 1.2;
+    font-family: 'Times New Roman', Times, serif
+}
+
+.header-right .name {
+    font-size: 1.55rem;
+    font-weight: 700;
+}
+
+.header-right .designation {
+    font-size: 1rem;
+    color: #10893e;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+.header-right .reg {
+    color: #c0001f;
+    font-weight: 700;
+}
+
+.divider {
+    height: 2px;
+    background: #10893e;
+    margin: 10px 0;
+    /* border-radius: 2px; */
+}
+
+.patient-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.patient-row .field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.patient-row .field span {
+    font-weight: 400;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.column {
+    padding: 16px 0;
+}
+
+.column-left {  /*divider between c/c and rx*/
+    padding-right: 20px;
+    max-width: 40%;
+    border-right: 2px solid black;
+}
+
+.sec-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+}
+
+.bullet-list,
+.investigation-list,
+.rx-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1.7;
+}
+
+.bullet-list li::before,
+.investigation-list li::before {
+    content: "-";
+    display: inline-block;
+    width: 1.2em;
+    text-align: right;
+    margin-right: 8px;
+}
+
+.rx-list li {
+    margin-bottom: 16px;
+    font-size: 0.98rem;
+}
+
+.rx-list strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.rx-list .note {
+    font-size: 0.95rem;
+    color: #4d4d4d;
+}
+
+.obe-section {
+    margin-top: 24px;
+}
+
+.obe-line {
+    margin-bottom: 8px;
+}
+
+.label-small {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.footer {
+    margin-top: 32px;
+    font-size: 0.96rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Print styles */
+
+/* @media (max-width: 840px) {
+    .content {
+        grid-template-columns: 0.9fr;
+    }
+    .column-left {
+        border-right: none;
+        border-bottom: 0px solid black;
+        padding-bottom: 0;
+    }
+} */
+
+@media print {
+    body {
+        background: white !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background: white !important;
+        box-shadow: none !important;
+        border-radius: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .header-left .doctor-name {
+        border: none !important;
+        background: transparent !important;
+        outline: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: auto !important;
+        display: block !important;
+        font-family: kalpurush, 'Times New Roman', Times, serif;
+    }
+
+   .header-left .specialist {
+        border: none !important;
+        background: transparent !important;
+        outline: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: auto !important;
+        display: block !important;
+        font-family: kalpurush, 'Times New Roman', Times, serif;
+    }
+
+    .header-left .doctor-qual,
+    .header-left .doctor-affiliation {
+        border: none !important;
+        background: transparent !important;
+        outline: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: auto !important;
+        display: block !important;
+        font-family: kalpurush, 'Times New Roman', Times, serif;
+    }
+    
+    .header-left .title {
+        border: none !important;
+        background: transparent !important;
+        outline: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: auto !important;
+        display: block !important;
+        font-family: kalpurush, 'Times New Roman', Times, serif;
+    }
+
+    /* below block was for input element with placeholder to show on print preview. */
+
+    /* .header-left .doctor-name::after {
+        content: attr(placeholder);
+        display: block;
+        font-size: 0.9rem;
+        max-width: 100%;
+        font-weight: 300;
+        margin: 0;
+    }
+
+    .header-left .specialist::after {
+        content: attr(placeholder);
+        display: block;
+        font-size: 0.9rem;
+        width: 100%;
+        font-weight: 300;
+        margin: 0;
+    }
+
+    .header-left .doctor-qual::after {
+        content: attr(placeholder);
+        display: block;
+        font-size: 0.96rem;
+        font-weight: 400;
+        margin: 6px 0 0;
+    }
+
+    .header-left .doctor-affiliation::after {
+        content: attr(placeholder);
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .header-left .title::after {
+        content: attr(placeholder);
+        display: block;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #10893e;
+        margin-top: 6px; 
+    } */
+
+
+    /* Ensure proper page breaks */
+    .page {
+        page-break-inside: avoid;
+    }
+
+    .header-left{
+        max-width: 50% !important;
+        display: inline-block !important;
+    }
+
+    .header-right{
+        max-width: 50% !important;
+        display: inline-block !important;
+    }
+    .content {
+        page-break-inside: avoid;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 4px !important;
+    }
+
+    .column {
+        page-break-inside: avoid;
+    }
+
+    .column-left {
+        padding-right: 10px !important;
+        border-right: 2px solid black !important;
+    }
+
+    .column-right {
+        padding-left: 10px !important;
+    }
+
+
+    /* Remove any background colors and shadows for print */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    /* Ensure borders are visible */
+    .divider {
+        background: #10893e !important;
+        -webkit-print-color-adjust: exact !important;
+        color-scheme: exact !important;
+    }
+
+    .column-left {
+        border-right: 2px solid black !important;
+    }
+
+}

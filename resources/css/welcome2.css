@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    box-shadow: #000 0px 0px 10px;
+
+}
+ 
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.button {
+    background-color: #22c55e;
+    border: 3px solid #000;
+    border-radius: 10px;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #a38916;
+    transform: scale(1.05);
+    color: white;
+    border: #fff 3px solid;
+    border-radius: 50px;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+ 

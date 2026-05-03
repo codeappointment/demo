@@ -1,0 +1,38 @@
+/* popup.css */
+.my-Popup {
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
+    width: 30%;
+
+}
+
+.popup-content{
+    text-align: center;
+    align-items: center;
+
+}
+
+.popupInput {
+    border: 1px solid #9796f3;
+    outline: none;
+    line-height: 1.1em;
+    width: 60%;
+    padding: .9em;
+}
+
+.confirm-button {
+    width: 30%;
+
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
