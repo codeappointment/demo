@@ -17,43 +17,25 @@
     @include('popupLayout')
     <div class="page">
         <div class="header">
+
             <div class="header-left">
                 <p class="doctor-name" id="doctorName">ডাঃ যুবায়ের আহমেদ রুমি কামাল</p>
+                <p class="doctor-qual" , id="qualification">এমবিবিএস (ঢাকা), বিসিএস (স্বাস্থ্য)...</p>
+                <p class="doctor-affiliation" , id="affiliation">সহকারী অধ্যাপক,.... মেডিকেল কলেজ</p>
+                <p class="title" , id="BMDC">BMDC no: A-58221</p>
+            </div>
+
+            <div class="header-center">
                 <p class="specialist" id="specialist">মেডিসিন ও হৃদরোগ বিশেষজ্ঞ</p>
-                <p class="doctor-qual">এমবিবিএস (ঢাকা), বিসিএস (স্বাস্থ্য)...</p>
-                <p class="doctor-affiliation">সহকারী অধ্যাপক,.... মেডিকেল কলেজ</p>
-                <p class="title">BMDC no: A-58221</p>
-
-
-                <!--
-                // Auto-resize the doctor-qual textarea
-                const doctorQual = document.querySelector('.doctor-qual');
-                const doctorAffiliation = document.querySelector('.doctor-affiliation');
-
-                doctorQual.onclick = () => {
-                    
-                };
-
-                // #dynamically set height based on content in textareas
-                // doctorQual.addEventListener('input', () => {
-                //     doctorQual.style.height = '0'; // Reset height
-                //     doctorQual.style.padding = 0; // Reset padding
-                //     doctorQual.style.height = doctorQual.scrollHeight + 'px'; // Set to scroll height
-                // });
-
-                // doctorAffiliation.addEventListener('input', () => {
-                //     doctorAffiliation.style.height = '0'; // Reset height
-                //     doctorAffiliation.style.padding = 0; // Reset padding
-                //     doctorAffiliation.style.height = doctorAffiliation.scrollHeight +
-                //         'px'; // Set to scroll height
-                // });
-                 </script> -->
             </div>
+
             <div class="header-right">
-                <div class="name">Lab Aid Hospital & Diagnostic Center</div>
-                <div class="reg">BMDC Reg No. A-58221</div>
-                <div class="designation">Assistant Professor</div>
+                <p class="name-right" id="doctorName">ডাঃ যুবায়ের আহমেদ রুমি কামাল</p>
+                <p class="designation-right" , id="qualification">এমবিবিএস (ঢাকা), বিসিএস (স্বাস্থ্য)...</p>
+                <p class="affiliation-right" , id="affiliation">সহকারী অধ্যাপক,.... মেডিকেল কলেজ</p>
+                <p class="reg" , id="BMDC">BMDC no: A-58221</p>
             </div>
+            
         </div>
 
         <div class="divider"></div>

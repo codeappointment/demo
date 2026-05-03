@@ -1,8 +1,8 @@
 /* popup.css */
 .my-Popup {
     border: none;
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 10px;
+    padding: 10px;
     /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
     width: 30%;
 
@@ -18,12 +18,23 @@
     border: 1px solid #9796f3;
     outline: none;
     line-height: 1.1em;
+    font-family: 'Times New Roman', Times, serif;
     width: 60%;
     padding: .9em;
 }
 
+.button-holder{
+    max-width: 100%;
+    width: 50em;
+    text-align: end;
+}
 .confirm-button {
-    width: 30%;
+    width: 20%;
+
+}
+
+.cancel-button {
+    width: 20%;
 
 }
 

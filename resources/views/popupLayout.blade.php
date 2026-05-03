@@ -7,11 +7,16 @@
 </head>
 
 <body>
-    <dialog id="myPopup", class="my-Popup">
+    <dialog id="myPopup" , class="my-Popup">
         <div class="popup-content">
-            <label id = "label" class="form-label">Enter text:</label>
-            <input type="text" class= "popupInput"id="popupInput" placeholder="Type something...">
-            <button id="confirmBtn" class= "confirm-button">Confirm</button>
+            <label id="label" class="form-label">Enter text:</label>
+            <textarea type="text" class="popupInput" id="popupInput" placeholder="Type something..."></textarea>
+
+            <div class = "button-holder">
+                <button id="cancelButn" class="cancel-button">Cancel</button>
+                <button id="confirmBtn" class="confirm-button">Confirm</button>
+
+            </div>
         </div>
     </dialog>
     <title>Document</title>
