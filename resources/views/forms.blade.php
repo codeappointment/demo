@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
 
-    @vite (['resources/css/forms.css', 'resources/css/popup.css', 'resources/js/app.js', 'resources/js/popup.js'])
+    @vite (['resources/css/forms.css', 'resources/css/popup.css', 'resources/js/welcome2.js'])
 </head>
 
 <body class="container">
@@ -21,8 +21,8 @@
 
     <div class="header">
         <div class="header-left">
-            <input type="text" class="doctor-name" placeholder="ডাঃ Add your name">
-            <input type="text" class="doctor-address" placeholder="ডাঃ Add your address">
+            <p type="text" id = "input-name" class="doctor-name" placeholder="ডাঃ Add your name"> Doctor name</p>
+            <p type="text" id = "input-address" class="doctor-address" placeholder="ডাঃ Add your address">
             <input type="text" class="doctor-age" placeholder="ডাঃ Add your age">
             <input type="text" class="doctor-sex" placeholder="ডাঃ Add your sex">
         </div>
