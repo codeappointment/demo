@@ -240,6 +240,21 @@ body {
     letter-spacing: 0.02em;
 }
 
+.add-cc{
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+    margin-left: 10px;
+    cursor: pointer;
+    background: #b7bbb8;
+    padding: 2px 5px;
+
+    border: solid black .2px;
+    border-radius: 6px;
+
+} 
+
 .bullet-list,
 .investigation-list,
 .rx-list {
@@ -474,6 +489,9 @@ body {
         border-right: 2px solid black !important;
     }
 
+    .add-cc{
+   visibility: collapse;
+}
     .column-right {
         padding-left: 10px !important;
     }
@@ -491,7 +509,7 @@ body {
     .divider {
         margin-top: 1rem;
         background: #10893e !important;
-        height: 1px;
+        height: 1.1px;
         padding: 0;
         -webkit-print-color-adjust: exact !important;
         color-scheme: exact !important;

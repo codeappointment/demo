@@ -1,7 +1,5 @@
-// prescription layout
+// header left section
 const doctorName = document.getElementById('doctorName');
-const specialist = document.getElementById('specialist');
-const dialog = document.getElementById('myPopup');
 const qualification = document.getElementById('qualification');
 const affiliation = document.getElementById('affiliation');
 const BMDC = document.getElementById('BMDC');
@@ -9,17 +7,25 @@ const patientName = document.getElementById('patientName');
 const age = document.getElementById('age');
 const date = document.getElementById('date');
 
+// header center section 
 
+const specialist = document.getElementById('specialist');
+
+// header right section
 const hospitalName = document.getElementById('hospitalName');
 const address = document.getElementById('address');
 const schedule = document.getElementById('schedule');
 const contact = document.getElementById('contact');
 
 // popup layout
+const dialog = document.getElementById('myPopup');
 const confirmBtn = document.getElementById('confirmBtn');
 const label = document.getElementById('label');
 const inputField = document.getElementById('popupInput');
 const cancelBtn = document.getElementById('cancelButn');
+
+// column left
+const addcc = document.getElementById('addcc');
 
 // Track which element is currently being edited
 let activeElement = null;
@@ -27,49 +33,6 @@ let activeElement = null;
 
 document.addEventListener('keydown', confirm);
 document.addEventListener('keydown', cancel);
-
-function confirm(event) {
-    if (event.key === 'Enter') {
-        const val = inputField.value;
-
-        if (val === '') {
-            switch (activeElement) {
-
-                case doctorName: activeElement.innerText = 'add your name';
-                    break;
-                case qualification: activeElement.innerText = 'add your basic and postgrad degree';
-                    break;
-                case specialist: activeElement.innerText = 'add your speciality';
-                    break;
-                case affiliation: activeElement.innerText = 'add your current work and designation';
-                    break;
-                case BMDC: activeElement.innerText = 'add your BMDC no.';
-                    break;
-                case patientName: activeElement.innerText = 'add patient name';
-                    break;
-                case age: activeElement.innerText = 'add patient age';
-                    break;
-                
-                case hospitalName: activeElement.innerText = 'add your chamber name';
-                    break;
-                case address: activeElement.innerText = 'add your chamber address';
-                    break;
-                case schedule: activeElement.innerText = 'add schedule';
-                    break;
-                case contact: activeElement.innerText = 'add contact';
-                    break;
-
-            }
-        } else activeElement.innerText = val;
-        dialog.close();
-    }
-}
-
-function cancel(event) {
-    if (event.key === 'Escape') {
-        dialog.close();
-    }
-}
 
 const currentDate = new Date();
 date.innerText = currentDate.toLocaleDateString('en-GB');
@@ -81,15 +44,47 @@ qualification.addEventListener('click', () => openModal(qualification, 'MBBS/BCS
 affiliation.addEventListener('click', () => openModal(affiliation, 'Currrent Institution and designation'));
 BMDC.addEventListener('click', () => openModal(BMDC, 'BMDC no.'));
 patientName.addEventListener('click', () => openModal(patientName, 'Enter Patient name'));
-age.addEventListener('click', () => openModal(age, 'Patient age')); 
+age.addEventListener('click', () => openModal(age, 'Patient age'));
 
 hospitalName.addEventListener('click', () => openModal(hospitalName, 'Chamber Name'));
 address.addEventListener('click', () => openModal(address, 'Chamber address'));
 schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
 contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
 
+addcc.addEventListener('click', () => openModal(addcc, 'add cc'));
+
+
 // One single, permanent confirm listener
-confirmBtn.addEventListener('click', () => {
+confirmBtn.addEventListener('click', updateCancelPopUp);
+
+cancelBtn.addEventListener('click', () => {
+
+    dialog.close();
+});
+
+
+function confirm(event) {
+    if (event.key === 'Enter') {
+        updateCancelPopUp();
+    }
+}
+
+function cancel(event) {
+    if (event.key === 'Escape') {
+        dialog.close();
+    }
+}
+
+
+// Helper function to open modal
+function openModal(element, labelText) {
+    activeElement = element;
+    label.innerText = 'Enter ' + labelText;
+    inputField.value = activeElement.innerText; // Clear previous input
+    dialog.showModal();
+}
+
+function updateCancelPopUp() {
     const val = inputField.value;
 
     if (val === '') {
@@ -109,28 +104,17 @@ confirmBtn.addEventListener('click', () => {
                 break;
             case age: activeElement.innerText = 'add patient age';
                 break;
-             case hospitalName: activeElement.innerText = 'add your chamber name';
-                    break;
-                case address: activeElement.innerText = 'add your chamber address';
-                    break;
-                case schedule: activeElement.innerText = 'add schedule';
-                    break;
-                case contact: activeElement.innerText = 'add contact';
-                    break;
+            case hospitalName: activeElement.innerText = 'add your chamber name';
+                break;
+            case address: activeElement.innerText = 'add your chamber address';
+                break;
+            case schedule: activeElement.innerText = 'add schedule';
+                break;
+            case contact: activeElement.innerText = 'add contact';
+                break;
+            case addcc: activeElement.innerText = 'add cc';
+                break;
         }
     } else activeElement.innerText = val;
     dialog.close();
-});
-
-cancelBtn.addEventListener('click', () => {
-
-    dialog.close();
-});
-
-// Helper function to open modal
-function openModal(element, labelText) {
-    activeElement = element;
-    label.innerText = 'Enter ' + labelText;
-    inputField.value = activeElement.innerText; // Clear previous input
-    dialog.showModal();
-}
+};

@@ -46,10 +46,10 @@
             <div class="field"><strong>Date:</strong> <span id ="date", class = "date">04/10/2025</span></div>
         </div>
 
-        <div class="content">
+        <div class="content"> 
             <div class="column column-left">
-                <div class="sec-heading">C/C</div>
-                <ul class="bullet-list">
+                <div class="sec-heading">C/C<span id= "addcc", class ="add-cc" >+</span></div>
+                <ul class="bullet-list", id = 'bulletList'>
                     <li>History of Covid-19</li>
                     <li>Dyspepsia</li>
                     <li>Gastric Acidity</li>
