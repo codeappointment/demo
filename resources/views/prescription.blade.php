@@ -19,21 +19,21 @@
         <div class="header">
 
             <div class="header-left">
-                <p class="doctor-name" id="doctorName">ডাঃ যুবায়ের আহমেদ রুমি কামাল</p>
+                <p class="doctor-name" id="doctorName">অধ্যাপক ডাঃ আসিফ মোহাম্মদ সজীব ভুঁইয়া</p>
                 <p class="doctor-qual" , id="qualification">এমবিবিএস (ঢাকা), বিসিএস (স্বাস্থ্য)...</p>
-                <p class="doctor-affiliation" , id="affiliation">সহকারী অধ্যাপক,.... মেডিকেল কলেজ</p>
-                <p class="title" , id="BMDC">BMDC no: A-58221</p>
+                <p class="doctor-affiliation" , id="affiliation">অধ্যাপক ও দক্ষিণ সিটি কর্পোরেশন মেয়র, ঢাকা দক্ষিণ, বাংলাদেশ</p>
+                <div class="bmdc"><strong>BMDC No:</strong> <span id= "BMDC", class ="title" >A-10235</span></div>
             </div>
 
             <div class="header-center">
-                <p class="specialist" id="specialist">মেডিসিন ও হৃদরোগ বিশেষজ্ঞ</p>
+                <p class="specialist" id="specialist">Obstetritian & Gynaecologist, Infertility Specialist</p>
             </div>
 
             <div class="header-right">
-                <p class="name-right" id="doctorName">ডাঃ যুবায়ের আহমেদ রুমি কামাল</p>
-                <p class="designation-right" , id="qualification">এমবিবিএস (ঢাকা), বিসিএস (স্বাস্থ্য)...</p>
-                <p class="affiliation-right" , id="affiliation">সহকারী অধ্যাপক,.... মেডিকেল কলেজ</p>
-                <p class="reg" , id="BMDC">BMDC no: A-58221</p>
+                <p class="hospital-name" id="hospitalName">LABAID Specialized Hospital & Diagnostic Center</p>
+                <p class="address" , id="address">Dhanmondi, House- -1 and, 6, Road No. 4 </p>
+                <p class="schedule" , id="schedule">শনি, সোম, বুধ, বিকাল ৩ টা থেকে রাত ৯টা</p>
+                <div class="contact-no"><strong>Contact:</strong> <span id= "contact", class ="contact" > 09666-710606</span></div>
             </div>
 
         </div>
@@ -41,7 +41,7 @@
         <div class="divider"></div>
 
         <div class="patient-row">
-            <div class="field"><strong>Name:</strong> <span id ="patientName", class= "patient-name">Begum Ruhun Naher</span></div>
+            <div class="field"><strong>Name:</strong> <span id ="patientName", class= "patient-name">Begum Futfute Akhter</span></div>
             <div class="field"><strong>Age:</strong> <span id= "age", class ="age" >67</span></div>
             <div class="field"><strong>Date:</strong> <span id ="date", class = "date">04/10/2025</span></div>
         </div>

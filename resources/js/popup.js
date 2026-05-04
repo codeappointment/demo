@@ -9,6 +9,12 @@ const patientName = document.getElementById('patientName');
 const age = document.getElementById('age');
 const date = document.getElementById('date');
 
+
+const hospitalName = document.getElementById('hospitalName');
+const address = document.getElementById('address');
+const schedule = document.getElementById('schedule');
+const contact = document.getElementById('contact');
+
 // popup layout
 const confirmBtn = document.getElementById('confirmBtn');
 const label = document.getElementById('label');
@@ -43,6 +49,16 @@ function confirm(event) {
                     break;
                 case age: activeElement.innerText = 'add patient age';
                     break;
+                
+                case hospitalName: activeElement.innerText = 'add your chamber name';
+                    break;
+                case address: activeElement.innerText = 'add your chamber address';
+                    break;
+                case schedule: activeElement.innerText = 'add schedule';
+                    break;
+                case contact: activeElement.innerText = 'add contact';
+                    break;
+
             }
         } else activeElement.innerText = val;
         dialog.close();
@@ -65,7 +81,12 @@ qualification.addEventListener('click', () => openModal(qualification, 'MBBS/BCS
 affiliation.addEventListener('click', () => openModal(affiliation, 'Currrent Institution and designation'));
 BMDC.addEventListener('click', () => openModal(BMDC, 'BMDC no.'));
 patientName.addEventListener('click', () => openModal(patientName, 'Enter Patient name'));
-age.addEventListener('click', () => openModal(age, 'Patient age'));
+age.addEventListener('click', () => openModal(age, 'Patient age')); 
+
+hospitalName.addEventListener('click', () => openModal(hospitalName, 'Chamber Name'));
+address.addEventListener('click', () => openModal(address, 'Chamber address'));
+schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
+contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
 
 // One single, permanent confirm listener
 confirmBtn.addEventListener('click', () => {
@@ -88,6 +109,14 @@ confirmBtn.addEventListener('click', () => {
                 break;
             case age: activeElement.innerText = 'add patient age';
                 break;
+             case hospitalName: activeElement.innerText = 'add your chamber name';
+                    break;
+                case address: activeElement.innerText = 'add your chamber address';
+                    break;
+                case schedule: activeElement.innerText = 'add schedule';
+                    break;
+                case contact: activeElement.innerText = 'add contact';
+                    break;
         }
     } else activeElement.innerText = val;
     dialog.close();
@@ -102,6 +131,6 @@ cancelBtn.addEventListener('click', () => {
 function openModal(element, labelText) {
     activeElement = element;
     label.innerText = 'Enter ' + labelText;
-    inputField.value = ''; // Clear previous input
+    inputField.value = activeElement.innerText; // Clear previous input
     dialog.showModal();
 }

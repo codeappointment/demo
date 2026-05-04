@@ -36,9 +36,8 @@ body {
     src: url('C:/Users/Zubayer/Herd/demo/storage/Kalpurush.ttf') format('truetype');
 }
 
-.header-left .doctor-name,
-.header-left .specialist {
-    cursor: pointer;
+.header-left .doctor-name {
+    /* cursor: pointer; */
     font-weight: 700;
     font-family: kalpurush, 'Times New Roman', Times, serif;
     font-size: 1.4rem;
@@ -51,6 +50,22 @@ body {
     margin-bottom: 0;
     outline: none;
     border: none;
+}
+
+.header-left .doctor-name:hover,
+.header-left .doctor-qual:hover,
+.header-left .doctor-affiliation:hover,
+.header-left .title:hover,
+.patient-name:hover,
+.age:hover,
+.header-right .hospital-name:hover,
+.header-right .address:hover,
+.header-right .schedule:hover,
+.header-right .contact:hover{
+    color: #008590;
+    /* background-color: #aa5050; */
+    cursor: pointer;
+
 }
 
 .header-left .doctor-qual,
@@ -88,21 +103,6 @@ body {
     font-weight: 400;
 }
 
-.header-left .doctor-name {
-
-    font-weight: 700;
-    font-family: kalpurush, 'Times New Roman', Times, serif;
-    font-size: 1.4rem;
-    width: 100%;
-    margin-top: 0;
-    margin-bottom: 0;
-    background: transparent;
-    line-height: 1.2;
-    margin: 0;
-    outline: none;
-    border: none;
-}
-
 .header-center {
     margin-top: 12px;
     background: #0d9920;
@@ -138,7 +138,7 @@ body {
     margin: 0;
 }
 
-.header-right .name-right {
+.header-right .hospital-name {
     font-weight: 700;
     font-family: kalpurush, 'Times New Roman', Times, serif;
     font-size: 1.4rem;
@@ -150,9 +150,9 @@ body {
     border: none;
 }
 
-.header-right .designation-right,
-.header-right .affiliation-right,
-.header-right .reg {
+.header-right .address,
+.header-right .schedule,
+.header-right .contact {
     cursor: pointer;
     border: none;
     font-family: kalpurush, 'Times New Roman', Times, serif;
@@ -167,18 +167,18 @@ body {
 }
 
 
-.header-right .designation-right {
+.header-right .address {
 
     color: #b80f0f;
 }
 
-.header-right .affiliation-right {
+.header-right .schedule {
 
     color: #3e1089;
 }
 
 
-.header-right .reg {
+.header-right .contact {
     color: #10893e;
     font-weight: 400;
     margin: 0;
@@ -360,7 +360,7 @@ body {
         font-family: kalpurush, 'Times New Roman', Times, serif;
     }
 
-    .header-left .title {
+    .header-left .bmdc {
         border: none !important;
         background: transparent !important;
         outline: none !important;
@@ -375,7 +375,7 @@ body {
 
     /* header right segment*/
 
-    .header-right .name-right {
+    .header-right .hospital-name {
         border: none !important;
         background: transparent !important;
         outline: none !important;
@@ -387,8 +387,8 @@ body {
         font-family: kalpurush, 'Times New Roman', Times, serif;
     }
 
-    .header-right .designation-right,
-    .header-right .affiliation-right {
+    .header-right .address,
+    .header-right .schedule {
         border: none !important;
         background: transparent !important;
         outline: none !important;
@@ -400,7 +400,7 @@ body {
         font-family: kalpurush, 'Times New Roman', Times, serif;
     }
 
-    .header-right .reg {
+    .header-right .contact-no {
         border: none !important;
         background: transparent !important;
         outline: none !important;
