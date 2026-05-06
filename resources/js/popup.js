@@ -242,7 +242,7 @@ addDrug.addEventListener('click', () => {
 
     
 
-    let dose = document.createElement('p');
+    let dose = document.createElement('div');
     dose.innerHTML = '1+0+1| continue';
     
     items.appendChild(drugName)

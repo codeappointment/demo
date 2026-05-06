@@ -256,7 +256,7 @@ body {
 }
 
 
-.bullet-list span,
+/* .bullet-list span,
 .rx-list span {
     background: #ffcece;
     color: bold red;
@@ -270,7 +270,41 @@ body {
     margin-left: 20px;
     border: solid rgb(150, 150, 150) 1px;
     border-radius: 50px;
+} */
+.bullet-list span,
+.rx-list span {
+  /* Shape and Size */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  
+  /* Colors */
+  background-color: #fdfcfc;
+  color: rgb(155, 154, 154);
+  /* border: solid rgb(150, 150, 150) 1px; */
+  
+  /* Centering the Unicode X */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  
+  /* Font & Cursor */
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  
+  /* Prevent text selection when clicking fast */
+  user-select: none;
+  
+  transition: background 0.2s ease;
 }
+
+.bullet-list span:hover {
+  background-color: #f06969;
+  color: #f8dada;
+}
+
 
 .bullet-list,
 .investigation-list,

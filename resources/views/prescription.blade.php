@@ -102,19 +102,19 @@
                 <div class="sec-heading">Rx</div>
                 <ul class="rx-list" id="rxList">
                     <li>
-                        <strong>Tab Bisol 5mg</strong>
+                        <strong>Tab Bisol 5mg<span>&#xd7;</span></strong>
                         <div class="note">1 0 1 | Continue</div>
                     </li>
                     <li>
-                        <strong>Tab Comet 500mg</strong>
+                        <strong>Tab Comet 500mg<span>&#xd7;</span></strong>
                         <div class="note">1 0 1 | Continue</div>
                     </li>
                     <li>
-                        <strong>Tab RTV 5mg</strong>
+                        <strong>Tab RTV 5mg<span>&#xd7;</span></strong>
                         <div class="note">1 0 1 | Continue</div>
                     </li>
                     <li>
-                        <strong>Tab Maxpro 20mg</strong>
+                        <strong>Tab Maxpro 20mg<span>&#xd7;</span></strong>
                         <div class="note">1 0 1 | 1.5 months</div>
                     </li>
                 </ul>
