@@ -8,7 +8,7 @@ body {
 
 .page {
     max-width: 900px;
-    height: 1000px;
+    min-height: 1000px;
     margin: 32px auto;
     padding: 50px;
     background: #ffffff;
@@ -61,7 +61,7 @@ body {
 .header-right .hospital-name:hover,
 .header-right .address:hover,
 .header-right .schedule:hover,
-.header-right .contact:hover{
+.header-right .contact:hover {
     color: #008590;
     /* background-color: #aa5050; */
     cursor: pointer;
@@ -222,14 +222,14 @@ body {
 
 .column {
     padding: 16px 0;
-    margin-left: 0;
+    margin-left: 5px;
 }
 
 .column-left {
     /*divider between c/c and rx*/
     padding-right: 20px;
     max-width: 40%;
-    height: 700px;
+    min-height: 800px;
     border-right: 2px solid black;
 }
 
@@ -240,7 +240,7 @@ body {
     letter-spacing: 0.02em;
 }
 
-.add-cc{
+.add-cc {
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 12px;
@@ -250,24 +250,47 @@ body {
     background: #b7bbb8;
     padding: 2px 5px;
 
-    border: solid black .2px;
-    border-radius: 6px;
+    border: solid black .1px;
+    /* border-radius: 4px; */
 
-} 
+}
+
+
+.bullet-list span {
+   background: #ffcece;
+   color:bold red;
+   text-align: center;
+   display:inline-grid;
+   width: 18px;
+   cursor: pointer;
+   padding: 0;
+   padding-bottom: 1.8px;
+   line-height: 1;
+   margin-left: 20px;
+   border:  solid rgb(150, 150, 150) 1px;
+   border-radius: 50px;
+}
 
 .bullet-list,
 .investigation-list,
 .rx-list {
     list-style: none;
     padding: 0;
+    padding-top: 0;
+    min-height: 3rem;
+    min-width: 9rem;
+    /* border:solid #5a5a5a 1px;s */
     margin: 0;
+    padding: 10px;
+    width: fit-content;
     line-height: 1.7;
+    background: #d8d8d8;
+    border-radius: 8px;
 }
 
 .bullet-list li::before,
 .investigation-list li::before {
-    content: "-";
-    display: inline-block;
+    content: "- ";
     width: 1.2em;
     text-align: right;
     margin-right: 0;
@@ -467,8 +490,9 @@ body {
         flex: 1 !important;
         max-width: 33.33% !important;
     }
+
     .header-center {
-        
+
         flex: 1 !important;
         max-width: 28% !important;
     }
@@ -484,19 +508,35 @@ body {
         page-break-inside: avoid;
     }
 
+.bullet-list,
+.investigation-list,
+.rx-list {
+    
+    padding: 0;
+   
+}
     .column-left {
         padding-right: 10px !important;
         border-right: 2px solid black !important;
     }
 
-    .add-cc{
-   visibility: collapse;
-}
+    .cc-input {
+        display: none;
+    }
+
+    .bullet-list span {
+        display: none;
+    }
+
     .column-right {
         padding-left: 10px !important;
     }
 
-
+.oeinput{
+    background: none;
+    border:  none;
+    outline: none;
+}
     /* Remove any background colors and shadows for print */
     * {
         -webkit-print-color-adjust: exact !important;

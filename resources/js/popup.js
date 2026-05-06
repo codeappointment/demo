@@ -24,8 +24,24 @@ const label = document.getElementById('label');
 const inputField = document.getElementById('popupInput');
 const cancelBtn = document.getElementById('cancelButn');
 
-// column left
+// CC list items
+const cclist = document.getElementById('ccList');
+const ccitems = document.querySelectorAll('#ccList li');
+const ccinput = document.getElementById('ccinput');
 const addcc = document.getElementById('addcc');
+
+// OE list items
+const oelist = document.getElementById('oeList');
+const oeitems = document.querySelectorAll('#oeList li');
+const oeinput = document.getElementById('oeinput');
+const addoe = document.getElementById('addoe');
+
+// adv list items
+const advList = document.getElementById('advList');
+const advItems = document.querySelectorAll('#advList li');
+const advinput = document.getElementById('advinput');
+const addadv = document.getElementById('addadv');
+
 
 // Track which element is currently being edited
 let activeElement = null;
@@ -51,7 +67,57 @@ address.addEventListener('click', () => openModal(address, 'Chamber address'));
 schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
 contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
 
-addcc.addEventListener('click', () => openModal(addcc, 'add cc'));
+
+addcc.addEventListener('click', () => {
+
+    const newListItem = ccinput.value;
+    if (ccinput.value.trim() === '') return;
+    addtoListItems(newListItem, cclist, ccinput);
+
+});
+
+cclist.addEventListener('click', function (e) {
+    // Check if the clicked element is a SPAN
+    if (e.target.tagName === "SPAN") {
+        // Remove the parent <li> element
+        e.target.parentElement.remove();
+    }
+});
+
+
+addoe.addEventListener('click', () => {
+
+    const newListItem = oeinput.value;
+    if (oeinput.value.trim() === '') return;
+    addtoListItems(newListItem, oelist, oeinput);
+
+});
+
+oelist.addEventListener('click', function (e) {
+    // Check if the clicked element is a SPAN
+    if (e.target.tagName === "SPAN") {
+        // Remove the parent <li> element
+        e.target.parentElement.remove();
+    }
+});
+
+
+
+advList.addEventListener('click', function (e) {
+    // Check if the clicked element is a SPAN
+    if (e.target.tagName === "SPAN") {
+        // Remove the parent <li> element
+        e.target.parentElement.remove();
+    }
+});
+
+addadv.addEventListener('click', () => {
+
+    const newListItem = advinput.value;
+    if (advinput.value.trim() === '') return;
+    addtoListItems(newListItem, advList, advinput);
+
+});
 
 
 // One single, permanent confirm listener
@@ -65,8 +131,24 @@ cancelBtn.addEventListener('click', () => {
 
 function confirm(event) {
     if (event.key === 'Enter') {
-        updateCancelPopUp();
+        if (dialog.open) {
+            updateCancelPopUp();
+        }
+
+        if (ccinput.value.trim() !== '') {
+            const newCCItem = ccinput.value;
+            addtoListItems(newCCItem, cclist, ccinput);
+        }
+        if (oeinput.value.trim() !== '') {
+            const newOEItem = oeinput.value;
+            addtoListItems(newOEItem, oelist, oeinput);
+        }
+         if (advinput.value.trim() !== '') {
+            const newOEItem = advinput.value;
+            addtoListItems(newOEItem, advList, advinput);
+        }
     }
+
 }
 
 function cancel(event) {
@@ -118,3 +200,13 @@ function updateCancelPopUp() {
     } else activeElement.innerText = val;
     dialog.close();
 };
+
+function addtoListItems(eliment, targetList, targetInput) {
+    const items = document.createElement('li');
+    items.textContent = eliment;
+    targetList.append(items);
+    let span = document.createElement('span')
+    span.innerHTML = "\u00d7"
+    items.appendChild(span);
+    targetInput.value = '';
+}

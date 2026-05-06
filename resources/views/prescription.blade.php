@@ -20,9 +20,10 @@
 
             <div class="header-left">
                 <p class="doctor-name" id="doctorName">অধ্যাপক ডাঃ আসিফ মোহাম্মদ সজীব ভুঁইয়া</p>
-                <p class="doctor-qual" , id="qualification">এমবিবিএস (ঢাকা), বিসিএস (স্বাস্থ্য)...</p>
-                <p class="doctor-affiliation" , id="affiliation">অধ্যাপক ও দক্ষিণ সিটি কর্পোরেশন মেয়র, ঢাকা দক্ষিণ, বাংলাদেশ</p>
-                <div class="bmdc"><strong>BMDC No:</strong> <span id= "BMDC", class ="title" >A-10235</span></div>
+                <p class="doctor-qual" id="qualification">এমবিবিএস (ঢাকা), বিসিএস (স্বাস্থ্য)...</p>
+                <p class="doctor-affiliation" id="affiliation">অধ্যাপক ও দক্ষিণ সিটি কর্পোরেশন মেয়র, ঢাকা দক্ষিণ,
+                    বাংলাদেশ</p>
+                <div class="bmdc"><strong>BMDC No:</strong> <span id="BMDC" class="title">A-10235</span></div>
             </div>
 
             <div class="header-center">
@@ -31,9 +32,10 @@
 
             <div class="header-right">
                 <p class="hospital-name" id="hospitalName">LABAID Specialized Hospital & Diagnostic Center</p>
-                <p class="address" , id="address">Dhanmondi, House- -1 and, 6, Road No. 4 </p>
-                <p class="schedule" , id="schedule">শনি, সোম, বুধ, বিকাল ৩ টা থেকে রাত ৯টা</p>
-                <div class="contact-no"><strong>Contact:</strong> <span id= "contact", class ="contact" > 09666-710606</span></div>
+                <p class="address" id="address">Dhanmondi, House- -1 and, 6, Road No. 4 </p>
+                <p class="schedule" id="schedule">শনি, সোম, বুধ, বিকাল ৩ টা থেকে রাত ৯টা</p>
+                <div class="contact-no"><strong>Contact:</strong> <span id="contact" class="contact">
+                        09666-710606</span></div>
             </div>
 
         </div>
@@ -41,38 +43,57 @@
         <div class="divider"></div>
 
         <div class="patient-row">
-            <div class="field"><strong>Name:</strong> <span id ="patientName", class= "patient-name">Begum Futfute Akhter</span></div>
-            <div class="field"><strong>Age:</strong> <span id= "age", class ="age" >67</span></div>
-            <div class="field"><strong>Date:</strong> <span id ="date", class = "date">04/10/2025</span></div>
+            <div class="field"><strong>Name:</strong> <span id="patientName" class="patient-name">Begum Futfute
+                    Akhter</span></div>
+            <div class="field"><strong>Age:</strong> <span id="age" class="age">67</span></div>
+            <div class="field"><strong>Date:</strong> <span id="date" class="date">04/10/2025</span></div>
         </div>
 
-        <div class="content"> 
+        <div class="content">
             <div class="column column-left">
-                <div class="sec-heading">C/C<span id= "addcc", class ="add-cc" >+</span></div>
-                <ul class="bullet-list", id = 'bulletList'>
-                    <li>History of Covid-19</li>
-                    <li>Dyspepsia</li>
-                    <li>Gastric Acidity</li>
-                    <li>Insomnia</li>
-                    <li>Weakness</li>
-                    <li>Malaise</li>
+                <div class="sec-heading">C/C</div>
+                <div class="cc-input"><input id="ccinput" class="ccinput" placeholder="Add complaints"></input><span
+                        id="addcc", class="add-cc">+</span></div>
+                <ul class="bullet-list" , id='ccList'>
+                    <li>Fever for three days<span>&#xd7;</span></li>
+                    <li>Caugh<span>&#xd7;</span></li>
+                    <li>Nausea<span>&#xd7;</span></li>
                 </ul>
 
                 <div class="obe-section">
                     <div class="label-small">O/E</div>
-                    <div class="obe-line">Temp: Normal</div>
-                    <div class="obe-line">Tab Maxpro 20mg</div>
-                    <div class="obe-line">Pressure: 110/70</div>
+                    <div class="cc-input"><input id="oeinput" class="oeinput"
+                            placeholder="Add new findings"></input><span id="addoe" class="add-cc">+</span>
+                    </div>
+                    <ul class="bullet-list" id='oeList'>
+                        <li>Temp: <input id="temp" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>BP: <input id="bp" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Pulse: <input id="pulse" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Resp: <input id="resp" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Anaemia: <input id="anaemia" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Cyanosis: <input id="cyanosis" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Heart: <input id="heart" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Lung: <input id="lung" class="oeinput"></input><span>&#xd7;</span></li>
+
+                    </ul>
                 </div>
 
                 <div class="obe-section">
                     <div class="label-small">Investigation advice:</div>
-                    <ul class="investigation-list">
-                        <li>CBC</li>
-                        <li>SGPT</li>
-                        <li>SGOT</li>
-                        <li>Lipid Profile</li>
-                        <li>Serum creatinine</li>
+                    <div class="adv-input"><input id="advinput" class="advinput" ,
+                            placeholder="Add new investigations"></input><span id="addadv" class="add-cc">+</span>
+                    </div>
+                    <ul class="bullet-list" id="advList">
+                        <li>CBC with ESR<span>&#xd7;</span></li>
+                        <li>Serum Creatinine<span>&#xd7;</span></li>
+                        <li>FasTing Blood Sugar<span>&#xd7;</span></li>
+                        <li>2HABF<span>&#xd7;</span></li>
+                        <li>Lipit Profile<span>&#xd7;</span></li>
+                        <li>SGPT<span>&#xd7;</span></li>
+                        <li>SGOT<span>&#xd7;</span></li>
+                        <li>Serum Urea<span>&#xd7;</span></li>
+                        <li>Chest X-ray P/A view<span>&#xd7;</span></li>
+                        <li>USG whole abdomen<span>&#xd7;</span></li>
                     </ul>
                 </div>
             </div>
