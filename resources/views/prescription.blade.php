@@ -53,7 +53,7 @@
             <div class="column column-left">
                 <div class="sec-heading">C/C</div>
                 <div class="cc-input"><input id="ccinput" class="ccinput" placeholder="Add complaints"></input><span
-                        id="addcc", class="add-cc">+</span></div>
+                        id="addcc" , class="add-cc">+</span></div>
                 <ul class="bullet-list" , id='ccList'>
                     <li>Fever for three days<span>&#xd7;</span></li>
                     <li>Caugh<span>&#xd7;</span></li>
@@ -66,8 +66,8 @@
                             placeholder="Add new findings"></input><span id="addoe" class="add-cc">+</span>
                     </div>
                     <ul class="bullet-list" id='oeList'>
-                        <li>Temp: <input id="temp" class="oeinput"></input><span>&#xd7;</span></li>
-                        <li>BP: <input id="bp" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Temp: <input id="temp" class="oeinput" placeholder="℉"></input><span>&#xd7;</span></li>
+                        <li>BP: <input id="bp" class="oeinput" placeholder="mmHg"></input><span>&#xd7;</span></li>
                         <li>Pulse: <input id="pulse" class="oeinput"></input><span>&#xd7;</span></li>
                         <li>Resp: <input id="resp" class="oeinput"></input><span>&#xd7;</span></li>
                         <li>Anaemia: <input id="anaemia" class="oeinput"></input><span>&#xd7;</span></li>
@@ -80,7 +80,7 @@
 
                 <div class="obe-section">
                     <div class="label-small">Investigation advice:</div>
-                    <div class="adv-input"><input id="advinput" class="advinput" ,
+                    <div class="cc-input"><input id="advinput" class="advinput" ,
                             placeholder="Add new investigations"></input><span id="addadv" class="add-cc">+</span>
                     </div>
                     <ul class="bullet-list" id="advList">
@@ -100,7 +100,7 @@
 
             <div class="column">
                 <div class="sec-heading">Rx</div>
-                <ul class="rx-list">
+                <ul class="rx-list" id="rxList">
                     <li>
                         <strong>Tab Bisol 5mg</strong>
                         <div class="note">1 0 1 | Continue</div>
@@ -118,6 +118,7 @@
                         <div class="note">1 0 1 | 1.5 months</div>
                     </li>
                 </ul>
+                <button class="addDrug" id="addDrug">Add drug</button>
             </div>
         </div>
     </div>

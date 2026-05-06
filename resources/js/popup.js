@@ -143,7 +143,7 @@ function confirm(event) {
             const newOEItem = oeinput.value;
             addtoListItems(newOEItem, oelist, oeinput);
         }
-         if (advinput.value.trim() !== '') {
+        if (advinput.value.trim() !== '') {
             const newOEItem = advinput.value;
             addtoListItems(newOEItem, advList, advinput);
         }
@@ -210,3 +210,42 @@ function addtoListItems(eliment, targetList, targetInput) {
     items.appendChild(span);
     targetInput.value = '';
 }
+
+const temp = document.getElementById('temp');
+temp.addEventListener('click', () => {
+
+    const text = temp.innerText + '  ℉';
+    temp.value = text;
+});
+
+const bp = document.getElementById('bp');
+bp.addEventListener('click', () => {
+
+    const text = bp.innerText + '  mmHg';
+    bp.value = text;
+});
+
+const addDrug = document.getElementById('addDrug');
+const drugList = document.getElementById('rxList');
+// const ccitems = document.querySelectorAll('#rx-list li');
+
+addDrug.addEventListener('click', () => {
+    const items = document.createElement('li');
+    items.textContent = '';
+    drugList.append(items);
+
+    let drugName = document.createElement('strong')
+    drugName.innerHTML = "Tab Napa 500mg";
+
+    let span = document.createElement('span');
+    span.innerHTML = "\u00d7";
+
+    
+
+    let dose = document.createElement('p');
+    dose.innerHTML = '1+0+1| continue';
+    
+    items.appendChild(drugName)
+    .appendChild(span);
+    items.appendChild(dose);
+})
