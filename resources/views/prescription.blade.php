@@ -101,7 +101,7 @@
             <div class="column">
                 <div class="sec-heading">Rx</div>
                 <ul class="rx-list" id="rxList">
-                    <li>
+                    <!-- <li>
                         <strong>Tab Bisol 5mg<span>&#xd7;</span></strong>
                         <div class="note">1 0 1 | Continue</div>
                     </li>
@@ -116,9 +116,39 @@
                     <li>
                         <strong>Tab Maxpro 20mg<span>&#xd7;</span></strong>
                         <div class="note">1 0 1 | 1.5 months</div>
-                    </li>
+                    </li> -->
                 </ul>
-                <button class="addDrug" id="addDrug">Add drug</button>
+                <div class="durgInputLayout" , id="durgInputLayout">
+                    <div>
+                        <input required type="text" style="width: auto" placeholder="Tab Napa 500mg" class="drugName" ,
+                            id="drugName"></input>
+                    </div>
+                    <div>
+                        <input type="text" center placeholder="1+0+1" class="dose" , id="dose" required></input>
+                        <input class="duration" , id="duration" type="text" style="width: 30px" placeholder="5"></input>
+
+                        <select id="dayWeekMonth" class="dayWeekMonth" name="days">
+                            <option value="select">day/week..</option>
+                            <option value="Days">Day/s</option>
+                            <option value="Weeks">Week/s</option>
+                            <option value="Months">Month/s</option>
+                            <option value="Years">Year/s</option>
+                            <option value="Continue">Continue</option>
+                        </select>
+                        <form style="display: flex" id="mealRelation" , class="mealRelation">
+                            <input type="radio" id="bm" class="bm" name="mealTime" value="Before Meal">
+                            <label for="basic">Before meal</label><br>
+
+                            <input type="radio" id="am" class="am" name="mealTime" value="After Meal">
+                            <label for="pro">After meal</label><br>
+                        </form>
+                        <input type="text" center placeholder="Additional suggestion" class="suggestion" ,
+                            id="suggestion"></input>
+                        <button class="addDrug" id="addDrug">Add Drug</button>
+
+                    </div>
+                    <p class ="alert" id = "alert" >*Missing filed*</p>
+                </div>
             </div>
         </div>
     </div>

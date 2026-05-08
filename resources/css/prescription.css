@@ -245,16 +245,21 @@ body {
     font-weight: 700;
     margin-bottom: 12px;
     letter-spacing: 0.02em;
-    margin-left: 10px;
+    margin-left: 5px;
     cursor: pointer;
-    background: #b7bbb8;
-    padding: 2px 5px;
+    background: #d1d1d1;
 
+    color: rgb(139, 136, 136);
+    padding: 1px 4px;
+    transition: background 0.2s ease;
     border: solid black .1px;
     /* border-radius: 4px; */
-
 }
 
+.add-cc:hover {
+    background-color: #6dc779;
+    color: #f8dada;
+}
 
 /* .bullet-list span,
 .rx-list span {
@@ -273,36 +278,36 @@ body {
 } */
 .bullet-list span,
 .rx-list span {
-  /* Shape and Size */
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  
-  /* Colors */
-  background-color: #fdfcfc;
-  color: rgb(155, 154, 154);
-  /* border: solid rgb(150, 150, 150) 1px; */
-  
-  /* Centering the Unicode X */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-  
-  /* Font & Cursor */
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  
-  /* Prevent text selection when clicking fast */
-  user-select: none;
-  
-  transition: background 0.2s ease;
+    /* Shape and Size */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    /* Colors */
+    background-color: #fdfcfc;
+    color: rgb(155, 154, 154);
+    /* border: solid rgb(150, 150, 150) 1px; */
+
+    /* Centering the Unicode X */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+
+    /* Font & Cursor */
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+
+    /* Prevent text selection when clicking fast */
+    user-select: none;
+
+    transition: background 0.2s ease;
 }
 
 .bullet-list span:hover {
-  background-color: #f06969;
-  color: #f8dada;
+    background-color: #f06969;
+    color: #f8dada;
 }
 
 
@@ -321,6 +326,7 @@ body {
     line-height: 1.7;
     background: #d8d8d8;
     border-radius: 8px;
+    margin-top: 5px;
 }
 
 .bullet-list li::before,
@@ -340,7 +346,7 @@ body {
 }
 
 #oeList li input {
-    width:110px;
+    width: 110px;
 }
 
 .rx-list li {
@@ -358,6 +364,46 @@ body {
 .rx-list .note {
     font-size: 0.95rem;
     color: #4d4d4d;
+}
+
+.rx-list span:hover {
+    background-color: #f06969;
+    color: #f8dada;
+}
+
+.durgInputLayout {
+    background: #cbcccc;
+    border-radius: 8px;
+    padding: 10px;
+    height: auto;
+    display: flex;
+    border: solid rgb(133, 133, 133) .5px;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    margin-top: 5px;
+}
+
+.addDrug {
+    background: #078b19;
+    border: solid rgb(133, 133, 133) .5px;
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 4px 6px;
+    transition: background 0.2s ease;
+}
+
+.addDrug:hover {
+    background-color: #084074;
+    color: #f8dada;
+}
+
+.alert {
+    color: red;
+    display: none;
+    line-height: 1.1;
+    padding: 0;
+    margin: 0;
 }
 
 .obe-section {
@@ -577,6 +623,9 @@ body {
         display: none;
     }
 
+    .durgInputLayout {
+        display: none;
+    }
     .column-right {
         padding-left: 10px !important;
     }
@@ -586,6 +635,7 @@ body {
         border: none;
         outline: none;
     }
+
     .advinput {
         background: none;
         border: none;

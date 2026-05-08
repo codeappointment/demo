@@ -42,6 +42,17 @@ const advItems = document.querySelectorAll('#advList li');
 const advinput = document.getElementById('advinput');
 const addadv = document.getElementById('addadv');
 
+// drug list items
+
+const addDrug = document.getElementById('addDrug');
+const drugList = document.getElementById('rxList');
+const drugNames = document.getElementById('drugName');
+const doses = document.getElementById('dose');
+const duration = document.getElementById('duration');
+const dayWeekMonth = document.getElementById('dayWeekMonth');
+const mealRelation = document.getElementById('mealRelation');
+const suggestion = document.getElementById('suggestion');
+const alertText = document.getElementById('alert');
 
 // Track which element is currently being edited
 let activeElement = null;
@@ -98,16 +109,7 @@ oelist.addEventListener('click', function (e) {
     if (e.target.tagName === "SPAN") {
         // Remove the parent <li> element
         e.target.parentElement.remove();
-    }
-});
-
-
-
-advList.addEventListener('click', function (e) {
-    // Check if the clicked element is a SPAN
-    if (e.target.tagName === "SPAN") {
-        // Remove the parent <li> element
-        e.target.parentElement.remove();
+        e.target.childElement.remove();
     }
 });
 
@@ -118,6 +120,114 @@ addadv.addEventListener('click', () => {
     addtoListItems(newListItem, advList, advinput);
 
 });
+
+advList.addEventListener('click', function (e) {
+    // Check if the clicked element is a SPAN
+    if (e.target.tagName === "SPAN") {
+        // Remove the parent <li> element
+        e.target.parentElement.remove();
+    }
+});
+
+if (drugList.children.length === 0) drugList.style.display = 'none'
+
+mealRelation.addEventListener('click', () => {
+    alertText.style.display = 'none';
+});
+
+dayWeekMonth.addEventListener('change', () => {
+    // If the user selects anything other than the default/empty value
+    if (dayWeekMonth.value !== "select") {
+        alertText.style.display = "none";
+    }
+});
+
+addDrug.addEventListener('click', () => {
+    const items = document.createElement('li');
+    // items.textContent = 'some text';
+    drugList.append(items);
+
+    const drugName = document.createElement('strong')
+    drugName.innerHTML = drugNames.value;
+
+    const span = document.createElement('span');
+    span.innerHTML = "\u00d7";
+
+    // const form = document.getElementById('mealRelation');
+    const data = new FormData(mealRelation);
+    const mealStatus = data.get('mealTime');
+
+    let suggest;
+
+    if (suggestion.value !== '') suggest = " (" + suggestion.value + ")";
+    else suggest = '';
+
+    const dose = document.createElement('div');
+    dose.innerHTML = doses.value +
+        " | " +
+        duration.value +
+        " " +
+        dayWeekMonth.value +
+        " | " +
+        mealStatus +
+        suggest;
+
+
+    if (drugNames.value.trim() === '' ||
+        doses.value.trim() === '' ||
+        duration.value.trim() === '' ||
+        dayWeekMonth.value === 'select' ||
+        !data.has('mealTime')) {
+        // alert("Please fill all fields!");
+        alertText.style.display = "block";
+        return; // This STOPS the function right here
+    }
+
+    items.appendChild(drugName)
+        .appendChild(span);
+    items.appendChild(dose);
+    drugList.append(items)
+
+    drugList.style.display = 'block'
+
+    drugNames.value = "";
+    doses.value = "";
+    duration.value = "";
+    suggestion.value = "";
+    mealRelation.reset();
+    dayWeekMonth.selectedIndex = 0;
+
+    // else drugName.innerText = 'Add drug na'
+});
+
+drugNames.addEventListener('input', function () {
+    const alert = document.getElementById('alert');
+    if (this.value.trim() !== '')
+        alert.style.display = "none";
+});
+doses.addEventListener('input', function () {
+    const alert = document.getElementById('alert');
+    if (this.value.trim() !== '')
+        alert.style.display = "none";
+});
+duration.addEventListener('input', function () {
+    const alert = document.getElementById('alert');
+    if (this.value.trim() !== '')
+        alert.style.display = "none";
+});
+
+// const drugList = getElementById('rxList');s
+drugList.addEventListener('click', function (e) {
+    // Check if the clicked element is a SPAN
+    if (e.target.tagName === "SPAN") {
+        // Remove the parent <li> element
+        e.target.closest('li').remove();
+        if (drugList.children.length === 0) {
+            drugList.style.display = 'none';
+        }
+    }
+});
+
 
 
 // One single, permanent confirm listener
@@ -224,28 +334,3 @@ bp.addEventListener('click', () => {
     const text = bp.innerText + '  mmHg';
     bp.value = text;
 });
-
-const addDrug = document.getElementById('addDrug');
-const drugList = document.getElementById('rxList');
-// const ccitems = document.querySelectorAll('#rx-list li');
-
-addDrug.addEventListener('click', () => {
-    const items = document.createElement('li');
-    items.textContent = '';
-    drugList.append(items);
-
-    let drugName = document.createElement('strong')
-    drugName.innerHTML = "Tab Napa 500mg";
-
-    let span = document.createElement('span');
-    span.innerHTML = "\u00d7";
-
-    
-
-    let dose = document.createElement('div');
-    dose.innerHTML = '1+0+1| continue';
-    
-    items.appendChild(drugName)
-    .appendChild(span);
-    items.appendChild(dose);
-})
