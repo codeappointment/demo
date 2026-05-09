@@ -199,6 +199,7 @@ body {
     flex-wrap: wrap;
     gap: 24px;
     margin-bottom: 28px;
+    font-family: kalpurush, 'Times New Roman', Times, serif;
 }
 
 .patient-row .field {
@@ -398,6 +399,12 @@ body {
     color: #f8dada;
 }
 
+.addDrug:active {
+    transform: scale(.95);
+    background-color: #0c7be4;
+    color: #f8dada;
+}
+
 .alert {
     color: red;
     display: none;
@@ -591,6 +598,11 @@ body {
         max-width: 28% !important;
     }
 
+    .patient-row {
+
+        font-family: kalpurush, 'Times New Roman', Times, serif;
+    }
+
     .content {
         page-break-inside: avoid;
         display: flex !important;
@@ -619,13 +631,15 @@ body {
         display: none;
     }
 
-    .bullet-list span {
+    .bullet-list span,
+    .rx-list span {
         display: none;
     }
 
     .durgInputLayout {
         display: none;
     }
+
     .column-right {
         padding-left: 10px !important;
     }

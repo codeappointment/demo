@@ -20,6 +20,7 @@ function showModalPopUp(element, headerText) {
     dialogue.showModal();
 }
 
+
 inputName.addEventListener('click', () => showModalPopUp(inputName, 'your name'));
 inputAddress.addEventListener('click', () => showModalPopUp(inputAddress, 'your address'));
 

@@ -5,13 +5,20 @@
     box-shadow: #000 0px 0px 10px;
 
 }
- 
+
 body {
     height: 100vh;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     font-family: sans-serif;
+}
+
+.container {
+    width: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .button {
@@ -36,5 +43,3 @@ body {
 .button:active {
     transform: scale(0.98);
 }
-
- 
