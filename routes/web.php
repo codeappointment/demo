@@ -2,14 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\DrugController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/welcome2', function () {
-    return view('welcome2');
-});
+// Route::get('/welcome2', function () {
+//     return view('welcome2');
+// });
+
 Route::get('/prescription', function () {
     return view('prescription');
 });
@@ -29,3 +31,6 @@ Route::post('/forms', function (Request $request) {
         'id_num1' => $num1,
     ]);
 });
+
+
+Route::get('/welcome2', [DrugController::class, 'index']);
