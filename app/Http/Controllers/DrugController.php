@@ -6,40 +6,37 @@ use Illuminate\Support\Facades\DB;
 
 class DrugController extends Controller
 {
-    public function index1()
+
+    public function dbLoader()
     {
+        // $brands = DB::connection('sqlite_drugs')
+        //     ->table('drugs')
+        //     ->limit(10)
+        //     ->pluck('company');
+
         $brands = DB::connection('sqlite_drugs')
             ->table('drugs')
-            ->limit(10)
-            ->pluck('company');
+            ->get()
+            ->map(function ($drug) {
+                return $drug->drug_form . ' ' .
+                    $drug->drug_brand . ' ' .
+                    $drug->drug_strength;
+            });
+
+
+        // return view('welcome2', compact('brands'));
+    }
+    public function welcome2()
+    {
+        $brands = $this->dbLoader();
 
         return view('welcome2', compact('brands'));
     }
 
-    public function index2()
+    public function prescription()
     {
-        $brands = DB::connection('sqlite_drugs')
-            ->table('drugs')
-            ->limit(10)
-            ->pluck('company');
+        $brands = $this->dbLoader();
 
-        // Add this temporary line to see if PHP actually found anything
-        // dd($brands); 
-
-        return view('welcome2', compact('brands'));
-    }
-
-    public function index()
-    {
-        $brands = DB::connection('sqlite_drugs')
-            ->table('drugs')
-            ->limit(10)
-            ->pluck('company');
-
-        // If the page turns black and shows data here, the query is working.
-        // If it shows an error here, the database connection is the problem.
-        // dd($brands);
-
-        return view('welcome2', compact('brands'));
+        return view('prescription', compact('brands'));
     }
 }

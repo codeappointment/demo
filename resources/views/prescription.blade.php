@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prescription</title>
     <link rel="stylesheet" href="views/prescription.css">
-
+    <script>
+        window.brands = @json($brands);
+    </script>
     @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
 
 
@@ -67,7 +69,8 @@
                     </div>
                     <ul class="bullet-list" id='oeList'>
                         <li>Temp: <input id="temp" class="oeinput" placeholder="℉"></input><span>&#xd7;</span></li>
-                        <li>BP: <input id="bp" class="oeinput" placeholder="mmHg"></input><span>&#xd7;</span></li>
+                        <li>BP: <input id="bp" class="oeinput" placeholder="mmHg"></input><span>&#xd7;</span>
+                        </li>
                         <li>Pulse: <input id="pulse" class="oeinput"></input><span>&#xd7;</span></li>
                         <li>Resp: <input id="resp" class="oeinput"></input><span>&#xd7;</span></li>
                         <li>Anaemia: <input id="anaemia" class="oeinput"></input><span>&#xd7;</span></li>
@@ -101,31 +104,20 @@
             <div class="column">
                 <div class="sec-heading">Rx</div>
                 <ul class="rx-list" id="rxList">
-                    <!-- <li>
-                        <strong>Tab Bisol 5mg<span>&#xd7;</span></strong>
-                        <div class="note">1 0 1 | Continue</div>
-                    </li>
-                    <li>
-                        <strong>Tab Comet 500mg<span>&#xd7;</span></strong>
-                        <div class="note">1 0 1 | Continue</div>
-                    </li>
-                    <li>
-                        <strong>Tab RTV 5mg<span>&#xd7;</span></strong>
-                        <div class="note">1 0 1 | Continue</div>
-                    </li>
-                    <li>
-                        <strong>Tab Maxpro 20mg<span>&#xd7;</span></strong>
-                        <div class="note">1 0 1 | 1.5 months</div>
-                    </li> -->
+                    {{-- generative druglist --}}
                 </ul>
+
+                {{-- drug input layout --}}
                 <div class="durgInputLayout" , id="durgInputLayout">
                     <div>
-                        <input required type="text" style="width: auto" placeholder="Tab Napa 500mg" class="drugName" ,
-                            id="drugName"></input>
+                        <input required type="text" style="width: auto" placeholder="Tab Napa 500mg"
+                            class="drugName" , id="drugName"></input>
                     </div>
                     <div>
-                        <input type="text" center placeholder="1+0+1" class="dose" , id="dose" required></input>
-                        <input class="duration" , id="duration" type="text" style="width: 30px" placeholder="5"></input>
+                        <input type="text" center placeholder="1+0+1" class="dose" , id="dose"
+                            required></input>
+                        <input class="duration" , id="duration" type="text" style="width: 30px"
+                            placeholder="5"></input>
 
                         <select id="dayWeekMonth" class="dayWeekMonth" name="days">
                             <option value="select">day/week..</option>
@@ -136,7 +128,8 @@
                             <option value="Continue">Continue</option>
                         </select>
                         <form style="display: flex" id="mealRelation" , class="mealRelation">
-                            <input type="radio" id="bm" class="bm" name="mealTime" value="Before Meal">
+                            <input type="radio" id="bm" class="bm" name="mealTime"
+                                value="Before Meal">
                             <label for="basic">Before meal</label><br>
 
                             <input type="radio" id="am" class="am" name="mealTime" value="After Meal">
@@ -147,8 +140,9 @@
                         <button class="addDrug" id="addDrug">Add Drug</button>
 
                     </div>
-                    <p class ="alert" id = "alert" >*Missing filed*</p>
+                    <p class ="alert" id = "alert">*Missing filed*</p>
                 </div>
+                {{-- end of drug input layout --}}
             </div>
         </div>
     </div>

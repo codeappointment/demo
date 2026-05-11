@@ -12,9 +12,8 @@ Route::get('/', function () {
 //     return view('welcome2');
 // });
 
-Route::get('/prescription', function () {
-    return view('prescription');
-});
+Route::get('prescription', [DrugController::class, 'prescription']);
+
 
 Route::get('/forms', function () {
     return view('forms' , [
@@ -33,4 +32,4 @@ Route::post('/forms', function (Request $request) {
 });
 
 
-Route::get('/welcome2', [DrugController::class, 'index']);
+Route::get('/welcome2', [DrugController::class, 'welcome2']);
