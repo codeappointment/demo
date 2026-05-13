@@ -343,33 +343,55 @@ bp.addEventListener('click', () => {
 
 // document.getElementById('drugName').value = window.brands.length;
 
-    const worker = new Worker('worker.js');
+const worker = new Worker('worker.js');
+worker.postMessage({
+    type: 'initialize',
+    data: window.brands
+});
+alertText.style.display = 'block'
+alertText.innerText = 'helo';
 
-    drugNameInput.addEventListener('input', () => {
-        const userInput = drugNameInput.value.toLowerCase();
-        if (drugNameInput.value.trim() !== '') {
-            suggestionList.style.display = 'block';
-        } else {
-            suggestionList.style.display = 'none';
+
+const workerCode = `
+    let brands = [];
+    self.onmessage = function(e) {
+        const { type, data } = e.data;
+        if (type === 'initialize') { 
+            brands = data; 
+        } else if (type === 'search') {
+            const query = data.toLowerCase();
+            const matches = brands.filter(b => b.toLowerCase().includes(query));
+            self.postMessage(matches);
         }
-        // Clear suggestions if input is empty
-        if (!userInput) {
-            drugNameInput.value = '';
+    };
+`;
+
+try {
+
+    const blob = new Blob([workerCode], { type: 'application/javascript' });
+
+    const worker = new Worker(URL.createObjectURL(blob));
+    worker.postMessage({ type: 'initialize', data: window.brands });
+
+    worker.onmessage = function (e) {
+        console.log("Worker said:", e.data);
+        alertText.innerText = 'helo'; // This should definitely fire now
+
+        const matches = e.data;
+        suggestionList.style.display = 'block';
+        suggestionList.innerHTML = matches.slice(0, 100).map(i => `<li>${i}</li>`).join('');
+    };
+
+    drugNameInput.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        if (!val) {
+            suggestionList.style.display = 'none';
             return;
         }
-
-        // Filter window.brands (Array of strings)
-        const matches = window.brands.filter(brand =>
-            brand.toLowerCase().includes(userInput)
-        );
-        // alertText.innerText = matches;
-
-        suggestionList.style.display = 'block';
-        suggestionList.innerHTML = matches
-            .map(item => `<li>${item}</li>`)
-            .join('');
-
-
+        worker.postMessage({ type: 'search', data: val });
     });
+    alertText.innerText = 'in block'
 
-
+} catch (error) {
+    alertText.innerText = error
+}
