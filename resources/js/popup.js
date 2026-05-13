@@ -348,8 +348,6 @@ worker.postMessage({
     type: 'initialize',
     data: window.brands
 });
-alertText.style.display = 'block'
-alertText.innerText = 'helo';
 
 
 const workerCode = `
@@ -375,7 +373,6 @@ try {
 
     worker.onmessage = function (e) {
         console.log("Worker said:", e.data);
-        alertText.innerText = 'helo'; // This should definitely fire now
 
         const matches = e.data;
         suggestionList.style.display = 'block';
@@ -390,7 +387,7 @@ try {
         }
         worker.postMessage({ type: 'search', data: val });
     });
-    alertText.innerText = 'in block'
+    
 
 } catch (error) {
     alertText.innerText = error
