@@ -42,16 +42,17 @@ const advItems = document.querySelectorAll('#advList li');
 const advinput = document.getElementById('advinput');
 const addadv = document.getElementById('addadv');
 
-// drug list items
+// drugInput:ayout items
 
-const addDrug = document.getElementById('addDrug');
+const addDrug = document.getElementById('addDrug'); // button
 const drugList = document.getElementById('rxList');
-const drugNames = document.getElementById('drugName');
+const drugNameInput = document.getElementById('drugName'); // 
 const doses = document.getElementById('dose');
 const duration = document.getElementById('duration');
 const dayWeekMonth = document.getElementById('dayWeekMonth');
 const mealRelation = document.getElementById('mealRelation');
 const suggestion = document.getElementById('suggestion');
+const suggestionList = document.getElementById('suggestionList');
 const alertText = document.getElementById('alert');
 
 // Track which element is currently being edited
@@ -148,7 +149,7 @@ addDrug.addEventListener('click', () => {
     drugList.append(items);
 
     const drugName = document.createElement('strong')
-    drugName.innerHTML = drugNames.value;
+    drugName.innerHTML = drugNameInput.value;
 
     const span = document.createElement('span');
     span.innerHTML = "\u00d7";
@@ -173,7 +174,7 @@ addDrug.addEventListener('click', () => {
         suggest;
 
 
-    if (drugNames.value.trim() === '' ||
+    if (drugNameInput.value.trim() === '' ||
         doses.value.trim() === '' ||
         duration.value.trim() === '' ||
         dayWeekMonth.value === 'select' ||
@@ -190,7 +191,7 @@ addDrug.addEventListener('click', () => {
 
     drugList.style.display = 'block'
 
-    drugNames.value = "";
+    drugNameInput.value = "";
     doses.value = "";
     duration.value = "";
     suggestion.value = "";
@@ -200,10 +201,15 @@ addDrug.addEventListener('click', () => {
     // else drugName.innerText = 'Add drug na'
 });
 
-drugNames.addEventListener('input', function () {
+drugNameInput.addEventListener('input', function () {
     const alert = document.getElementById('alert');
     if (this.value.trim() !== '')
         alert.style.display = "none";
+    if (input.value.trim() !== '') {
+        list.style.display = 'block';
+    } else {
+        list.style.display = 'none';
+    }
 });
 doses.addEventListener('input', function () {
     const alert = document.getElementById('alert');
@@ -334,3 +340,36 @@ bp.addEventListener('click', () => {
     const text = bp.innerText + '  mmHg';
     bp.value = text;
 });
+
+// document.getElementById('drugName').value = window.brands.length;
+
+    const worker = new Worker('worker.js');
+
+    drugNameInput.addEventListener('input', () => {
+        const userInput = drugNameInput.value.toLowerCase();
+        if (drugNameInput.value.trim() !== '') {
+            suggestionList.style.display = 'block';
+        } else {
+            suggestionList.style.display = 'none';
+        }
+        // Clear suggestions if input is empty
+        if (!userInput) {
+            drugNameInput.value = '';
+            return;
+        }
+
+        // Filter window.brands (Array of strings)
+        const matches = window.brands.filter(brand =>
+            brand.toLowerCase().includes(userInput)
+        );
+        // alertText.innerText = matches;
+
+        suggestionList.style.display = 'block';
+        suggestionList.innerHTML = matches
+            .map(item => `<li>${item}</li>`)
+            .join('');
+
+
+    });
+
+

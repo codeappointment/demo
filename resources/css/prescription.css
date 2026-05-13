@@ -338,14 +338,6 @@ body {
     margin-right: 0;
 }
 
-.dose::before {
-    /* content: ". "; */
-    width: 30px;
-    text-align: right;
-    margin-right: 0;
-    margin-left: 20px;
-}
-
 #oeList li input {
     width: 110px;
 }
@@ -378,11 +370,21 @@ body {
     padding: 10px;
     height: auto;
     display: flex;
+    flex-direction: column;
     border: solid rgb(133, 133, 133) .5px;
     justify-content: center;
     flex-direction: column;
+    position: relative;
     width: auto;
     margin-top: 5px;
+    flex-direction: column;
+}
+
+.drugName {
+    gap: 10px;
+    min-width: 90%;
+    /* margin-left: 82px; */
+    margin-bottom: 5px;
 }
 
 .addDrug {
@@ -411,6 +413,23 @@ body {
     line-height: 1.1;
     padding: 0;
     margin: 0;
+}
+
+.suggestion-list {
+    position: absolute;
+    left: 0;
+    width: auto;
+    margin-left: 10px;
+    padding: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: #008590;
+    background: rgb(255, 243, 204);
+    border: 1px solid gray;
+    box-shadow: #4d4d4d 0px 0px 1px;
+    z-index: 9999;
+    border-radius: 5px;
+    display: none;
 }
 
 .obe-section {

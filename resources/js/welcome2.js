@@ -46,7 +46,7 @@
 
 // });
 
-document.getElementById('button').innerText = window.brands[3];
+document.getElementById('button').innerText = window.brands;
 
 
 

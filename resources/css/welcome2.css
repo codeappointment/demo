@@ -37,7 +37,7 @@ body {
     transform: scale(1.05);
     color: white;
     border: #fff 3px solid;
-    border-radius: 50px;
+    border-radius: 10px;
 }
 
 .button:active {

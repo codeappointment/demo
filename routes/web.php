@@ -12,7 +12,7 @@ Route::get('/', function () {
 //     return view('welcome2');
 // });
 
-Route::get('prescription', [DrugController::class, 'prescription']);
+Route::get('prescription', [DrugController::class, 'drugLoader']);
 
 
 Route::get('/forms', function () {
@@ -32,4 +32,4 @@ Route::post('/forms', function (Request $request) {
 });
 
 
-Route::get('/welcome2', [DrugController::class, 'welcome2']);
+Route::get('/welcome2', [DrugController::class, 'dbLoader']);

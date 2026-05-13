@@ -110,8 +110,24 @@
                 {{-- drug input layout --}}
                 <div class="durgInputLayout" , id="durgInputLayout">
                     <div>
-                        <input required type="text" style="width: auto" placeholder="Tab Napa 500mg"
-                            class="drugName" , id="drugName"></input>
+                        <div class = "nameSection", style="display: block, width: 100%">
+                            <input required type="text" style="width: auto" placeholder="Tab Napa 500mg"
+                                class="drugName" , id="drugName"></input>
+                            <div class="suggestion-list" id="suggestionList">
+                                {{-- <div>Tab Napa 500mg</div>
+                                <div>Cap Seclo 20mg</div>
+                                <div>Tab Ace 500mg</div>
+                                 <div>Tab Napa 500mg</div>
+                                <div>Cap Seclo 20mg</div>
+                                <div>Tab Ace 500mg</div>
+                                 <div>Tab Napa 500mg</div>
+                                <div>Cap Seclo 20mg</div>
+                                <div>Tab Ace 500mg</div>
+                                 <div>Tab Napa 500mg</div>
+                                <div>Cap Seclo 20mg</div>
+                                <div>Tab Ace 500mg</div> --}}
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <input type="text" center placeholder="1+0+1" class="dose" , id="dose"
