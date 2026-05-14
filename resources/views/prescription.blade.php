@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="views/prescription.css">
     <script>
         window.investigations = @json($investigations);
+        window.brands = @json($brands);
     </script>
     @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
     @vite(['resources/js/drugDatabase.js'])

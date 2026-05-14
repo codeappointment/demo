@@ -12,8 +12,7 @@ Route::get('/', function () {
 //     return view('welcome2');
 // });
 
-// Route::get('prescription', [DatabaseController::class, 'drugLoader']);
-Route::get('prescription', [DatabaseController::class, 'investigationloader']);
+Route::get('prescription', [DatabaseController::class, 'drugLoader']);
 
 Route::get('/forms', function () {
     return view('forms' , [

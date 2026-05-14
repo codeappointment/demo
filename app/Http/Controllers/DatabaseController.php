@@ -42,8 +42,13 @@ class DatabaseController extends Controller
                     $drug->drug_strength;
             });
 
+        $investigations = DB::connection('investigations')
+            ->table('test_names')
+            ->pluck('tests');
 
-        return view('prescription', compact('brands'));
+        // 3. Pass both to the view
+        return view('prescription', compact('brands', 'investigations'));
+        
     }
 
     public function investigationLoader()

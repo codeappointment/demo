@@ -350,7 +350,7 @@ function addCheckBox(eliment, targetList, targetInput) {
     checkbox.textContent = eliment;
     items.appendChild(checkbox);
     items.append(` ${eliment}`);
-    targetList.append(items);
+    targetList.prepend(items);
 
     targetInput.value = '';
 }
