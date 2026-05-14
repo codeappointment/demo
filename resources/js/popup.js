@@ -341,14 +341,6 @@ bp.addEventListener('click', () => {
     bp.value = text;
 });
 
-// document.getElementById('drugName').value = window.brands.length;
-
-const worker = new Worker('worker.js');
-worker.postMessage({
-    type: 'initialize',
-    data: window.brands
-});
-
 
 const workerCode = `
     let brands = [];
@@ -369,26 +361,40 @@ try {
     const blob = new Blob([workerCode], { type: 'application/javascript' });
 
     const worker = new Worker(URL.createObjectURL(blob));
-    worker.postMessage({ type: 'initialize', data: window.brands });
+    worker.postMessage({
+        type: 'initialize',
+        data: window.brands
+    });
 
     worker.onmessage = function (e) {
         console.log("Worker said:", e.data);
 
         const matches = e.data;
         suggestionList.style.display = 'block';
-        suggestionList.innerHTML = matches.slice(0, 100).map(i => `<li>${i}</li>`).join('');
+        suggestionList.innerHTML = matches.slice(0, 100)
+            .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
+            .join('');
     };
 
     drugNameInput.addEventListener('input', (e) => {
-        const val = e.target.value.trim();
-        if (!val) {
+        const query = e.target.value.trim();
+        if (!query) {
             suggestionList.style.display = 'none';
             return;
         }
-        worker.postMessage({ type: 'search', data: val });
+        worker.postMessage({
+            type: 'search',
+            data: query
+        });
     });
-    
+
 
 } catch (error) {
     alertText.innerText = error
 }
+
+// const selectable = document.getElementById('selectable'); // drug list items
+suggestionList.addEventListener('click', function (e) {
+    drugNameInput.value = e.target.innerHTML;
+    suggestionList.style.display = 'none'
+});

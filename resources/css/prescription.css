@@ -418,7 +418,7 @@ body {
 .suggestion-list {
     position: absolute;
     left: 0;
-    width: auto;
+    width: 83%;
     margin-left: 10px;
     padding: 5px;
     max-height: 250px;
@@ -430,6 +430,14 @@ body {
     z-index: 9999;
     border-radius: 5px;
     display: none;
+}
+
+.selectable {
+    cursor: pointer;
+    border-bottom: #afafaf solid 0.5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    padding-left: 2px;
 }
 
 .obe-section {
