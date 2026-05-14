@@ -41,6 +41,8 @@ const advList = document.getElementById('advList');
 const advItems = document.querySelectorAll('#advList li');
 const advinput = document.getElementById('advinput');
 const addadv = document.getElementById('addadv');
+const invsuggestionList = document.getElementById('invsuggestionList');
+
 
 // drugInput:ayout items
 
@@ -118,7 +120,7 @@ addadv.addEventListener('click', () => {
 
     const newListItem = advinput.value;
     if (advinput.value.trim() === '') return;
-    addtoListItems(newListItem, advList, advinput);
+    addCheckBox(newListItem, advList, advinput);
 
 });
 
@@ -211,6 +213,18 @@ drugNameInput.addEventListener('input', function () {
         list.style.display = 'none';
     }
 });
+
+suggestionList.addEventListener('click', function (e) {
+    drugNameInput.value = e.target.innerHTML;
+    suggestionList.style.display = 'none'
+});
+
+invsuggestionList.addEventListener('click', function (e) {
+    addadv.value =''
+    invsuggestionList.style.display = 'none'
+    addCheckBox(e.target.innerHTML, advList, advinput);
+}); 
+
 doses.addEventListener('input', function () {
     const alert = document.getElementById('alert');
     if (this.value.trim() !== '')
@@ -261,7 +275,7 @@ function confirm(event) {
         }
         if (advinput.value.trim() !== '') {
             const newOEItem = advinput.value;
-            addtoListItems(newOEItem, advList, advinput);
+            addCheckBox(newOEItem, advList, advinput);
         }
     }
 
@@ -327,6 +341,20 @@ function addtoListItems(eliment, targetList, targetInput) {
     targetInput.value = '';
 }
 
+function addCheckBox(eliment, targetList, targetInput) {
+    const items = document.createElement('li');
+
+    let checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = true;
+    checkbox.textContent = eliment;
+    items.appendChild(checkbox);
+    items.append(` ${eliment}`);
+    targetList.append(items);
+
+    targetInput.value = '';
+}
+
 const temp = document.getElementById('temp');
 temp.addEventListener('click', () => {
 
@@ -342,59 +370,4 @@ bp.addEventListener('click', () => {
 });
 
 
-const workerCode = `
-    let brands = [];
-    self.onmessage = function(e) {
-        const { type, data } = e.data;
-        if (type === 'initialize') { 
-            brands = data; 
-        } else if (type === 'search') {
-            const query = data.toLowerCase();
-            const matches = brands.filter(b => b.toLowerCase().includes(query));
-            self.postMessage(matches);
-        }
-    };
-`;
 
-try {
-
-    const blob = new Blob([workerCode], { type: 'application/javascript' });
-
-    const worker = new Worker(URL.createObjectURL(blob));
-    worker.postMessage({
-        type: 'initialize',
-        data: window.brands
-    });
-
-    worker.onmessage = function (e) {
-        console.log("Worker said:", e.data);
-
-        const matches = e.data;
-        suggestionList.style.display = 'block';
-        suggestionList.innerHTML = matches.slice(0, 100)
-            .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
-            .join('');
-    };
-
-    drugNameInput.addEventListener('input', (e) => {
-        const query = e.target.value.trim();
-        if (!query) {
-            suggestionList.style.display = 'none';
-            return;
-        }
-        worker.postMessage({
-            type: 'search',
-            data: query
-        });
-    });
-
-
-} catch (error) {
-    alertText.innerText = error
-}
-
-// const selectable = document.getElementById('selectable'); // drug list items
-suggestionList.addEventListener('click', function (e) {
-    drugNameInput.value = e.target.innerHTML;
-    suggestionList.style.display = 'none'
-});

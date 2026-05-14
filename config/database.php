@@ -48,6 +48,11 @@ return [
             'database' => 'C:\Users\Zubayer\Herd\demo\database\drugDB.db',
             'prefix' => '',
         ],
+         'investigations' => [
+            'driver' => 'sqlite',
+            'database' => 'C:\Users\Zubayer\Herd\demo\database\investigation.db',
+            'prefix' => '',
+        ],
         
         'mysql' => [
             'driver' => 'mysql',

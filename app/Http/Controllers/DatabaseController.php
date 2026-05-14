@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 
-class DrugController extends Controller
+class DatabaseController extends Controller
 {
     public function dbLoader()
     {
@@ -26,7 +26,7 @@ class DrugController extends Controller
         return view('welcome2', compact('brands'));
     }
 
-     public function drugLoader()
+    public function drugLoader()
     {
         // $brands = DB::connection('sqlite_drugs')
         //     ->table('drugs')
@@ -44,5 +44,18 @@ class DrugController extends Controller
 
 
         return view('prescription', compact('brands'));
+    }
+
+    public function investigationLoader()
+    {
+        $investigations = DB::connection('investigations')
+            ->table('test_names')
+            ->get()
+            ->map(function ($tests) {
+                return $tests->tests;
+            });
+
+
+        return view('prescription', compact('investigations'));
     }
 }

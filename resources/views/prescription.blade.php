@@ -7,10 +7,11 @@
     <title>Prescription</title>
     <link rel="stylesheet" href="views/prescription.css">
     <script>
-        window.brands = @json($brands);
+        window.investigations = @json($investigations);
     </script>
     @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
-
+    @vite(['resources/js/drugDatabase.js'])
+    @vite(['resources/js/investigationDatabase.js'])
 
 </head>
 
@@ -86,25 +87,20 @@
                     <div class="cc-input"><input id="advinput" class="advinput" ,
                             placeholder="Add new investigations"></input><span id="addadv" class="add-cc">+</span>
                     </div>
+                    <div class="invsuggestionList" id="invsuggestionList">
+                                {{-- generative suggestion-list --}}
+                            </div>
                     <ul class="bullet-list" id="advList">
-                        {{-- <li>CBC with ESR<span>&#xd7;</span></li>
-                        <li>Serum Creatinine<span>&#xd7;</span></li>
-                        <li>Fasting Blood Sugar<span>&#xd7;</span></li>
-                        <li>2HABF<span>&#xd7;</span></li>
-                        <li>Lipit Profile<span>&#xd7;</span></li>
-                        <li>SGPT<span>&#xd7;</span></li>
-                        <li>SGOT<span>&#xd7;</span></li>
-                        <li>Serum Urea<span>&#xd7;</span></li>
-                        <li>Chest X-ray P/A view<span>&#xd7;</span></li>
-                        <li>USG whole abdomen<span>&#xd7;</span></li> --}}
-                        <li><input type="checkbox" id="checkbox" name="checkbox">CBC with ESR</input></li>
+
+                        <li><input type="checkbox" id="checkbox" name="checkbox">CBC</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">Serum Creatinine</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Serum Electrolyte</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">Fasting Blood Sugar</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">2HABF</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">Lipit Profile</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">SGPT</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">SGOT</input></li>
-                        <li><input type="checkbox" id="checkbox" name="checkbox">Urine R/E & C/S</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Urine R/E</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">Lipid Profile</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">Chest X-ray P/A view</input></li>
                         <li><input type="checkbox" id="checkbox" name="checkbox">USG whole abdomen</input></li>
