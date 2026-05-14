@@ -649,6 +649,14 @@ body {
 
     }
 
+    li:has(input[type="checkbox"]:not(:checked)) {
+        display: none !important;
+    }
+
+    li input[type="checkbox"] {
+        display: none !important;
+    }
+
     .column-left {
         padding-right: 10px !important;
         border-right: 2px solid black !important;

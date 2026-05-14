@@ -87,16 +87,29 @@
                             placeholder="Add new investigations"></input><span id="addadv" class="add-cc">+</span>
                     </div>
                     <ul class="bullet-list" id="advList">
-                        <li>CBC with ESR<span>&#xd7;</span></li>
+                        {{-- <li>CBC with ESR<span>&#xd7;</span></li>
                         <li>Serum Creatinine<span>&#xd7;</span></li>
-                        <li>FasTing Blood Sugar<span>&#xd7;</span></li>
+                        <li>Fasting Blood Sugar<span>&#xd7;</span></li>
                         <li>2HABF<span>&#xd7;</span></li>
                         <li>Lipit Profile<span>&#xd7;</span></li>
                         <li>SGPT<span>&#xd7;</span></li>
                         <li>SGOT<span>&#xd7;</span></li>
                         <li>Serum Urea<span>&#xd7;</span></li>
                         <li>Chest X-ray P/A view<span>&#xd7;</span></li>
-                        <li>USG whole abdomen<span>&#xd7;</span></li>
+                        <li>USG whole abdomen<span>&#xd7;</span></li> --}}
+                        <li><input type="checkbox" id="checkbox" name="checkbox">CBC with ESR</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Serum Creatinine</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Fasting Blood Sugar</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">2HABF</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Lipit Profile</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">SGPT</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">SGOT</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Urine R/E & C/S</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Lipid Profile</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Chest X-ray P/A view</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">USG whole abdomen</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">USG Pregnancy Profile</input></li>
+
                     </ul>
                 </div>
             </div>
@@ -114,18 +127,7 @@
                             <input required type="text" style="width: auto" placeholder="Tab Napa 500mg"
                                 class="drugName" , id="drugName"></input>
                             <div class="suggestion-list" id="suggestionList">
-                                {{-- <div>Tab Napa 500mg</div>
-                                <div>Cap Seclo 20mg</div>
-                                <div>Tab Ace 500mg</div>
-                                 <div>Tab Napa 500mg</div>
-                                <div>Cap Seclo 20mg</div>
-                                <div>Tab Ace 500mg</div>
-                                 <div>Tab Napa 500mg</div>
-                                <div>Cap Seclo 20mg</div>
-                                <div>Tab Ace 500mg</div>
-                                 <div>Tab Napa 500mg</div>
-                                <div>Cap Seclo 20mg</div>
-                                <div>Tab Ace 500mg</div> --}}
+                                {{-- generative suggestion-list --}}
                             </div>
                         </div>
                     </div>
