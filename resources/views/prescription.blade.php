@@ -9,11 +9,12 @@
     <script>
         window.investigations = @json($investigations);
         window.brands = @json($brands);
+        window.complaints = @json($complaints);
     </script>
     @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
     @vite(['resources/js/drugDatabase.js'])
     @vite(['resources/js/investigationDatabase.js'])
-
+    @vite(['resources/js/complaints.js'])
 </head>
 
 <body>
@@ -55,20 +56,25 @@
 
         <div class="content">
             <div class="column column-left">
-                <div class="sec-heading">C/C</div>
-                <div class="cc-input"><input id="ccinput" class="ccinput" placeholder="Add complaints"></input><span
-                        id="addcc" , class="add-cc">+</span></div>
-                <ul class="bullet-list" , id='ccList'>
-                    <li>Fever for three days<span>&#xd7;</span></li>
-                    <li>Caugh<span>&#xd7;</span></li>
-                    <li>Nausea<span>&#xd7;</span></li>
-                </ul>
-
+                <div class="cc-section">
+                    <div class="sec-heading">C/C</div>
+                    <div class="cc-input"><input id="ccinput" class="ccinput"
+                            placeholder="Add complaints"></input><span id="addcc" , class="add-cc">+</span></div>
+                    <div class="ccsuggestionList" id="ccsuggestionList">
+                        {{-- generative suggestion-list --}}
+                    </div>
+                    <ul class="bullet-list" , id='ccList'>
+                        <li>Fever for three days<span>&#xd7;</span></li>
+                        <li>Caugh<span>&#xd7;</span></li>
+                        <li>Nausea<span>&#xd7;</span></li>
+                    </ul>
+                </div>
                 <div class="obe-section">
                     <div class="label-small">O/E</div>
                     <div class="cc-input"><input id="oeinput" class="oeinput"
                             placeholder="Add new findings"></input><span id="addoe" class="add-cc">+</span>
                     </div>
+
                     <ul class="bullet-list" id='oeList'>
                         <li>Temp: <input id="temp" class="oeinput" placeholder="℉"></input><span>&#xd7;</span></li>
                         <li>BP: <input id="bp" class="oeinput" placeholder="mmHg"></input><span>&#xd7;</span>
@@ -89,8 +95,8 @@
                             placeholder="Add new investigations"></input><span id="addadv" class="add-cc">+</span>
                     </div>
                     <div class="invsuggestionList" id="invsuggestionList">
-                                {{-- generative suggestion-list --}}
-                            </div>
+                        {{-- generative suggestion-list --}}
+                    </div>
                     <ul class="bullet-list" id="advList">
 
                         <li><input type="checkbox" id="checkbox" name="checkbox">CBC</input></li>
@@ -114,7 +120,7 @@
             <div class="column">
                 <div class="sec-heading">Rx</div>
                 <ul class="rx-list" id="rxList">
-                    {{-- generative druglist --}}
+                    {{-- generative treatment list --}}
                 </ul>
 
                 {{-- drug input layout --}}
@@ -135,20 +141,20 @@
                             placeholder="5"></input>
 
                         <select id="dayWeekMonth" class="dayWeekMonth" name="days">
-                            <option value="select">day/week..</option>
-                            <option value="Days">Day/s</option>
-                            <option value="Weeks">Week/s</option>
-                            <option value="Months">Month/s</option>
-                            <option value="Years">Year/s</option>
-                            <option value="Continue">Continue</option>
+                            <option value="select">দিন/মাস</option>
+                            <option value="দিন">দিন</option>
+                            <option value="সপ্তাহ">সপ্তাহ</option>
+                            <option value="মাস">মাস</option>
+                            <option value="বছর">বছর</option>
+                            <option value="চলবে">চলবে</option>
                         </select>
                         <form style="display: flex" id="mealRelation" , class="mealRelation">
                             <input type="radio" id="bm" class="bm" name="mealTime"
-                                value="Before Meal">
-                            <label for="basic">Before meal</label><br>
+                                value="খাবার আগে">
+                            <label for="basic">খাবার আগে</label><br>
 
-                            <input type="radio" id="am" class="am" name="mealTime" value="After Meal">
-                            <label for="pro">After meal</label><br>
+                            <input type="radio" id="am" class="am" name="mealTime" value="খাবার আগে">
+                            <label for="pro">খাবার পরে</label><br>
                         </form>
                         <input type="text" center placeholder="Additional suggestion" class="suggestion" ,
                             id="suggestion"></input>

@@ -10,7 +10,7 @@ const workerCode = `
             brands = data; 
         } else if (type === 'search') {
             const query = data.toLowerCase();
-            const matches = brands.filter(b => b.toLowerCase().includes(query));
+            const matches = brands.filter(b => b.toLowerCase().includes(' '+query));
             self.postMessage(matches);
         }
     };

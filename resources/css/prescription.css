@@ -302,6 +302,7 @@ body {
 .rx-list {
     list-style: none;
     padding: 0;
+    position: relative;
     padding-top: 0;
     min-height: 3rem;
     min-width: 9rem;
@@ -416,6 +417,7 @@ body {
     border-radius: 5px;
     display: none;
 }
+
 .invsuggestionList {
     position: absolute;
     left: 0;
@@ -432,6 +434,28 @@ body {
     border-radius: 5px;
     display: none;
 }
+
+.ccsuggestionList {
+    position: absolute;
+    left: 0;
+    width: 80%;
+    margin-left: 0px;
+    padding: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: #008590;
+    background: rgb(255, 243, 204);
+    border: 1px solid gray;
+    box-shadow: #4d4d4d 0px 0px 1px;
+    z-index: 9999;
+    border-radius: 5px;
+    display: none;
+}
+
+.mealRelation {
+    font-family: kalpurush, 'Times New Roman', Times, serif;
+}
+
 .selectable {
     cursor: pointer;
     border-bottom: #afafaf solid 0.5px;
@@ -441,6 +465,11 @@ body {
 }
 
 .obe-section {
+    margin-top: 24px;
+    position: relative;
+}
+
+.cc-section {
     margin-top: 24px;
     position: relative;
 }
@@ -647,6 +676,7 @@ body {
     .rx-list {
 
         padding: 0;
+        font-family: kalpurush, 'Times New Roman', Times, serif;
 
     }
 

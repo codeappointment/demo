@@ -29,6 +29,7 @@ const cclist = document.getElementById('ccList');
 const ccitems = document.querySelectorAll('#ccList li');
 const ccinput = document.getElementById('ccinput');
 const addcc = document.getElementById('addcc');
+const ccsuggestionList = document.getElementById('ccsuggestionList');
 
 // OE list items
 const oelist = document.getElementById('oeList');
@@ -219,11 +220,16 @@ suggestionList.addEventListener('click', function (e) {
     suggestionList.style.display = 'none'
 });
 
+ccsuggestionList.addEventListener('click', function (e) {
+    ccinput.value = e.target.innerHTML;
+    ccsuggestionList.style.display = 'none'
+});
+
 invsuggestionList.addEventListener('click', function (e) {
-    addadv.value =''
+    addadv.value = ''
     invsuggestionList.style.display = 'none'
     addCheckBox(e.target.innerHTML, advList, advinput);
-}); 
+});
 
 doses.addEventListener('input', function () {
     const alert = document.getElementById('alert');
@@ -276,6 +282,7 @@ function confirm(event) {
         if (advinput.value.trim() !== '') {
             const newOEItem = advinput.value;
             addCheckBox(newOEItem, advList, advinput);
+            invsuggestionList.style.display = 'none'
         }
     }
 
@@ -339,6 +346,8 @@ function addtoListItems(eliment, targetList, targetInput) {
     span.innerHTML = "\u00d7"
     items.appendChild(span);
     targetInput.value = '';
+    ccsuggestionList.style.display = 'none'
+    invsuggestionList.style.display = 'none'
 }
 
 function addCheckBox(eliment, targetList, targetInput) {
@@ -350,8 +359,8 @@ function addCheckBox(eliment, targetList, targetInput) {
     checkbox.textContent = eliment;
     items.appendChild(checkbox);
     items.append(` ${eliment}`);
-    targetList.prepend(items);
-
+    targetList.prepend(items); // join at top of list
+    invsuggestionList.style.display = 'none'
     targetInput.value = '';
 }
 
