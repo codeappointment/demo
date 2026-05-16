@@ -224,6 +224,9 @@ body {
 .column {
     padding: 16px 0;
     margin-left: 5px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
 }
 
 .column-left {
@@ -299,7 +302,8 @@ body {
 
 .bullet-list,
 .investigation-list,
-.rx-list {
+.rx-list,
+.adviceList {
     list-style: none;
     padding: 0;
     position: relative;
@@ -316,8 +320,10 @@ body {
     margin-top: 5px;
 }
 
+
 .bullet-list li::before,
-.investigation-list li::before {
+.investigation-list li::before,
+.adviceList::before {
     content: "- ";
     width: 1.2em;
     text-align: right;
@@ -326,6 +332,10 @@ body {
 
 #oeList li input {
     width: 110px;
+}
+
+.kalpurush {
+    font-family: kalpurush, 'Times New Roman', Times, serif;
 }
 
 .rx-list li {
@@ -363,7 +373,6 @@ body {
     position: relative;
     width: auto;
     margin-top: 5px;
-    flex-direction: column;
 }
 
 .drugName {
@@ -452,8 +461,9 @@ body {
     display: none;
 }
 
-.doses-list{
-   position: absolute;
+.doses-list {
+    position: absolute;
+    font-family: kalpurush, 'Times New Roman', Times, serif;
     left: 0;
     width: 50%;
     margin-left: 10px;
@@ -468,9 +478,12 @@ body {
     border-radius: 5px;
     display: none;
 }
-.duration{
+
+.duration {
     min-width: 60px;
+    font-family: kalpurush, 'Times New Roman', Times, serif;
 }
+
 .mealRelation {
     font-family: kalpurush, 'Times New Roman', Times, serif;
 }
@@ -503,11 +516,56 @@ body {
     margin-bottom: 6px;
 }
 
-.footer {
-    margin-top: 32px;
+.adviceSiggestionList {
+    position: absolute;
+    left: 0;
+    width: 80%;
+    margin-left: 0px;
+    padding: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: #008590;
+    background: rgb(255, 243, 204);
+    border: 1px solid gray;
+    box-shadow: #4d4d4d 0px 0px 1px;
+    z-index: 9999;
+    border-radius: 5px;
+    display: none;
+}
+
+.additionalHeader {
+    font-family: kalpurush, 'Times New Roman', Times, serif;
     font-size: 0.96rem;
+    border-radius: 8px;
+    width: auto;
     display: flex;
-    justify-content: flex-end;
+    margin-top: 10px;
+    position: relative;
+    padding: 0;
+    background: #d3d3d3;
+    box-sizing: border-box;
+    padding: 5px;
+    border: solid rgb(128, 128, 128) 0.5px;
+    flex-direction: column;
+
+}
+
+.underline {
+    height: 1px;
+    background: #8b8b8b;
+    width: 250px;
+    margin: 10px 0;
+    margin-top: 0%;
+    /* border-radius: 2px; */
+}
+
+.adviceHolder {
+    position: relative;
+}
+
+.adviceInput {
+    min-width: 300px;
+    position: relative;
 }
 
 /* Print styles */
@@ -691,12 +749,16 @@ body {
     }
 
     .bullet-list,
-    .investigation-list,
-    .rx-list {
+    .investigation-list{
 
         padding: 0;
-        font-family: kalpurush, 'Times New Roman', Times, serif;
+        font-family: 'Times New Roman', Times, serif;
 
+    }
+
+    .kalpurush {
+
+        font-family: kalpurush, 'Times New Roman', Times, serif;
     }
 
     li:has(input[type="checkbox"]:not(:checked)) {
@@ -735,7 +797,8 @@ body {
         outline: none;
     }
 
-    .advinput {
+    .advinput,
+    .addDrug {
         background: none;
         border: none;
         outline: none;
@@ -757,6 +820,22 @@ body {
         padding: 0;
         -webkit-print-color-adjust: exact !important;
         color-scheme: exact !important;
+    }
+
+    .additionalHeader {
+        border: none;
+    }
+
+    .underline {
+        background: #8b8b8b !important;
+        height: 1px;
+        padding: 0;
+        -webkit-print-color-adjust: exact !important;
+        color-scheme: exact !important;
+    }
+
+    .adviceInput {
+        display: none;
     }
 
     .column-left {

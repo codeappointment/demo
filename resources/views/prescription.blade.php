@@ -11,12 +11,14 @@
         window.brands = @json($brands);
         window.complaints = @json($complaints);
         window.doses = @json($doses);
+        window.advices = @json($advices);
     </script>
     @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
     @vite(['resources/js/drugDatabase.js'])
     @vite(['resources/js/investigationDatabase.js'])
     @vite(['resources/js/complaints.js'])
     @vite(['resources/js/dosesDatabase.js'])
+    @vite(['resources/js/adviceDatabase.js'])
 </head>
 
 <body>
@@ -132,7 +134,7 @@
                             <input class="drugName" , id="drugName" required type="text" style="width: auto"
                                 placeholder="Tab Napa 500mg"></input>
                             <div class="suggestion-list" id="suggestionList">
-                                {{-- generative suggestion-list --}}
+                                {{-- generative drug suggestion-list --}}
                             </div>
                         </div>
                     </div>
@@ -140,15 +142,15 @@
                         {{-- dose --}}
                         <input type="text" center placeholder="1+0+1" class="dose" , id="dose"
                             required></input>
-                        
+
                         <div class="doses-list" id="dosesList">
-                            {{-- generative dose-list --}}
+                            {{-- generative dose suggestion-list --}}
                         </div>
                         {{-- duration generative list 1-30 --}}
                         <select class="duration" , id="duration" type="text" style="width: 30px"
                             placeholder="5"></select>
 
-                        <select id="dayWeekMonth" class="dayWeekMonth" name="days">
+                        <select id="dayWeekMonth" class="dayWeekMonth kalpurush" name="days">
                             <option value="select">দিন/মাস</option>
                             <option value="দিন">দিন</option>
                             <option value="সপ্তাহ">সপ্তাহ</option>
@@ -160,7 +162,7 @@
                             <input type="radio" id="bm" class="bm" name="mealTime" value="খাবার আগে">
                             <label for="basic">খাবার আগে</label><br>
 
-                            <input type="radio" id="am" class="am" name="mealTime" value="খাবার আগে">
+                            <input type="radio" id="am" class="am" name="mealTime" value="খাবার পরে">
                             <label for="pro">খাবার পরে</label><br>
                         </form>
                         <input type="text" center placeholder="Additional suggestion" class="suggestion" ,
@@ -169,6 +171,25 @@
 
                     </div>
                     <p class ="alert" id = "alert">*Missing filed*</p>
+                </div>
+
+                <div class = "additionalHeader" id = "additionalHeader">
+                    <span>উপদেশঃ</span>
+
+                    <div class="underline">
+
+                    </div>
+                    <ul class="bullet-list kalpurush" id="adviceList" style="display: none">
+                        {{-- generative advice list --}}
+                    </ul>
+                    <div class="adviceHolder">
+                        <input class = "adviceInput" id = "adviceInput" placeholder="নিয়মিত ওষুধ খাবেন..."></input>
+
+                        <div class="adviceSiggestionList" id="adviceSiggestionList">
+                            {{-- generative advice suggestion --}}
+                        </div>
+                        <button class="addDrug" id="addAdvice">Add</button>
+                    </div>
                 </div>
                 {{-- end of drug input layout --}}
             </div>

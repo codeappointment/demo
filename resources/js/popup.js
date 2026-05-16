@@ -38,7 +38,7 @@ const oeinput = document.getElementById('oeinput');
 const addoe = document.getElementById('addoe');
 
 // adv list items
-const advList = document.getElementById('advList');
+const investigationList = document.getElementById('advList');
 const advItems = document.querySelectorAll('#advList li');
 const advinput = document.getElementById('advinput');
 const addadv = document.getElementById('addadv');
@@ -55,10 +55,15 @@ const duration = document.getElementById('duration');
 const dayWeekMonth = document.getElementById('dayWeekMonth');
 const mealRelation = document.getElementById('mealRelation');
 const suggestion = document.getElementById('suggestion');
-const suggestionList = document.getElementById('suggestionList');
+const drugSuggestionList = document.getElementById('suggestionList');
 const dosesList = document.getElementById('dosesList');
 const alertText = document.getElementById('alert');
 
+// advice list layout items
+const adviceList = document.getElementById('adviceList');
+const adviceInput = document.getElementById('adviceInput');
+const adviceSiggestionList = document.getElementById('adviceSiggestionList');
+const addAdvice = document.getElementById('addAdvice')
 // Track which element is currently being edited
 let activeElement = null;
 
@@ -122,11 +127,11 @@ addadv.addEventListener('click', () => {
 
     const newListItem = advinput.value;
     if (advinput.value.trim() === '') return;
-    addCheckBox(newListItem, advList, advinput);
+    addCheckBox(newListItem, investigationList, advinput);
 
 });
 
-advList.addEventListener('click', function (e) {
+investigationList.addEventListener('click', function (e) {
     // Check if the clicked element is a SPAN
     if (e.target.tagName === "SPAN") {
         // Remove the parent <li> element
@@ -186,6 +191,7 @@ addDrug.addEventListener('click', () => {
         durationValue = '-';
     }
     const dose = document.createElement('div');
+    dose.classList.add('kalpurush');
     dose.innerHTML = doses.value +
         " | " +
         mealStatus +
@@ -216,12 +222,12 @@ addDrug.addEventListener('click', () => {
 
     drugList.style.display = 'block'
 
-    drugNameInput.value = "";
-    doses.value = "";
-    duration.value = "১";
-    suggestion.value = "";
-    mealRelation.reset();
-    dayWeekMonth.selectedIndex = 0;
+    // drugNameInput.value = "";
+    // doses.value = "";
+    // duration.value = "১";
+    // suggestion.value = "";
+    // mealRelation.reset();
+    // dayWeekMonth.selectedIndex = 0;
 
     // else drugName.innerText = 'Add drug na'
 });
@@ -237,9 +243,9 @@ drugNameInput.addEventListener('input', function () {
     }
 });
 
-suggestionList.addEventListener('click', function (e) {
+drugSuggestionList.addEventListener('click', function (e) {
     drugNameInput.value = e.target.innerHTML;
-    suggestionList.style.display = 'none'
+    drugSuggestionList.style.display = 'none'
 });
 
 ccsuggestionList.addEventListener('click', function (e) {
@@ -250,7 +256,7 @@ ccsuggestionList.addEventListener('click', function (e) {
 invsuggestionList.addEventListener('click', function (e) {
     addadv.value = ''
     invsuggestionList.style.display = 'none'
-    addCheckBox(e.target.innerHTML, advList, advinput);
+    addCheckBox(e.target.innerHTML, investigationList, advinput);
 });
 
 
@@ -283,7 +289,26 @@ drugList.addEventListener('click', function (e) {
     }
 });
 
+adviceList.addEventListener('click', function (e) {
+    if (e.target.tagName === "SPAN") {
+        // Remove the parent <li> element
+        e.target.closest('li').remove();
+        if (adviceList.children.length === 0) {
+            adviceList.style.display = 'none';
+        }
+    }
+});
 
+adviceSiggestionList.addEventListener('click', function (e) {
+    adviceInput.value = e.target.innerHTML;
+    adviceSiggestionList.style.display = 'none'
+});
+
+addAdvice.addEventListener('click', function (e) {
+    const newAdviceItem = adviceInput.value;
+    adviceList.style.display = 'block'
+    addtoListItems(newAdviceItem, adviceList, adviceInput);
+});
 
 // One single, permanent confirm listener
 confirmBtn.addEventListener('click', updateCancelPopUp);
@@ -310,14 +335,19 @@ function confirm(event) {
         }
         if (advinput.value.trim() !== '') {
             const newOEItem = advinput.value;
-            addCheckBox(newOEItem, advList, advinput);
+            addCheckBox(newOEItem, investigationList, advinput);
             invsuggestionList.style.display = 'none'
         }
         if (doses.value.trim() !== '') {
             dosesList.style.display = 'none'
         }
         if (drugNameInput.value.trim() !== '') {
-            suggestionList.style.display = 'none'
+            drugSuggestionList.style.display = 'none'
+        }
+        if (adviceInput.value.trim() !== '') {
+            const newAdviceItem = adviceInput.value;
+            adviceList.style.display = 'block'
+            addtoListItems(newAdviceItem, adviceList, adviceInput);
         }
     }
 
