@@ -56,6 +56,7 @@ const dayWeekMonth = document.getElementById('dayWeekMonth');
 const mealRelation = document.getElementById('mealRelation');
 const suggestion = document.getElementById('suggestion');
 const suggestionList = document.getElementById('suggestionList');
+const dosesList = document.getElementById('dosesList');
 const alertText = document.getElementById('alert');
 
 // Track which element is currently being edited
@@ -146,6 +147,20 @@ dayWeekMonth.addEventListener('change', () => {
     }
 });
 
+
+const enToBn = (number) => {
+    return number.toString().replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]);
+};
+
+for (let i = 1; i <= 30; i++) {
+    const option = document.createElement('option');
+
+    option.value = enToBn(i);
+    option.textContent = enToBn(i);
+
+    duration.appendChild(option);
+}
+
 addDrug.addEventListener('click', () => {
     const items = document.createElement('li');
     // items.textContent = 'some text';
@@ -163,17 +178,22 @@ addDrug.addEventListener('click', () => {
 
     let suggest;
 
+    let durationValue = duration.value;
     if (suggestion.value !== '') suggest = " (" + suggestion.value + ")";
     else suggest = '';
 
+    if (dayWeekMonth.value === 'চলবে') {
+        durationValue = '-';
+    }
     const dose = document.createElement('div');
     dose.innerHTML = doses.value +
         " | " +
-        duration.value +
+        mealStatus +
+        " | " +
+        durationValue +
         " " +
         dayWeekMonth.value +
-        " | " +
-        mealStatus +
+
         suggest;
 
 
@@ -187,6 +207,8 @@ addDrug.addEventListener('click', () => {
         return; // This STOPS the function right here
     }
 
+
+
     items.appendChild(drugName)
         .appendChild(span);
     items.appendChild(dose);
@@ -196,7 +218,7 @@ addDrug.addEventListener('click', () => {
 
     drugNameInput.value = "";
     doses.value = "";
-    duration.value = "";
+    duration.value = "১";
     suggestion.value = "";
     mealRelation.reset();
     dayWeekMonth.selectedIndex = 0;
@@ -229,6 +251,13 @@ invsuggestionList.addEventListener('click', function (e) {
     addadv.value = ''
     invsuggestionList.style.display = 'none'
     addCheckBox(e.target.innerHTML, advList, advinput);
+});
+
+
+dosesList.addEventListener('click', function (e) {
+
+    dosesList.style.display = 'none'
+    doses.value = e.target.innerHTML;
 });
 
 doses.addEventListener('input', function () {
@@ -283,6 +312,12 @@ function confirm(event) {
             const newOEItem = advinput.value;
             addCheckBox(newOEItem, advList, advinput);
             invsuggestionList.style.display = 'none'
+        }
+        if (doses.value.trim() !== '') {
+            dosesList.style.display = 'none'
+        }
+        if (drugNameInput.value.trim() !== '') {
+            suggestionList.style.display = 'none'
         }
     }
 

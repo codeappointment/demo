@@ -43,11 +43,15 @@ class DatabaseController extends Controller
             ->table('test_names')
             ->pluck('tests');
 
-         $complaints = DB::connection('investigations')
+        $complaints = DB::connection('investigations')
             ->table('complaints')
             ->pluck('complaints');
 
+        $doses = DB::connection('investigations')
+            ->table('doses')
+            ->pluck('doses');
+
         // 3. Pass both to the view
-        return view('prescription', compact('brands', 'investigations', 'complaints'));
+        return view('prescription', compact('brands', 'investigations', 'complaints', 'doses'));
     }
 }

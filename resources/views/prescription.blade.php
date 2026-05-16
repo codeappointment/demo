@@ -10,11 +10,13 @@
         window.investigations = @json($investigations);
         window.brands = @json($brands);
         window.complaints = @json($complaints);
+        window.doses = @json($doses);
     </script>
     @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
     @vite(['resources/js/drugDatabase.js'])
     @vite(['resources/js/investigationDatabase.js'])
     @vite(['resources/js/complaints.js'])
+    @vite(['resources/js/dosesDatabase.js'])
 </head>
 
 <body>
@@ -127,18 +129,24 @@
                 <div class="durgInputLayout" , id="durgInputLayout">
                     <div>
                         <div class = "nameSection", style="display: block, width: 100%">
-                            <input required type="text" style="width: auto" placeholder="Tab Napa 500mg"
-                                class="drugName" , id="drugName"></input>
+                            <input class="drugName" , id="drugName" required type="text" style="width: auto"
+                                placeholder="Tab Napa 500mg"></input>
                             <div class="suggestion-list" id="suggestionList">
                                 {{-- generative suggestion-list --}}
                             </div>
                         </div>
                     </div>
                     <div>
+                        {{-- dose --}}
                         <input type="text" center placeholder="1+0+1" class="dose" , id="dose"
                             required></input>
-                        <input class="duration" , id="duration" type="text" style="width: 30px"
-                            placeholder="5"></input>
+                        
+                        <div class="doses-list" id="dosesList">
+                            {{-- generative dose-list --}}
+                        </div>
+                        {{-- duration generative list 1-30 --}}
+                        <select class="duration" , id="duration" type="text" style="width: 30px"
+                            placeholder="5"></select>
 
                         <select id="dayWeekMonth" class="dayWeekMonth" name="days">
                             <option value="select">দিন/মাস</option>
@@ -149,8 +157,7 @@
                             <option value="চলবে">চলবে</option>
                         </select>
                         <form style="display: flex" id="mealRelation" , class="mealRelation">
-                            <input type="radio" id="bm" class="bm" name="mealTime"
-                                value="খাবার আগে">
+                            <input type="radio" id="bm" class="bm" name="mealTime" value="খাবার আগে">
                             <label for="basic">খাবার আগে</label><br>
 
                             <input type="radio" id="am" class="am" name="mealTime" value="খাবার আগে">

@@ -452,6 +452,25 @@ body {
     display: none;
 }
 
+.doses-list{
+   position: absolute;
+    left: 0;
+    width: 50%;
+    margin-left: 10px;
+    padding: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: #008590;
+    background: rgb(255, 243, 204);
+    border: 1px solid gray;
+    box-shadow: #4d4d4d 0px 0px 1px;
+    z-index: 9999;
+    border-radius: 5px;
+    display: none;
+}
+.duration{
+    min-width: 60px;
+}
 .mealRelation {
     font-family: kalpurush, 'Times New Roman', Times, serif;
 }
