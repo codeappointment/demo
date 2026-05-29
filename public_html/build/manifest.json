@@ -1,0 +1,78 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-C7ghwsbQ.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/popup.css": {
+    "file": "assets/popup-u1I8sIF_.css",
+    "name": "popup",
+    "names": [
+      "popup.css"
+    ],
+    "src": "resources/css/popup.css",
+    "isEntry": true
+  },
+  "resources/css/prescription.css": {
+    "file": "assets/prescription-Cd_HPnpf.css",
+    "name": "prescription",
+    "names": [
+      "prescription.css"
+    ],
+    "src": "resources/css/prescription.css",
+    "isEntry": true,
+    "assets": [
+      "assets/Kalpurush-yuMnELiP.ttf"
+    ]
+  },
+  "resources/js/adviceDatabase.js": {
+    "file": "assets/adviceDatabase-OwWq1IRZ.js",
+    "name": "adviceDatabase",
+    "src": "resources/js/adviceDatabase.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-34mOoJaZ.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/complaints.js": {
+    "file": "assets/complaints-6Q4Wdt7U.js",
+    "name": "complaints",
+    "src": "resources/js/complaints.js",
+    "isEntry": true
+  },
+  "resources/js/dosesDatabase.js": {
+    "file": "assets/dosesDatabase-Dnnxh6oT.js",
+    "name": "dosesDatabase",
+    "src": "resources/js/dosesDatabase.js",
+    "isEntry": true
+  },
+  "resources/js/drugDatabase.js": {
+    "file": "assets/drugDatabase-D-3GtrWT.js",
+    "name": "drugDatabase",
+    "src": "resources/js/drugDatabase.js",
+    "isEntry": true
+  },
+  "resources/js/investigationDatabase.js": {
+    "file": "assets/investigationDatabase-m0doqSq-.js",
+    "name": "investigationDatabase",
+    "src": "resources/js/investigationDatabase.js",
+    "isEntry": true
+  },
+  "resources/js/popup.js": {
+    "file": "assets/popup-DrSEGuYG.js",
+    "name": "popup",
+    "src": "resources/js/popup.js",
+    "isEntry": true
+  },
+  "storage/Kalpurush.ttf": {
+    "file": "assets/Kalpurush-yuMnELiP.ttf",
+    "src": "storage/Kalpurush.ttf"
+  }
+}

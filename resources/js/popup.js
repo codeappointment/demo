@@ -222,12 +222,12 @@ addDrug.addEventListener('click', () => {
 
     drugList.style.display = 'block'
 
-    // drugNameInput.value = "";
-    // doses.value = "";
-    // duration.value = "১";
-    // suggestion.value = "";
-    // mealRelation.reset();
-    // dayWeekMonth.selectedIndex = 0;
+    drugNameInput.value = "";
+    doses.value = "";
+    duration.value = "১";
+    suggestion.value = "";
+    mealRelation.reset();
+    dayWeekMonth.selectedIndex = 0;
 
     // else drugName.innerText = 'Add drug na'
 });
