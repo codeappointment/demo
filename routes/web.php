@@ -4,15 +4,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DatabaseController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/welcome2', function () {
 //     return view('welcome2');
 // });
 
-Route::get('prescription', [DatabaseController::class, 'drugLoader']);
+Route::get('/', [DatabaseController::class, 'drugLoader']);
 
 Route::get('/forms', function () {
     return view('forms' , [
@@ -30,5 +30,5 @@ Route::post('/forms', function (Request $request) {
     ]);
 });
 
-
 Route::get('/welcome2', [DatabaseController::class, 'dbLoader']);
+Route::get('/prescription', [DatabaseController::class, 'drugLoader']);

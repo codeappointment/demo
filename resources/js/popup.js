@@ -1,4 +1,7 @@
 // header left section
+import axios from 'axios';
+window.axios = axios;
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 const doctorName = document.getElementById('doctorName');
 const qualification = document.getElementById('qualification');
 const affiliation = document.getElementById('affiliation');
@@ -443,5 +446,4 @@ bp.addEventListener('click', () => {
     bp.value = text;
 });
 
-
-
+const download = document.getElementById('download');

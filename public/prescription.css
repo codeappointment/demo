@@ -35,7 +35,10 @@ body {
     font-family: 'Kalpurush', 'Times New Roman', Times, serif;
     src: url('C:/Users/Zubayer/Herd/demo/storage/fonts/Kalpurush.ttf') format('truetype');
 }
-
+@font-face {
+    font-family: 'Kalpurush';
+    src: url('{{ public_path("fonts/Kalpurush.ttf") }}') format('truetype');
+}
 .header-left .doctor-name {
     /* cursor: pointer; */
     font-weight: 700;

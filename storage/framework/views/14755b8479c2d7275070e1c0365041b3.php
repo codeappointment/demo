@@ -7,29 +7,27 @@
     <title>Prescription</title>
     <link rel="stylesheet" href="views/prescription.css">
     <script>
-        window.investigations = @json($investigations);
-        window.brands = @json($brands);
-        window.complaints = @json($complaints);
-        window.doses = @json($doses);
-        window.advices = @json($advices);
+        window.investigations = <?php echo json_encode($investigations, 15, 512) ?>;
+        window.brands = <?php echo json_encode($brands, 15, 512) ?>;
+        window.complaints = <?php echo json_encode($complaints, 15, 512) ?>;
+        window.doses = <?php echo json_encode($doses, 15, 512) ?>;
+        window.advices = <?php echo json_encode($advices, 15, 512) ?>;
     </script>
-    @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
-    @vite(['resources/js/drugDatabase.js'])
-    @vite(['resources/js/investigationDatabase.js'])
-    @vite(['resources/js/complaints.js'])
-    @vite(['resources/js/dosesDatabase.js'])
-    @vite(['resources/js/adviceDatabase.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/drugDatabase.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/investigationDatabase.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/complaints.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/dosesDatabase.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/adviceDatabase.js']); ?>
 
-    <link rel="stylesheet" href="{{ public_path('/prescription.css') }}">
+    <link rel="stylesheet" href="<?php echo e(public_path('/prescription.css')); ?>">
 </head>
 
 <body>
 
-    @include('popupLayout')
+    <?php echo $__env->make('popupLayout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <div class="page">
-        {{-- <button class ="download", id = "download">
-            Download
-        </button> --}}
+        
         <div class="header">
 
             <div class="header-left">
@@ -70,7 +68,7 @@
                     <div class="cc-input"><input id="ccinput" class="ccinput"
                             placeholder="Add complaints"></input><span id="addcc" , class="add-cc">+</span></div>
                     <div class="ccsuggestionList" id="ccsuggestionList">
-                        {{-- generative suggestion-list --}}
+                        
                     </div>
                     <ul class="bullet-list" , id='ccList'>
                         <li>Fever for three days<span>&#xd7;</span></li>
@@ -104,7 +102,7 @@
                             placeholder="Add new investigations"></input><span id="addadv" class="add-cc">+</span>
                     </div>
                     <div class="invsuggestionList" id="invsuggestionList">
-                        {{-- generative suggestion-list --}}
+                        
                     </div>
                     <ul class="bullet-list" id="advList">
 
@@ -129,29 +127,29 @@
             <div class="column">
                 <div class="sec-heading">Rx</div>
                 <ul class="rx-list" id="rxList">
-                    {{-- generative treatment list --}}
+                    
                 </ul>
 
-                {{-- drug input layout --}}
+                
                 <div class="durgInputLayout" , id="durgInputLayout">
                     <div>
                         <div class = "nameSection", style="display: block, width: 100%">
                             <input class="drugName" , id="drugName" required type="text" style="width: auto"
                                 placeholder="Tab Napa 500mg"></input>
                             <div class="suggestion-list" id="suggestionList">
-                                {{-- generative drug suggestion-list --}}
+                                
                             </div>
                         </div>
                     </div>
                     <div>
-                        {{-- dose --}}
+                        
                         <input type="text" center placeholder="1+0+1" class="dose" , id="dose"
                             required></input>
 
                         <div class="doses-list" id="dosesList">
-                            {{-- generative dose suggestion-list --}}
+                            
                         </div>
-                        {{-- duration generative list 1-30 --}}
+                        
                         <select class="duration" , id="duration" type="text" style="width: 30px"
                             placeholder="5"></select>
 
@@ -185,21 +183,22 @@
 
                     </div>
                     <ul class="bullet-list kalpurush" id="adviceList" style="display: none">
-                        {{-- generative advice list --}}
+                        
                     </ul>
                     <div class="adviceHolder">
                         <input class = "adviceInput" id = "adviceInput" placeholder="নিয়মিত ওষুধ খাবেন..."></input>
 
                         <div class="adviceSiggestionList" id="adviceSiggestionList">
-                            {{-- generative advice suggestion --}}
+                            
                         </div>
                         <button class="addDrug" id="addAdvice">Add</button>
                     </div>
                 </div>
-                {{-- end of drug input layout --}}
+                
             </div>
         </div>
     </div>
 </body>
 
 </html>
+<?php /**PATH C:\Users\Zubayer\Herd\demo\resources\views/prescription.blade.php ENDPATH**/ ?>
