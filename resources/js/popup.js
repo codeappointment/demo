@@ -1,7 +1,5 @@
 // header left section
-import axios from 'axios';
-window.axios = axios;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
 const doctorName = document.getElementById('doctorName');
 const qualification = document.getElementById('qualification');
 const affiliation = document.getElementById('affiliation');
@@ -448,22 +446,30 @@ bp.addEventListener('click', () => {
 
 // print pdf 
 
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+// import html2canvas from 'html2canvas';
+// import { jsPDF } from 'jspdf';
 
-const pdf = new jsPDF('p', 'mm', 'a4'); // Explicitly defining A4 layout
-const download = document.getElementById('download');
-const page = document.getElementById('page');
+// html2canvas(document.querySelector("#prescription")).then(canvas => {
+//     document.body.appendChild(canvas);
+// });
+
+// const pdf = new jsPDF('p', 'mm', 'a4'); // Explicitly defining A4 layout
+// const download = document.getElementById('download');
+// const page = document.getElementById('page');
 
 
 const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
     navigator.userAgent
 );
-
+const downloadBtn = document.getElementById('download');
+const element = document.getElementById('page');
 if (isMobile) {
     mobileDownload();
+    downloadBtn.innerText = 'Download'
+    
 } else {
     desktopPrint();
+    downloadBtn.innerText = 'Print'
 }
 
 function desktopPrint() {
@@ -473,25 +479,53 @@ function desktopPrint() {
 }
 
 function mobileDownload() {
-    download.addEventListener('click', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', () => {
+                togglePrint();
+                // 1. Visual feedback (Optional: Change button text while processing)
+                downloadBtn.innerText = "Generating PDF...";
+                downloadBtn.disabled = true;
 
-        togglePrint(); // shows print preview first
-        // Pass the scale option here to increase resolution
-        html2canvas(page, {
-            scale: 4,          // 2 doubles the resolution (recommended), 3 makes it print-quality
-            useCORS: true      // Helps load external assets/fonts cleanly if any
-        }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
+                // 2. Options for high-quality rendering
+                const options = {
+                    scale: 2,             // Sharpens text and images (retina quality)
+                    useCORS: true,        // Allows loading external assets/images if any
+                    logging: false        // Turns off console spam
+                };
 
-            // Dynamically calculate the matching PDF dimensions to prevent stretching
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                // 3. Render HTML to Canvas
+                html2canvas(element, options).then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
 
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save('prescription.pdf');
-            window.location.reload(); // cache clear and har reload
-        });
+                    // 4. Initialize jsPDF (A4 Portrait, measurements in millimeters)
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
 
+                    // A4 dimensions
+                    const pdfWidth = 210;
+                    const pdfHeight = 297;
+
+                    // Calculate responsive height keeping aspect ratio intact
+                    const imgWidth = pdfWidth;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                    // 5. Add image to PDF and trigger save
+                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                    pdf.save('prescription.pdf');
+
+                    // 6. Restore button state
+                    downloadBtn.innerText = "Download Prescription PDF";
+                    downloadBtn.disabled = false;
+                    window.location.reload();
+                }).catch((error) => {
+                    console.error("PDF generation failed:", error);
+                    downloadBtn.innerText = "Download Failed";
+                    downloadBtn.disabled = false;
+                });
+            });
+        }
     });
 }
 
@@ -580,3 +614,17 @@ window.addEventListener('keydown', function (e) {
         // triggerCustomPrint(); 
     }
 });
+
+// force mobile to load desktop view
+let viewport = document.querySelector('meta[name="viewport"]');
+    
+    // 2. If it doesn't exist, create one
+    if (!viewport) {
+        viewport = document.createElement('meta');
+        viewport.name = 'viewport';
+        document.head.appendChild(viewport);
+    }
+    
+    // 3. Set the content to match how mobile browsers render desktop sites
+    // We set a fixed desktop width and allow user zooming.
+    viewport.setAttribute('content', 'width=1024, initial-scale=0.25, minimum-scale=0.25, maximum-scale=5.0, user-scalable=yes');

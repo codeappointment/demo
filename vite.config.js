@@ -15,12 +15,13 @@ export default defineConfig({
                 'resources/js/drugDatabase.js',
                 'resources/js/investigationDatabase.js',
                 'resources/js/dosesDatabase.js',
-                'resources/js/adviceDatabase.js'
+                'resources/js/adviceDatabase.js',
             ],
             refresh: true,
         }),
     ],
     build: {
+        sourcemap: true,
         outDir: 'public/build', // Compiles locally to public/build
         rollupOptions: {
             output: {

@@ -43,6 +43,7 @@ return [
             'synchronous' => null,
             'transaction_mode' => 'DEFERRED',
         ],
+        // local
         'sqlite_drugs' => [
             'driver' => 'sqlite',
             'database' => 'C:\Users\Zubayer\Herd\demo\database\drugDB.db',
@@ -53,6 +54,18 @@ return [
             'database' => 'C:\Users\Zubayer\Herd\demo\database\investigation.db',
             'prefix' => '',
         ],
+        
+        // production
+        // 'sqlite_drugs' => [
+        //     'driver' => 'sqlite',
+        //     'database' => './database/drugDb.db',
+        //     'prefix' => '',
+        // ],
+        //  'investigations' => [
+        //     'driver' => 'sqlite',
+        //     'database' => './database/investigation.db',
+        //     'prefix' => '',
+        // ], 
         
         'mysql' => [
             'driver' => 'mysql',

@@ -15,6 +15,10 @@
         window.doses = @json($doses);
         window.advices = @json($advices);
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
     @vite(['resources/js/drugDatabase.js'])
     @vite(['resources/js/investigationDatabase.js'])

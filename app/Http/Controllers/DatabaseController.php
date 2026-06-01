@@ -3,31 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-// use Barryvdh\DomPDF\Facade\Pdf;
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\App;
 
 class DatabaseController extends Controller
 {
-    public function dbLoader()
-    {
-        // $brands = DB::connection('sqlite_drugs')
-        //     ->table('drugs')
-        //     ->limit(10)
-        //     ->pluck('company');
-
-        $brands = DB::connection('sqlite_drugs')
-            ->table('drugs')
-            ->get()
-            ->map(function ($drug) {
-                return $drug->drug_form . ' ' .
-                    $drug->drug_brand . ' ' .
-                    $drug->drug_strength;
-            });
-
-
-        return view('welcome2', compact('brands'));
-    }
 
     public function drugLoader()
     {

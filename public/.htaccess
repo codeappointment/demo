@@ -14,5 +14,16 @@
 
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ server.php
+    RewriteRule ^ index.php
 </IfModule>
+
+<!-- <IfModule mod_rewrite.c>
+    RewriteEngine On
+    # If the file or directory exists in root, serve it directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^.*$ - [NC,L]
+
+    # Otherwise, redirect everything else to the public folder
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule> -->

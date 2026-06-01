@@ -36,6 +36,14 @@ body {
     src: url('C:/Users/Zubayer/Herd/demo/storage/fonts/Kalpurush.ttf') format('truetype');
 }
 
+/* production */
+
+/* @font-face {
+    font-family: 'Kalpurush';
+    font-family: 'Kalpurush', 'Times New Roman', Times, serif;
+    src: public_path('assets/kalpurush.ttf') format('truetype');
+} */
+
 .header-left .doctor-name {
     /* cursor: pointer; */
     font-weight: 700;
@@ -568,10 +576,11 @@ body {
     position: relative;
 }
 
-.download{
+.download {
     position: fixed;
     margin-left: 10px;
 }
+
 /* Print styles */
 
 /* @media (max-width: 840px) {
