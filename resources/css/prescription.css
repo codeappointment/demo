@@ -568,6 +568,10 @@ body {
     position: relative;
 }
 
+.download{
+    position: fixed;
+    margin-left: 10px;
+}
 /* Print styles */
 
 /* @media (max-width: 840px) {
@@ -749,7 +753,7 @@ body {
     }
 
     .bullet-list,
-    .investigation-list{
+    .investigation-list {
 
         padding: 0;
         font-family: 'Times New Roman', Times, serif;
@@ -840,6 +844,10 @@ body {
 
     .column-left {
         border-right: 1.5px solid black !important;
+    }
+
+    .download {
+        display: none;
     }
 
 }

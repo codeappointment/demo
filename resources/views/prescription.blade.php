@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<button class ="download", id = "download">
+            Download
+        </button>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,10 +28,8 @@
 <body>
 
     @include('popupLayout')
-    <div class="page">
-        {{-- <button class ="download", id = "download">
-            Download
-        </button> --}}
+    <div class="page", id = "page">
+        
         <div class="header">
 
             <div class="header-left">

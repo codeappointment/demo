@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<button class ="download", id = "download">
+            Download
+        </button>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +28,7 @@
 <body>
 
     <?php echo $__env->make('popupLayout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-    <div class="page">
+    <div class="page", id = "page">
         
         <div class="header">
 

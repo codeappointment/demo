@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DatabaseController;
-use Spatie\Browsershot\Browsershot;
+// use Spatie\Browsershot\Browsershot;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -33,7 +33,7 @@ Route::post('/forms', function (Request $request) {
 
 Route::get('/welcome2', [DatabaseController::class, 'dbLoader']);
 
-Route::get('/welcome', function () {
-    Browsershot::url('https://grenyt.com')->save('example.pdf');
-    return view('welcome');
-});
+// Route::get('/welcome', function () {
+//     Browsershot::url('https://grenyt.com')->save('example.pdf');
+//     return view('welcome');
+// });

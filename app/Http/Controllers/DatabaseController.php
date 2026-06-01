@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+// use Barryvdh\DomPDF\Facade\Pdf;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\App;
 
 class DatabaseController extends Controller
 {

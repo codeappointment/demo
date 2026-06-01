@@ -446,4 +446,137 @@ bp.addEventListener('click', () => {
     bp.value = text;
 });
 
+// print pdf 
+
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+
+const pdf = new jsPDF('p', 'mm', 'a4'); // Explicitly defining A4 layout
 const download = document.getElementById('download');
+const page = document.getElementById('page');
+
+
+const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
+    navigator.userAgent
+);
+
+if (isMobile) {
+    mobileDownload();
+} else {
+    desktopPrint();
+}
+
+function desktopPrint() {
+    download.addEventListener('click', () => {
+        window.print();
+    })
+}
+
+function mobileDownload() {
+    download.addEventListener('click', () => {
+
+        togglePrint(); // shows print preview first
+        // Pass the scale option here to increase resolution
+        html2canvas(page, {
+            scale: 4,          // 2 doubles the resolution (recommended), 3 makes it print-quality
+            useCORS: true      // Helps load external assets/fonts cleanly if any
+        }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+
+            // Dynamically calculate the matching PDF dimensions to prevent stretching
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('prescription.pdf');
+            window.location.reload(); // cache clear and har reload
+        });
+
+    });
+}
+
+function togglePrint() {
+    // download.style.display = 'none'
+
+    ccinput.style.display = 'none'
+    cclist.style.background = 'none'
+    addcc.style.display = 'none'
+
+    oeinput.style.display = 'none'
+    oelist.style.background = 'none'
+    addoe.style.display = 'none'
+
+    advinput.style.display = 'none'
+    addadv.style.display = 'none'
+    adviceList.style.background = 'none'
+
+    adviceInput.style.display = 'none'
+    addAdvice.style.display = 'none'
+    investigationList.style.background = 'none'
+
+    const additionalHeader = document.getElementById('additionalHeader')
+    additionalHeader.style.background = 'none'
+    additionalHeader.style.border = 'none'
+
+    addDrug.style.display = 'none'
+    const durgInputLayout = document.getElementById('durgInputLayout')
+    durgInputLayout.style.display = 'none'
+    const rxList = document.getElementById('rxList')
+    rxList.style.background = 'none'
+    adviceSiggestionList.style.background = 'none'
+
+    // Get all span elements on the page
+    const spans = document.querySelectorAll('span');
+
+    spans.forEach(span => {
+        // Check if the text inside matches the '×' close symbol
+        if (span.textContent === '×') {
+            span.style.display = 'none';
+        }
+    });
+
+    const inputs = document.querySelectorAll('input');
+
+    // Example: Hide all checkboxes
+    inputs.forEach(input => {
+        if (input.value.trim() === '') {
+            input.style.display = 'none';
+        } else {
+            input.style.border = 'none';
+        }
+    });
+
+
+    const checkboxs = document.querySelectorAll('input');
+
+    checkboxs.forEach(input => {
+        const listItem = input.closest('li');
+
+        if (input.type === 'checkbox') {
+            // If it's a checkbox and it is NOT checked, hide the entire li
+            if (!input.checked) {
+                listItem.style.display = 'none';
+            } else {
+                input.style.display = 'none'
+            }
+        }
+
+    });
+}
+
+
+window.addEventListener('keydown', function (e) {
+    // Check if 'P' key is pressed
+    const isPKey = e.key === 'p' || e.key === 'P' || e.keyCode === 80;
+
+    // Detect Ctrl (Windows) or Cmd (Mac)
+    const isControlKey = e.ctrlKey || e.metaKey;
+
+    if (isControlKey && isPKey) {
+        // 1. Stop the browser's default print dialog from opening
+        e.preventDefault();
+
+        // 2. Trigger your custom print action/button click
+        // triggerCustomPrint(); 
+    }
+});
