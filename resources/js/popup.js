@@ -466,7 +466,7 @@ const element = document.getElementById('page');
 if (isMobile) {
     mobileDownload();
     downloadBtn.innerText = 'Download'
-    
+    mobileDesktopView();
 } else {
     desktopPrint();
     downloadBtn.innerText = 'Print'
@@ -480,9 +480,11 @@ function desktopPrint() {
 
 function mobileDownload() {
     document.addEventListener('DOMContentLoaded', () => {
-        
+
         if (downloadBtn) {
             downloadBtn.addEventListener('click', () => {
+                mobileDesktopView();
+
                 togglePrint();
                 // 1. Visual feedback (Optional: Change button text while processing)
                 downloadBtn.innerText = "Generating PDF...";
@@ -598,7 +600,7 @@ function togglePrint() {
     });
 }
 
-
+// prevent cltr+P
 window.addEventListener('keydown', function (e) {
     // Check if 'P' key is pressed
     const isPKey = e.key === 'p' || e.key === 'P' || e.keyCode === 80;
@@ -616,15 +618,62 @@ window.addEventListener('keydown', function (e) {
 });
 
 // force mobile to load desktop view
-let viewport = document.querySelector('meta[name="viewport"]');
-    
+function mobileDesktopView() {
+    let viewport = document.querySelector('meta[name="viewport"]');
+
     // 2. If it doesn't exist, create one
     if (!viewport) {
         viewport = document.createElement('meta');
         viewport.name = 'viewport';
         document.head.appendChild(viewport);
     }
-    
+
     // 3. Set the content to match how mobile browsers render desktop sites
     // We set a fixed desktop width and allow user zooming.
     viewport.setAttribute('content', 'width=1024, initial-scale=0.25, minimum-scale=0.25, maximum-scale=5.0, user-scalable=yes');
+}
+// Force reload a script on every page load via JavaScript
+const script = document.createElement('script');
+script.src = "/resources/js/app.js?v=" + new Date().getTime(); // Appends unique timestamp
+document.head.appendChild(script);
+window.addEventListener("pageshow", function (event) {
+    // If the page was loaded from the browser history/cache cache, force a hard reload
+    if (event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) {
+        window.location.reload();
+    }
+});
+
+document.addEventListener('click', function (event) {
+    // Check if the clicked element is inside the search container
+    const isDrugSearched = drugNameInput.contains(event.target);
+    const isCcSearched = ccinput.contains(event.target);
+    const isOeInput = oeinput.contains(event.target);
+    const isAdvSearched = advinput.contains(event.target);
+    const isAdviceSearched = adviceInput.contains(event.target);
+    const isDoseSearched = doses.contains(event.target);
+
+    if (!isDrugSearched) {
+        // Clicked outside! Hide the list
+        drugSuggestionList.style.display = 'none';
+    }
+    if (!isCcSearched) {
+        // Clicked outside! Hide the list
+        ccsuggestionList.style.display = 'none';
+    }
+    if (!isOeInput) {
+        // Clicked outside! Hide the list
+        // oeSuggestionList.style.display = 'none';
+    }
+    if (!isAdvSearched) {
+        // Clicked outside! Hide the list
+        invsuggestionList.style.display = 'none';
+    }
+    if (!isAdviceSearched) {
+        // Clicked outside! Hide the list
+        adviceSiggestionList.style.display = 'none';
+    }
+    if (!isDoseSearched) {
+        // Clicked outside! Hide the list
+        dosesList.style.display = 'none';
+    }
+});

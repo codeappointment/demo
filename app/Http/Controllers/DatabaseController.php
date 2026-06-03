@@ -36,6 +36,14 @@ class DatabaseController extends Controller
             ->pluck('advices');
 
         // 3. Pass both to the view
-        return view('prescription', compact('brands', 'investigations', 'complaints', 'doses', 'advices'));
+        // return view('prescription', compact('brands', 'investigations', 'complaints', 'doses', 'advices'));
+
+        return response()
+            ->view('prescription', compact('brands', 'investigations', 'complaints', 'doses', 'advices'))
+            ->withHeaders([
+                'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0',
+                'Pragma' => 'no-cache',
+                'Expires' => 'Thu, 01 Jan 1970 00:00:00 GMT',
+            ]);
     }
 }

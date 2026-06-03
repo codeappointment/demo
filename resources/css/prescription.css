@@ -1,9 +1,270 @@
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .my-Popup {
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
+        min-width: 90%;
+
+    }
+
+    body {
+        background: #f0f2f5;
+        /* Softer background for mobile screens */
+        width: 100%;
+    }
+
+    .page {
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        max-width: 100%;
+        /* min-height: 100vh; */
+        box-sizing: border-box;
+    }
+
+    /* Header Stacked Layout */
+    .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px 0 !important;
+        gap: 15px;
+    }
+
+    .header-left,
+    .header-center,
+    .header-right {
+        max-width: 100% !important;
+        width: 100%;
+        text-align: center !important;
+        margin: 0 !important;
+    }
+
+    .header-left .doctor-qual,
+    .header-left .doctor-affiliation,
+    .header-left .title {
+        width: 100%;
+    }
+
+    .header-center {
+        padding: 0.6rem;
+    }
+
+    /* Patient Info Row Stacked Grid */
+    .patient-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    .patient-row .field {
+        justify-content: 开;
+        font-size: 0.95rem;
+    }
+
+    /* Column Layout Change (Side-by-Side to Top-to-Bottom) */
+    .content {
+        flex-direction: column;
+
+    }
+
+    .column-left {
+        max-width: 100%;
+        padding: 0;
+        border-right: none;
+        border-bottom: 2px dashed #10893e;
+        /* Separator between left/right panel on mobile */
+        padding-bottom: 25px;
+        border-right: none !important;
+    }
+
+    .column {
+        min-width: 100%;
+        margin: 0;
+    }
+
+    /* Form & Input adjustments for tap targets */
+
+    .cc-input {
+        display: flex;
+    }
+
+    .ccinput {
+        width: 100%;
+        height: 2rem;
+    }
+
+    .oeinput {
+        width: 100%;
+        height: 2rem;
+    }
+
+    .advinput {
+        width: 100%;
+        height: 2rem;
+    }
+
+    li {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    li input {
+        height: 1px;
+    }
+
+    .add-cc {
+        background: #008590;
+        color: white;
+        border: none;
+        margin-top: 2px;
+        justify-content: center;
+        left: 10px;
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+        width: 20%;
+        position: relative;
+        height: 30px;
+        font-size: 16px;
+        border-radius: 5px;
+        /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
+        font-weight: bold;
+    }
+
+    .adviceHolder {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 10px;
+    }
+
+    .adviceInput {
+        min-width: 0 !important;
+        /* Overrides the 300px desktop restriction */
+        width: 100%;
+        /* Forces it to take up only available space */
+        max-width: 100%;
+        box-sizing: border-box;
+        /* Ensures padding doesn't add to the width */
+    }
+
+    .underline {
+        min-width: 0 !important;
+        /* Overrides the 300px desktop restriction */
+        width: 100%;
+        /* Forces it to take up only available space */
+        max-width: 100%;
+        box-sizing: border-box;
+        /* Ensures padding doesn't add to the width */
+    }
+
+    /* Expand input layouts to be easily tappable */
+    .durgInputLayout {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .durgInputLayout>div {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    /* Dropdowns and Meal relation alignment */
+    .duration,
+    .dayWeekMonth {
+        width: 100% !important;
+        min-height: 35px;
+    }
+
+    .mealRelation {
+        margin: 5px 0;
+        justify-content: flex-start;
+        gap: 15px;
+    }
+
+    .addDrug,
+    .addAdvice {
+        width: 100%;
+        padding: 10px;
+        /* Bigger touch targets */
+        font-size: 1rem;
+    }
+    .adviceInput {
+        margin-bottom: 10px;
+    }
+
+    /* Suggestion Lists Position fixes */
+    .suggestion-list,
+    .invsuggestionList,
+    .ccsuggestionList,
+    .doses-list,
+    .adviceSiggestionList {
+        width: 95%;
+        left: 2.5%;
+    }
+
+    /* Download Floating Action Button style for Mobile */
+    .download {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        left: auto;
+        z-index: 1000;
+        background: #008590;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+    }
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Times New Roman', Times, serif;
     background: #b9b9b9;
     color: #1b1b18;
+}
+
+.refresh {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    left: auto;
+    z-index: 1000;
+    background: #008590;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
+
+.download {
+    position: fixed;
+    top: 40px;
+    right: 20px;
+    left: auto;
+    bottom: auto;
+    background: #008590;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
 }
 
 .page {
@@ -41,7 +302,7 @@ body {
 /* @font-face {
     font-family: 'Kalpurush';
     font-family: 'Kalpurush', 'Times New Roman', Times, serif;
-    src: public_path('assets/kalpurush.ttf') format('truetype');
+    src: url(/build/assets/Kalpurush.ttf)format("truetype");
 } */
 
 .header-left .doctor-name {
