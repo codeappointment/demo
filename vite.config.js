@@ -16,6 +16,8 @@ export default defineConfig({
                 'resources/js/investigationDatabase.js',
                 'resources/js/dosesDatabase.js',
                 'resources/js/adviceDatabase.js',
+                'resources/js/firebaseAuth.js',
+                'resources/js/signin.js',
             ],
             refresh: true,
         }),

@@ -11,3 +11,7 @@ Route::get('/clear-cache', function () {
 });
 
 Route::get('/', [DatabaseController::class, 'drugLoader']);
+
+Route::get('signin', function () {
+    return view('signin');
+});
