@@ -677,3 +677,27 @@ document.addEventListener('click', function (event) {
         dosesList.style.display = 'none';
     }
 });
+
+
+import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import { app } from './firebaseAuth.js';
+import { signInWithGoogle } from './signin.js';
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        doctorName.innerText = user.displayName;
+
+
+        // ...
+    } else {
+        // User is signed out
+        signInWithGoogle();
+    }
+});

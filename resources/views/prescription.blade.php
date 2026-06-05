@@ -27,6 +27,7 @@
     @vite(['resources/js/complaints.js'])
     @vite(['resources/js/dosesDatabase.js'])
     @vite(['resources/js/adviceDatabase.js'])
+    @vite(['resources/js/firebaseAuth.js'])
 
     <link rel="stylesheet" href="{{ public_path('/prescription.css') }}">
 </head>

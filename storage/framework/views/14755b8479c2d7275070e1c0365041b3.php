@@ -27,6 +27,7 @@
     <?php echo app('Illuminate\Foundation\Vite')(['resources/js/complaints.js']); ?>
     <?php echo app('Illuminate\Foundation\Vite')(['resources/js/dosesDatabase.js']); ?>
     <?php echo app('Illuminate\Foundation\Vite')(['resources/js/adviceDatabase.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/firebaseAuth.js']); ?>
 
     <link rel="stylesheet" href="<?php echo e(public_path('/prescription.css')); ?>">
 </head>
