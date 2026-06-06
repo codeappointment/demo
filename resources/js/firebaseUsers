@@ -10,10 +10,36 @@ import { signInWithGoogle } from './signin.js';
 
 const auth = getAuth(app);
 const db = getFirestore(app)
-let docRef;
+let documentReference;
 let userID;
 let userDataExists = false;
+let activeElement = null;
+
+// header left section
+const doctorName = document.getElementById('doctorName');
+const qualification = document.getElementById('qualification');
+const affiliation = document.getElementById('affiliation');
+const BMDC = document.getElementById('BMDC');
+const patientName = document.getElementById('patientName');
+const age = document.getElementById('age');
+const date = document.getElementById('date');
+
+// header center section 
+
+const specialist = document.getElementById('specialist');
+
+// header right section
+const hospitalName = document.getElementById('hospitalName');
+const address = document.getElementById('address');
+const schedule = document.getElementById('schedule');
+const contact = document.getElementById('contact');
+
+// popup layout
+const dialog = document.getElementById('myPopup');
 const confirmBtn = document.getElementById('confirmBtn');
+const label = document.getElementById('label');
+const inputField = document.getElementById('popupInput');
+const cancelBtn = document.getElementById('cancelButn');
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -23,7 +49,7 @@ onAuthStateChanged(auth, (user) => {
         const doctorName = document.getElementById('doctorName')
         // doctorName.innerText = user.displayName;
         userID = auth.currentUser.email
-        docRef = doc(db, "users", userID);
+        documentReference = doc(db, "users", userID);
         getUserDocument(userID);
 
         // ...
@@ -36,11 +62,10 @@ onAuthStateChanged(auth, (user) => {
 
 async function getUserDocument(userID) {
     // 1. Create a reference to the specific document
-    const docRef = doc(db, "users", userID);
 
     try {
         // 2. Fetch the document snapshot
-        const documentSnapshot = await getDoc(docRef);
+        const documentSnapshot = await getDoc(documentReference);
 
         // 3. Check if the document exists before reading it
         if (documentSnapshot.exists()) {
@@ -49,8 +74,43 @@ async function getUserDocument(userID) {
 
             // Accessing specific fields:
             const userData = documentSnapshot.data();
-            const name = userData.name;
-            doctorName.innerText = name
+
+            const doctor_name = userData.doctorName;
+            if (doctor_name)
+                doctorName.innerText = doctor_name;
+
+            const doctor_qualification = userData.qualification;
+            if (doctor_qualification)
+                qualification.innerText = doctor_qualification;
+
+            const doctor_affiliation = userData.affiliation;
+            if (doctor_affiliation)
+                affiliation.innerText = doctor_affiliation;
+
+            const doctor_bmdc = userData.BMDC;
+            if (doctor_bmdc)
+                BMDC.innerText = doctor_bmdc;
+
+            const doctor_speciality = userData.specialist;
+            if (doctor_speciality)
+                specialist.innerText = doctor_speciality;
+
+            const hospital_name = userData.hospitalName;
+            if (hospital_name)
+                hospitalName.innerText = hospital_name;
+
+            const hospital_address = userData.address;
+            if (hospital_address)
+                address.innerText = hospital_address;
+
+            const chamber_schedule = userData.schedule;
+            if (chamber_schedule)
+                schedule.innerText = chamber_schedule;
+
+            const contact_no = userData.contact;
+            if (contact_no)
+                contact.innerText = contact_no;
+
             // console.log("First Name:", userData.name);
         } else {
             userDataExists = false;
@@ -62,38 +122,120 @@ async function getUserDocument(userID) {
     }
 }
 confirmBtn.addEventListener('click', () => {
-    // addDoc(collection(db, "collection", "document", "collection"), {
-    //     first: "Ada",
-    //     last: "Lovelace",
-    //     born: 1815
-    // })
-    //     .then((docRef) => {
-    //         console.log("Document written with ID: ", docRef.id);
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error adding document: ", error);
-    //     });
+    createUpdateData
+});
 
-    const docRef = doc(db, "users", auth.currentUser.email);
-    const data = { hospital: "Square Specialized Hospital" }
+// Attach open listeners
+specialist.addEventListener('click', () => openModal(specialist, 'Specialist Name'));
+doctorName.addEventListener('click', () => openModal(doctorName, 'Doctor Name'));
+qualification.addEventListener('click', () => openModal(qualification, 'MBBS/BCS/MD/FCPS...'));
+affiliation.addEventListener('click', () => openModal(affiliation, 'Currrent Institution and designation'));
+BMDC.addEventListener('click', () => openModal(BMDC, 'BMDC no.'));
+patientName.addEventListener('click', () => openModal(patientName, 'Enter Patient name'));
+age.addEventListener('click', () => openModal(age, 'Patient age'));
+
+hospitalName.addEventListener('click', () => openModal(hospitalName, 'Chamber Name'));
+address.addEventListener('click', () => openModal(address, 'Chamber address'));
+schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
+contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
+
+
+
+// Helper function to open modal
+function openModal(element, labelText) {
+    activeElement = element;
+    label.innerText = 'Enter ' + labelText;
+    inputField.value = activeElement.innerText; // Clear previous input
+    dialog.showModal();
+}
+
+function updateCancelPopUp() {
+    const val = inputField.value;
+
+    if (val === '') {
+        switch (activeElement) {
+
+            case doctorName: activeElement.innerText = 'Add your name';
+                break;
+            case qualification: activeElement.innerText = 'Add your basic and postgrad degree';
+                break;
+            case specialist: activeElement.innerText = 'Add your speciality';
+                break;
+            case affiliation: activeElement.innerText = 'Add your current work and designation';
+                break;
+            case BMDC: activeElement.innerText = 'Add your BMDC no.';
+                break;
+            case patientName: activeElement.innerText = 'Add patient name';
+                break;
+            case age: activeElement.innerText = 'Add patient age';
+                break;
+            case hospitalName: activeElement.innerText = 'Add your chamber name';
+                break;
+            case address: activeElement.innerText = 'Add your chamber address';
+                break;
+            case schedule: activeElement.innerText = 'Add schedule';
+                break;
+            case contact: activeElement.innerText = 'Add contact';
+                break;
+        }
+    } else {
+        activeElement.innerText = val;
+        createUpdateData(activeElement, val);
+
+    }
+    dialog.close();
+};
+
+confirmBtn.addEventListener('click', updateCancelPopUp);
+
+cancelBtn.addEventListener('click', () => {
+
+    dialog.close();
+});
+
+function createUpdateData(field, value) {
+
+    let data;
+
+    if (field === doctorName)
+        data = { doctorName: value }
+    if (field === qualification)
+        data = { qualification: value }
+    if (field === affiliation)
+        data = { affiliation: value }
+    if (field === BMDC)
+        data = { BMDC: value }
+    if (field === specialist)
+        data = { specialist: value }
+    if (field === hospitalName)
+        data = { hospitalName: value }
+    if (field === address)
+        data = { address: value }
+    if (field === schedule)
+        data = { schedule: value }
+    if (field === contact)
+        data = { contact: value }
+
     if (userDataExists) {
-        const data = { hospital: "Square Specialized Hospital", name: "Zubayer Ahmed" }
-        updateDoc(docRef, data)
+
+        updateDoc(documentReference, data)
             .then(() => {
                 getUserDocument(userID);
+                console.log("Success data update!");
             })
             .catch((error) => {
                 console.error("Error adding document: ", error);
             });
 
     } else {
-        const data = { hospital: "LabAid Specialized Hospital", name: "Razoana Hossain" }
-        setDoc(docRef, data)
+
+        setDoc(documentReference, data)
             .then(() => {
                 getUserDocument(userID);
+                console.log("Success data update!");
             })
             .catch((error) => {
                 console.error("Error adding document: ", error);
             });
     }
-}); 
+}

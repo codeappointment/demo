@@ -73,7 +73,7 @@ const adviceInput = document.getElementById('adviceInput');
 const adviceSiggestionList = document.getElementById('adviceSiggestionList');
 const addAdvice = document.getElementById('addAdvice')
 // Track which element is currently being edited
-let activeElement = null;
+
 
 
 document.addEventListener('keydown', confirm);
@@ -81,20 +81,6 @@ document.addEventListener('keydown', cancel);
 
 const currentDate = new Date();
 date.innerText = currentDate.toLocaleDateString('en-GB');
-
-// Attach open listeners
-specialist.addEventListener('click', () => openModal(specialist, 'Specialist Name'));
-doctorName.addEventListener('click', () => openModal(doctorName, 'Doctor Name'));
-qualification.addEventListener('click', () => openModal(qualification, 'MBBS/BCS/MD/FCPS...'));
-affiliation.addEventListener('click', () => openModal(affiliation, 'Currrent Institution and designation'));
-BMDC.addEventListener('click', () => openModal(BMDC, 'BMDC no.'));
-patientName.addEventListener('click', () => openModal(patientName, 'Enter Patient name'));
-age.addEventListener('click', () => openModal(age, 'Patient age'));
-
-hospitalName.addEventListener('click', () => openModal(hospitalName, 'Chamber Name'));
-address.addEventListener('click', () => openModal(address, 'Chamber address'));
-schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
-contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
 
 
 addcc.addEventListener('click', () => {
@@ -319,20 +305,12 @@ addAdvice.addEventListener('click', function (e) {
 });
 
 // One single, permanent confirm listener
-confirmBtn.addEventListener('click', updateCancelPopUp);
 
-cancelBtn.addEventListener('click', () => {
-
-    dialog.close();
-});
 
 
 function confirm(event) {
     if (event.key === 'Enter') {
-        if (dialog.open) {
-            updateCancelPopUp();
-        }
-
+       
         if (ccinput.value.trim() !== '') {
             const newCCItem = ccinput.value;
             addtoListItems(newCCItem, cclist, ccinput);
@@ -366,50 +344,6 @@ function cancel(event) {
         dialog.close();
     }
 }
-
-
-// Helper function to open modal
-function openModal(element, labelText) {
-    activeElement = element;
-    label.innerText = 'Enter ' + labelText;
-    inputField.value = activeElement.innerText; // Clear previous input
-    dialog.showModal();
-}
-
-function updateCancelPopUp() {
-    const val = inputField.value;
-
-    if (val === '') {
-        switch (activeElement) {
-
-            case doctorName: activeElement.innerText = 'Add your name';
-                break;
-            case qualification: activeElement.innerText = 'Add your basic and postgrad degree';
-                break;
-            case specialist: activeElement.innerText = 'Add your speciality';
-                break;
-            case affiliation: activeElement.innerText = 'Add your current work and designation';
-                break;
-            case BMDC: activeElement.innerText = 'Add your BMDC no.';
-                break;
-            case patientName: activeElement.innerText = 'Add patient name';
-                break;
-            case age: activeElement.innerText = 'Add patient age';
-                break;
-            case hospitalName: activeElement.innerText = 'Add your chamber name';
-                break;
-            case address: activeElement.innerText = 'Add your chamber address';
-                break;
-            case schedule: activeElement.innerText = 'Add schedule';
-                break;
-            case contact: activeElement.innerText = 'Add contact';
-                break;
-            case addcc: activeElement.innerText = 'Add cc';
-                break;
-        }
-    } else activeElement.innerText = val;
-    dialog.close();
-};
 
 function addtoListItems(eliment, targetList, targetInput) {
     const items = document.createElement('li');
