@@ -375,29 +375,29 @@ function updateCancelPopUp() {
     if (val === '') {
         switch (activeElement) {
 
-            case doctorName: activeElement.innerText = 'add your name';
+            case doctorName: activeElement.innerText = 'Add your name';
                 break;
-            case qualification: activeElement.innerText = 'add your basic and postgrad degree';
+            case qualification: activeElement.innerText = 'Add your basic and postgrad degree';
                 break;
-            case specialist: activeElement.innerText = 'add your speciality';
+            case specialist: activeElement.innerText = 'Add your speciality';
                 break;
-            case affiliation: activeElement.innerText = 'add your current work and designation';
+            case affiliation: activeElement.innerText = 'Add your current work and designation';
                 break;
-            case BMDC: activeElement.innerText = 'add your BMDC no.';
+            case BMDC: activeElement.innerText = 'Add your BMDC no.';
                 break;
-            case patientName: activeElement.innerText = 'add patient name';
+            case patientName: activeElement.innerText = 'Add patient name';
                 break;
-            case age: activeElement.innerText = 'add patient age';
+            case age: activeElement.innerText = 'Add patient age';
                 break;
-            case hospitalName: activeElement.innerText = 'add your chamber name';
+            case hospitalName: activeElement.innerText = 'Add your chamber name';
                 break;
-            case address: activeElement.innerText = 'add your chamber address';
+            case address: activeElement.innerText = 'Add your chamber address';
                 break;
-            case schedule: activeElement.innerText = 'add schedule';
+            case schedule: activeElement.innerText = 'Add schedule';
                 break;
-            case contact: activeElement.innerText = 'add contact';
+            case contact: activeElement.innerText = 'Add contact';
                 break;
-            case addcc: activeElement.innerText = 'add cc';
+            case addcc: activeElement.innerText = 'Add cc';
                 break;
         }
     } else activeElement.innerText = val;
@@ -463,21 +463,8 @@ const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
 );
 const downloadBtn = document.getElementById('download');
 const element = document.getElementById('page');
-if (isMobile) {
-    mobileDownload();
-    downloadBtn.innerText = 'Download'
-    mobileDesktopView();
-} else {
-    desktopPrint();
-    downloadBtn.innerText = 'Print'
-}
 
-function desktopPrint() {
-    download.addEventListener('click', () => {
-        window.print();
-    })
-}
-
+mobileDownload();
 function mobileDownload() {
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -515,7 +502,10 @@ function mobileDownload() {
 
                     // 5. Add image to PDF and trigger save
                     pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    pdf.save('prescription.pdf');
+                    const patientName = document.getElementById('patientName');
+                    const age = document.getElementById('age');
+                    const pdfName = patientName.innerText + ' ' + age.innerText;
+                    pdf.save(pdfName + '.pdf');
 
                     // 6. Restore button state
                     downloadBtn.innerText = "Download Prescription PDF";

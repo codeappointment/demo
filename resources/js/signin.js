@@ -19,7 +19,6 @@ export function signInWithGoogle() {
             console.log(auth.currentUser.displayName)
 
 
-
             fetch('/login', {
                 method: 'POST',
                 headers: {

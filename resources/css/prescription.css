@@ -111,13 +111,9 @@
         height: 2rem;
     }
 
-    li {
+    .bullet-list li {
         display: flex;
         flex-direction: row;
-    }
-    
-    li input {
-        height: 1px;
     }
 
     .add-cc {
@@ -198,6 +194,7 @@
         /* Bigger touch targets */
         font-size: 1rem;
     }
+    
     .adviceInput {
         margin-bottom: 10px;
     }
@@ -218,6 +215,7 @@
         bottom: 20px;
         right: 20px;
         left: auto;
+        top: auto;
         z-index: 1000;
         background: #008590;
         color: white;
@@ -227,6 +225,7 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         font-weight: bold;
     }
+
 }
 
 body {
@@ -237,20 +236,6 @@ body {
     color: #1b1b18;
 }
 
-.refresh {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    left: auto;
-    z-index: 1000;
-    background: #008590;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    font-weight: bold;
-}
 
 .download {
     position: fixed;
@@ -292,18 +277,18 @@ body {
 
 
 @font-face {
-    font-family: 'Kalpurush';
-    font-family: 'Kalpurush', 'Times New Roman', Times, serif;
-    src: url('C:/Users/Zubayer/Herd/demo/storage/fonts/Kalpurush.ttf') format('truetype');
+   font-family: 'Kalpurush';
+   font-family: 'Kalpurush', 'Times New Roman', Times, serif;
+   src: url('C:/Users/Zubayer/Herd/demo/public/build/assets/Kalpurush.ttf') format('truetype');
 }
 
 /* production */
 
-/* @font-face {
+ /* @font-face {
     font-family: 'Kalpurush';
     font-family: 'Kalpurush', 'Times New Roman', Times, serif;
     src: url(/build/assets/Kalpurush.ttf)format("truetype");
-} */
+}  */
 
 .header-left .doctor-name {
     /* cursor: pointer; */
