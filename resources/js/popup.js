@@ -1,5 +1,12 @@
-// header left section
+import './drugDatabase';
+import './investigationDatabase';
+import './complaints';
+import './dosesDatabase';
+import './adviceDatabase';
+import './firebaseAuth';
+import './firebaseUsers';
 
+// header left section
 const doctorName = document.getElementById('doctorName');
 const qualification = document.getElementById('qualification');
 const affiliation = document.getElementById('affiliation');
@@ -237,11 +244,11 @@ drugNameInput.addEventListener('input', function () {
     const alert = document.getElementById('alert');
     if (this.value.trim() !== '')
         alert.style.display = "none";
-    if (input.value.trim() !== '') {
-        list.style.display = 'block';
-    } else {
-        list.style.display = 'none';
-    }
+    // if (input.value.trim() !== '') {
+    //     list.style.display = 'block';
+    // } else {
+    //     list.style.display = 'none';
+    // }
 });
 
 drugSuggestionList.addEventListener('click', function (e) {
@@ -665,29 +672,5 @@ document.addEventListener('click', function (event) {
     if (!isDoseSearched) {
         // Clicked outside! Hide the list
         dosesList.style.display = 'none';
-    }
-});
-
-
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
-import { app } from './firebaseAuth.js';
-import { signInWithGoogle } from './signin.js';
-
-const auth = getAuth(app);
-
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        doctorName.innerText = user.displayName;
-
-
-        // ...
-    } else {
-        // User is signed out
-        signInWithGoogle();
     }
 });

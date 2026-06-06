@@ -21,13 +21,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js']); ?>
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/drugDatabase.js']); ?>
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/investigationDatabase.js']); ?>
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/complaints.js']); ?>
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/dosesDatabase.js']); ?>
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/adviceDatabase.js']); ?>
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/firebaseAuth.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/prescription.css', 'resources/css/popup.css', 'resources/js/popup.js']); ?>
+
 
     <link rel="stylesheet" href="<?php echo e(public_path('/prescription.css')); ?>">
 </head>

@@ -21,13 +21,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    @vite(['resources/css/prescription.css', 'resources/js/app.js', 'resources/css/popup.css', 'resources/js/popup.js'])
-    @vite(['resources/js/drugDatabase.js'])
-    @vite(['resources/js/investigationDatabase.js'])
-    @vite(['resources/js/complaints.js'])
-    @vite(['resources/js/dosesDatabase.js'])
-    @vite(['resources/js/adviceDatabase.js'])
-    @vite(['resources/js/firebaseAuth.js'])
+    @vite(['resources/css/prescription.css', 'resources/css/popup.css', 'resources/js/popup.js'])
+
 
     <link rel="stylesheet" href="{{ public_path('/prescription.css') }}">
 </head>
