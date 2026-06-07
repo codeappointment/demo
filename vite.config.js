@@ -6,9 +6,19 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
                 'resources/css/prescription.css',
                 'resources/css/popup.css',
-                'resources/js/app.js',
+                'resources/js/prescription.js',
+                'resources/js/complaints.js',
+                'resources/js/drugDatabase.js',
+                'resources/js/investigationDatabase.js',
+                'resources/js/dosesDatabase.js',
+                'resources/js/adviceDatabase.js',
+                'resources/js/firebaseAuth.js',
+                'resources/js/firebaseUsers.js',
+                'resources/js/signin.js',
             ],
             refresh: true,
         }),

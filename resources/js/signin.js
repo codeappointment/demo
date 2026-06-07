@@ -2,7 +2,6 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
-const button = document.getElementById('login-btn');
 
 // Function to handle Google Sign-In
 export function signInWithGoogle() {
@@ -48,12 +47,5 @@ export function signInWithGoogle() {
             // ...
         });
 }
-// export const signin = signInWithGoogle();
-// Add an event listener to your Google Sign-In button
-if (button)
-    button.addEventListener('click', () => {
-        const loginButton = document.getElementById('login-btn');
-        signInWithGoogle();
-    });
 
 

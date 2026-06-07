@@ -1,29 +1,13 @@
 <IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews
-    </IfModule>
-
     RewriteEngine On
+    RewriteBase /
 
-    RewriteCond %{REQUEST_FILENAME} -d [OR]
+    # If the file exists anywhere in public_html, serve it immediately
     RewriteCond %{REQUEST_FILENAME} -f
-    RewriteRule ^ ^$1 [N]
+    RewriteRule ^ - [L]
 
-    RewriteCond %{REQUEST_URI} (\.\w+$) [NC]
-    RewriteRule ^(.*)$ public/$1
-
-    RewriteCond %{REQUEST_FILENAME} !-d
+    # Send everything else to Laravel
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
 </IfModule>
-
-<!-- <IfModule mod_rewrite.c>
-    RewriteEngine On
-    # If the file or directory exists in root, serve it directly
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^.*$ - [NC,L]
-
-    # Otherwise, redirect everything else to the public folder
-    RewriteRule ^(.*)$ public/$1 [L]
-</IfModule> -->

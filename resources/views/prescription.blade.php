@@ -21,8 +21,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    @vite(['resources/css/prescription.css', 'resources/css/popup.css', 'resources/js/prescription.js'])
-    <link rel="stylesheet" href="{{ public_path('/prescription.css') }}">
+    @vite(['resources/css/prescription.css', 'resources/css/popup.css'])
+
+    @vite(['resources/js/prescription.js',
+    'resources/js/app.js',
+    'resources/js/adviceDatabase.js',
+    'resources/js/complaints.js',
+    'resources/js/dosesDatabase.js',
+    'resources/js/drugDatabase.js', 
+    'resources/js/firebaseAuth.js',
+    'resources/js/firebaseUsers.js',
+    'resources/js/investigationDatabase.js',
+    'resources/js/signin.js'])
 </head>
 
 <body>
@@ -59,7 +69,8 @@
             <div class="field"><strong>Name:</strong> <span id="patientName" class="patient-name">Click to add patient
                     name</span></div>
             <div class="field"><strong>Age:</strong> <span id="age" class="age">Click to add age</span></div>
-               <div class="field"><strong>Gender:</strong> <span id="gender" class="age">Click to add gender</span></div>
+            <div class="field"><strong>Gender:</strong> <span id="gender" class="age">Click to add gender</span>
+            </div>
             <div class="field"><strong>Date:</strong> <span id="date" class="date">04/10/2025</span></div>
         </div>
 
