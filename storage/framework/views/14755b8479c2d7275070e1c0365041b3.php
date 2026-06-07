@@ -21,37 +21,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/prescription.css', 'resources/css/popup.css', 'resources/js/popup.js']); ?>
-
-
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/prescription.css', 'resources/css/popup.css', 'resources/js/prescription.js']); ?>
     <link rel="stylesheet" href="<?php echo e(public_path('/prescription.css')); ?>">
 </head>
 
 <body>
 
     <?php echo $__env->make('popupLayout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('signinAlert', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <div class="page", id = "page">
 
         <div class="header">
 
             <div class="header-left">
-                <p class="doctor-name" id="doctorName">অধ্যাপক ডাঃ আসিফ মোহাম্মদ সজীব ভুঁইয়া</p>
-                <p class="doctor-qual" id="qualification">এমবিবিএস (ঢাকা), বিসিএস (স্বাস্থ্য)...</p>
-                <p class="doctor-affiliation" id="affiliation">অধ্যাপক ও দক্ষিণ সিটি কর্পোরেশন মেয়র, ঢাকা দক্ষিণ,
-                    বাংলাদেশ</p>
-                <div class="bmdc"><strong>BMDC No:</strong> <span id="BMDC" class="title">A-10235</span></div>
+                <p class="doctor-name" id="doctorName">loading...</p>
+                <p class="doctor-qual" id="qualification"></p>
+                <p class="doctor-affiliation" id="affiliation"></p>
+                <div class="bmdc"><strong>BMDC No:</strong> <span id="BMDC" class="title"></span></div>
             </div>
 
             <div class="header-center">
-                <p class="specialist" id="specialist">Obstetritian & Gynaecologist, Infertility Specialist</p>
+                <p class="specialist" id="specialist"></p>
             </div>
 
             <div class="header-right">
-                <p class="hospital-name" id="hospitalName">LABAID Specialized Hospital & Diagnostic Center</p>
-                <p class="address" id="address">Dhanmondi, House- -1 and, 6, Road No. 4 </p>
-                <p class="schedule" id="schedule">শনি, সোম, বুধ, বিকাল ৩ টা থেকে রাত ৯টা</p>
-                <div class="contact-no"><strong>Contact:</strong> <span id="contact" class="contact">
-                        09666-710606</span></div>
+                <p class="hospital-name" id="hospitalName"></p>
+                <p class="address" id="address"></p>
+                <p class="schedule" id="schedule"></p>
+                <div class="contact-no"><strong>Contact:</strong> <span id="contact" class="contact"></span></div>
             </div>
 
         </div>
@@ -59,9 +56,10 @@
         <div class="divider"></div>
 
         <div class="patient-row">
-            <div class="field"><strong>Name:</strong> <span id="patientName" class="patient-name">Begum Futfute
-                    Akhter</span></div>
-            <div class="field"><strong>Age:</strong> <span id="age" class="age">67</span></div>
+            <div class="field"><strong>Name:</strong> <span id="patientName" class="patient-name">Click to add patient
+                    name</span></div>
+            <div class="field"><strong>Age:</strong> <span id="age" class="age">Click to add age</span></div>
+               <div class="field"><strong>Gender:</strong> <span id="gender" class="age">Click to add gender</span></div>
             <div class="field"><strong>Date:</strong> <span id="date" class="date">04/10/2025</span></div>
         </div>
 
@@ -126,6 +124,8 @@
 
                     </ul>
                 </div>
+                <strong class="diagnosis">Diagnosis:</strong>
+                <input class="advinput", placeholder="Diagnosis or D/D"></input>
             </div>
 
             <div class="column">

@@ -22,6 +22,7 @@ const affiliation = document.getElementById('affiliation');
 const BMDC = document.getElementById('BMDC');
 const patientName = document.getElementById('patientName');
 const age = document.getElementById('age');
+const gender = document.getElementById('gender');
 const date = document.getElementById('date');
 
 // header center section 
@@ -40,6 +41,9 @@ const confirmBtn = document.getElementById('confirmBtn');
 const label = document.getElementById('label');
 const inputField = document.getElementById('popupInput');
 const cancelBtn = document.getElementById('cancelButn');
+const alertModal = document.getElementById('signinAlert')
+const cancel = document.getElementById('cancel')
+const signin = document.getElementById('signin')
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -55,7 +59,7 @@ onAuthStateChanged(auth, (user) => {
         // ...
     } else {
         // User is signed out
-        signInWithGoogle();
+        basicText();
     }
 });
 
@@ -78,49 +82,61 @@ async function getUserDocument(userID) {
             const doctor_name = userData.doctorName;
             if (doctor_name)
                 doctorName.innerText = doctor_name;
+            else doctorName.innerText = 'Click to add doctor name';
 
             const doctor_qualification = userData.qualification;
             if (doctor_qualification)
                 qualification.innerText = doctor_qualification;
+            else qualification.innerText = 'Click to add degrees';
+
 
             const doctor_affiliation = userData.affiliation;
             if (doctor_affiliation)
                 affiliation.innerText = doctor_affiliation;
+            else affiliation.innerText = 'Click to add current job and designation';
 
             const doctor_bmdc = userData.BMDC;
             if (doctor_bmdc)
                 BMDC.innerText = doctor_bmdc;
+            else BMDC.innerText = 'Click to add BMDC no.';
 
             const doctor_speciality = userData.specialist;
             if (doctor_speciality)
                 specialist.innerText = doctor_speciality;
+            else specialist.innerText = 'Click to add your speciality';
 
             const hospital_name = userData.hospitalName;
             if (hospital_name)
                 hospitalName.innerText = hospital_name;
+            else hospitalName.innerText = 'Click to add hospital/chamber name';
 
             const hospital_address = userData.address;
             if (hospital_address)
                 address.innerText = hospital_address;
+            else address.innerText = 'Click to add chamber address';
 
             const chamber_schedule = userData.schedule;
             if (chamber_schedule)
                 schedule.innerText = chamber_schedule;
+            else schedule.innerText = 'Click to add chamber schedule';
 
             const contact_no = userData.contact;
             if (contact_no)
                 contact.innerText = contact_no;
+            else contact.innerText = 'Click to add contact no.';
 
             // console.log("First Name:", userData.name);
         } else {
             userDataExists = false;
-            // docSnap.data() will be undefined here
             console.log("No such document found!");
+            basicText();
+
         }
     } catch (error) {
         console.error("Error fetching document:", error);
     }
 }
+
 confirmBtn.addEventListener('click', () => {
     createUpdateData
 });
@@ -133,21 +149,46 @@ affiliation.addEventListener('click', () => openModal(affiliation, 'Currrent Ins
 BMDC.addEventListener('click', () => openModal(BMDC, 'BMDC no.'));
 patientName.addEventListener('click', () => openModal(patientName, 'Enter Patient name'));
 age.addEventListener('click', () => openModal(age, 'Patient age'));
+gender.addEventListener('click', () => openModal(gender, 'Male/Female'));
 
 hospitalName.addEventListener('click', () => openModal(hospitalName, 'Chamber Name'));
 address.addEventListener('click', () => openModal(address, 'Chamber address'));
 schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
 contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
 
+function basicText() {
+    doctorName.innerText = 'Click to add doctor name';
 
+    qualification.innerText = 'Click to add degrees';
+    affiliation.innerText = 'Click to add Current job and designation';
+    BMDC.innerText = 'Click to add BMDC number';
+    specialist.innerText = 'Click to add your Speciality';
+    hospitalName.innerText = 'Click to add chamber/hospital name';
+    address.innerText = 'Click to add chamber address';
+    schedule.innerText = 'Click to add chamber schedule';
+    contact.innerText = 'Click to add contact no,';
+}
 
 // Helper function to open modal
 function openModal(element, labelText) {
     activeElement = element;
     label.innerText = 'Enter ' + labelText;
     inputField.value = activeElement.innerText; // Clear previous input
-    dialog.showModal();
+    if (!auth.currentUser) {
+        alertModal.showModal();
+    } else
+        dialog.showModal();
 }
+
+signin.addEventListener('click', () => {
+    signInWithGoogle();
+    alertModal.close();
+});
+
+cancel.addEventListener('click', () => {
+
+    alertModal.close();
+});
 
 function updateCancelPopUp() {
     const val = inputField.value;
@@ -180,7 +221,9 @@ function updateCancelPopUp() {
         }
     } else {
         activeElement.innerText = val;
-        createUpdateData(activeElement, val);
+        if (auth.currentUser) {
+            createUpdateData(activeElement, val);
+        }
 
     }
     dialog.close();
@@ -218,14 +261,15 @@ function createUpdateData(field, value) {
 
     if (userDataExists) {
 
-        updateDoc(documentReference, data)
-            .then(() => {
-                getUserDocument(userID);
-                console.log("Success data update!");
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
+        if (field !== age && field !== gender && field !== patientName)
+            updateDoc(documentReference, data)
+                .then(() => {
+                    getUserDocument(userID);
+                    console.log("Success data update!");
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
 
     } else {
 

@@ -1,4 +1,12 @@
 /* popup.css */
+
+@media (max-width: 480px) {
+    .signinAlert {
+        min-width: 60%;
+        padding: 10px;
+    }
+}
+
 .my-Popup {
     border: none;
     border-radius: 10px;
@@ -8,7 +16,7 @@
 
 }
 
-.popup-content{
+.popup-content {
     text-align: center;
     align-items: center;
 
@@ -23,19 +31,44 @@
     padding: .9em;
 }
 
-.button-holder{
+.button-holder {
     max-width: 100%;
+    margin-top: 10px;
     width: 50em;
-    text-align: end;
+    text-align: center;
 }
-.confirm-button {
-    width: 20%;
 
+.confirm-button {
+    background: #008590;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
+
+.confirm-button:hover {
+    background-color: #019dac;
+    color: #f8dada;
+    cursor: pointer;
 }
 
 .cancel-button {
-    width: 20%;
+    background: #555555;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-right: 10px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
 
+.cancel-button:hover {
+    background-color: #646464;
+    color: white;
+    cursor: pointer;
 }
 
 dialog::backdrop {
@@ -46,4 +79,19 @@ dialog::backdrop {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+/* signin alert */
+
+.signinAlert {
+    border: none;
+    border-radius: 10px;
+    background: #ebebeb;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 20%;
+    border: solid black 1px;
+    border-radius: 8px;
+    text-align: center;
+    align-items: center;
 }

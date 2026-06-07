@@ -114,6 +114,8 @@
     .bullet-list li {
         display: flex;
         flex-direction: row;
+        min-height: 100%;
+        margin-right: 0;
     }
 
     .add-cc {
@@ -500,8 +502,7 @@ body {
 
 .add-cc {
     font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 12px;
+    font-weight: 700; 
     letter-spacing: 0.02em;
     margin-left: 5px;
     cursor: pointer;
@@ -590,6 +591,10 @@ body {
 
 .kalpurush {
     font-family: kalpurush, 'Times New Roman', Times, serif;
+}
+
+.diagnosis{
+    margin-top: 15px;
 }
 
 .rx-list li {

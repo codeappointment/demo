@@ -7,23 +7,10 @@ import './firebaseAuth';
 import './firebaseUsers';
 
 // header left section
-const doctorName = document.getElementById('doctorName');
-const qualification = document.getElementById('qualification');
-const affiliation = document.getElementById('affiliation');
-const BMDC = document.getElementById('BMDC');
 const patientName = document.getElementById('patientName');
 const age = document.getElementById('age');
 const date = document.getElementById('date');
 
-// header center section 
-
-const specialist = document.getElementById('specialist');
-
-// header right section
-const hospitalName = document.getElementById('hospitalName');
-const address = document.getElementById('address');
-const schedule = document.getElementById('schedule');
-const contact = document.getElementById('contact');
 
 // popup layout
 const dialog = document.getElementById('myPopup');
