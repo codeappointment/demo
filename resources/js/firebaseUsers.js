@@ -236,6 +236,7 @@ cancelBtn.addEventListener('click', () => {
     dialog.close();
 });
 
+
 function createUpdateData(field, value) {
 
     let data;
@@ -282,4 +283,81 @@ function createUpdateData(field, value) {
                 console.error("Error adding document: ", error);
             });
     }
+}
+
+const downloadBtn = document.getElementById('download');
+downloadBtn.addEventListener('click', () => {
+    sendPrescriptionData();
+})
+function sendPrescriptionData() {
+
+    const prescriptionReference = doc(db, "users", userID, 'prescription', `${Date.now()}`);
+
+    const ccItems = document.querySelectorAll('#ccList li');
+
+    // 2. Map through them, grabbing only the text before the span
+    const ccitemTexts = Array.from(ccItems).map(li => {
+        // childNodes[0] gets the initial text node, .trim() cleans up whitespace
+        return li.childNodes[0].textContent.trim();
+    });
+
+    const oeItems = document.querySelectorAll('#oeList li');
+    const oeitemTexts = Array.from(oeItems).map(li => {
+        const label = li.childNodes[0].textContent.trim();
+        const input = li.querySelector('.oeinput');
+
+        // If there is an input box, grab its value; otherwise just get the label
+        const value = input ? input.value.trim() : '';
+
+        return `${label} ${value}`.trim();
+    });
+
+    const invitems = document.querySelectorAll('#advList li');
+
+    const invitemTexts = Array.from(invitems)
+        .filter(li => {
+            // 1. Find the checkbox inside this specific <li>
+            const checkbox = li.querySelector('input[type="checkbox"]');
+
+            // 2. Only keep this <li> if the checkbox exists AND is NOT checked
+            return checkbox && checkbox.checked;
+        })
+        .map(li => {
+            // 3. Clone the node so we can safely remove the input element 
+            // without messing up the actual webpage UI
+            const clonedLi = li.cloneNode(true);
+            const input = clonedLi.querySelector('input');
+            if (input) input.remove(); // Remove the input HTML completely
+
+            // 4. Return just the remaining text ("CBC")
+            return clonedLi.textContent.trim();
+        });
+
+
+    const diagnosis = document.getElementById('diagnosis');
+
+    const rxItems = document.querySelectorAll('#rxList li');
+    const rxitemTexts = Array.from(rxItems).map(li => {
+        return li.textContent.trim();
+    });
+
+    const advItems = document.querySelectorAll('#adviceList li');
+    const advItemTexts = Array.from(advItems).map(li => {
+        return li.childNodes[0].textContent.trim();
+    });
+    const prescriptionData = {
+        nam: patientName.innerText,
+        ages: age.innerText,
+        dat: date.innerText,
+        cc: ccitemTexts,
+        oe: oeitemTexts,
+        inv: invitemTexts,
+        diag: diagnosis.value,
+        rx: rxitemTexts,
+        adv: advItemTexts,
+    }
+
+    setDoc(prescriptionReference, prescriptionData).then(() => {
+        console.log('Prescription submitted!')
+    })
 }

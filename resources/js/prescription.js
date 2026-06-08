@@ -303,7 +303,7 @@ addAdvice.addEventListener('click', function (e) {
 
 function confirm(event) {
     if (event.key === 'Enter') {
-       
+
         if (ccinput.value.trim() !== '') {
             const newCCItem = ccinput.value;
             addtoListItems(newCCItem, cclist, ccinput);
@@ -520,7 +520,6 @@ function togglePrint() {
                 input.style.display = 'none'
             }
         }
-
     });
 }
 

@@ -23,16 +23,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     @vite(['resources/css/prescription.css', 'resources/css/popup.css'])
 
-    @vite(['resources/js/prescription.js',
-    'resources/js/app.js',
-    'resources/js/adviceDatabase.js',
-    'resources/js/complaints.js',
-    'resources/js/dosesDatabase.js',
-    'resources/js/drugDatabase.js', 
-    'resources/js/firebaseAuth.js',
-    'resources/js/firebaseUsers.js',
-    'resources/js/investigationDatabase.js',
-    'resources/js/signin.js'])
+    @vite(['resources/js/prescription.js', 'resources/js/app.js', 'resources/js/adviceDatabase.js', 'resources/js/complaints.js', 'resources/js/dosesDatabase.js', 'resources/js/drugDatabase.js', 'resources/js/firebaseAuth.js', 'resources/js/firebaseUsers.js', 'resources/js/investigationDatabase.js', 'resources/js/signin.js'])
 </head>
 
 <body>
@@ -71,7 +62,9 @@
             <div class="field"><strong>Age:</strong> <span id="age" class="age">Click to add age</span></div>
             <div class="field"><strong>Gender:</strong> <span id="gender" class="age">Click to add gender</span>
             </div>
-            <div class="field"><strong>Date:</strong> <span id="date" class="date">04/10/2025</span></div>
+            <div class="field"><strong>Date:</strong>
+                <div id="date" class="date">04/10/2025</div>
+            </div>
         </div>
 
         <div class="content">
@@ -136,7 +129,7 @@
                     </ul>
                 </div>
                 <strong class="diagnosis">Diagnosis:</strong>
-                <input class="advinput", placeholder="Diagnosis or D/D"></input>
+                <input class="advinput" id="diagnosis" placeholder="Diagnosis or D/D"></input>
             </div>
 
             <div class="column">
@@ -204,7 +197,7 @@
                         <input class = "adviceInput" id = "adviceInput" placeholder="নিয়মিত ওষুধ খাবেন..."></input>
 
                         <div class="adviceSiggestionList" id="adviceSiggestionList">
-                            {{-- generative advice suggestion --}}
+                            {{-- generative advice suggestion from database --}}
                         </div>
                         <button class="addDrug" id="addAdvice">Add</button>
                     </div>
