@@ -10,20 +10,20 @@
     <title>Prescription</title>
     <link rel="stylesheet" href="views/prescription.css">
     <script>
-        window.investigations = @json($investigations);
-        window.brands = @json($brands);
-        window.complaints = @json($complaints);
-        window.doses = @json($doses);
-        window.advices = @json($advices);
+        window.investigations = <?php echo json_encode($investigations, 15, 512) ?>;
+        window.brands = <?php echo json_encode($brands, 15, 512) ?>;
+        window.complaints = <?php echo json_encode($complaints, 15, 512) ?>;
+        window.doses = <?php echo json_encode($doses, 15, 512) ?>;
+        window.advices = <?php echo json_encode($advices, 15, 512) ?>;
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    @vite(['resources/css/prescription.css', 'resources/css/popup.css'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/prescription.css', 'resources/css/popup.css']); ?>
 
-    @vite(['resources/js/prescription.js', 'resources/js/app.js', 'resources/js/adviceDatabase.js', 'resources/js/complaints.js', 'resources/js/dosesDatabase.js', 'resources/js/drugDatabase.js', 'resources/js/firebaseAuth.js', 'resources/js/firebaseUsers.js', 'resources/js/investigationDatabase.js', 'resources/js/signin.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/prescription.js', 'resources/js/app.js', 'resources/js/adviceDatabase.js', 'resources/js/complaints.js', 'resources/js/dosesDatabase.js', 'resources/js/drugDatabase.js', 'resources/js/firebaseAuth.js', 'resources/js/firebaseUsers.js', 'resources/js/investigationDatabase.js', 'resources/js/signin.js']); ?>
 </head>
 
 <body>
@@ -43,8 +43,8 @@
 
     </div>
 
-    @include('popupLayout')
-    @include('signinAlert')
+    <?php echo $__env->make('popupLayout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('signinAlert', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <div class="page", id = "page">
 
         <div class="header" id="header">
@@ -89,7 +89,7 @@
                     <div class="cc-input"><input id="ccinput" class="ccinput"
                             placeholder="Add complaints"></input><span id="addcc" , class="add-cc">+</span></div>
                     <div class="ccsuggestionList" id="ccsuggestionList">
-                        {{-- generative suggestion-list --}}
+                        
                     </div>
                     <ul class="bullet-list" , id='ccList'>
                         <li>Fever for three days<span>&#xd7;</span></li>
@@ -123,7 +123,7 @@
                             placeholder="Add new investigations"></input><span id="addadv" class="add-cc">+</span>
                     </div>
                     <div class="invsuggestionList" id="invsuggestionList">
-                        {{-- generative suggestion-list --}}
+                        
                     </div>
                     <ul class="bullet-list" id="advList">
 
@@ -150,29 +150,29 @@
             <div class="column">
                 <div class="sec-heading">Rx</div>
                 <ul class="rx-list" id="rxList">
-                    {{-- generative treatment list --}}
+                    
                 </ul>
 
-                {{-- drug input layout --}}
+                
                 <div class="durgInputLayout" , id="durgInputLayout">
                     <div>
                         <div class = "nameSection", style="display: block, width: 100%">
                             <input class="drugName" , id="drugName" required type="text" style="width: auto"
                                 placeholder="Tab Napa 500mg"></input>
                             <div class="suggestion-list" id="suggestionList">
-                                {{-- generative drug suggestion-list --}}
+                                
                             </div>
                         </div>
                     </div>
                     <div>
-                        {{-- dose --}}
+                        
                         <input type="text" center placeholder="1+0+1" class="dose" , id="dose"
                             required></input>
 
                         <div class="doses-list" id="dosesList">
-                            {{-- generative dose suggestion-list --}}
+                            
                         </div>
-                        {{-- duration generative list 1-30 --}}
+                        
                         <select class="duration" , id="duration" type="text" style="width: 30px"
                             placeholder="5"></select>
 
@@ -206,21 +206,22 @@
 
                     </div>
                     <ul class="bullet-list kalpurush" id="adviceList" style="display: none">
-                        {{-- generative advice list --}}
+                        
                     </ul>
                     <div class="adviceHolder">
                         <input class = "adviceInput" id = "adviceInput" placeholder="নিয়মিত ওষুধ খাবেন..."></input>
 
                         <div class="adviceSiggestionList" id="adviceSiggestionList">
-                            {{-- generative advice suggestion from database --}}
+                            
                         </div>
                         <button class="addDrug" id="addAdvice">Add</button>
                     </div>
                 </div>
-                {{-- end of drug input layout --}}
+                
             </div>
         </div>
     </div>
 </body>
 
 </html>
+<?php /**PATH C:\Users\Zubayer\Herd\demo\resources\views/prescription.blade.php ENDPATH**/ ?>

@@ -34,6 +34,10 @@
         gap: 15px;
     }
 
+    .headerController {
+        visibility: hidden;
+    }
+
     .header-left,
     .header-center,
     .header-right {
@@ -196,7 +200,7 @@
         /* Bigger touch targets */
         font-size: 1rem;
     }
-    
+
     .adviceInput {
         margin-bottom: 10px;
     }
@@ -279,14 +283,14 @@ body {
 
 
 @font-face {
-   font-family: 'Kalpurush';
-   font-family: 'Kalpurush', 'Times New Roman', Times, serif;
-   src: url('C:/Users/Zubayer/Herd/demo/public/build/assets/Kalpurush.ttf') format('truetype');
+    font-family: 'Kalpurush';
+    font-family: 'Kalpurush', 'Times New Roman', Times, serif;
+    src: url('C:/Users/Zubayer/Herd/demo/public/build/assets/Kalpurush.ttf') format('truetype');
 }
 
 /* production */
 
- /* @font-face {
+/* @font-face {
     font-family: 'Kalpurush';
     font-family: 'Kalpurush', 'Times New Roman', Times, serif;
     src: url(/build/assets/Kalpurush.ttf)format("truetype");
@@ -448,6 +452,48 @@ body {
     /* border-radius: 2px; */
 }
 
+.hideHeader {
+    background: #078b19;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: none;
+    color: #ffffff;
+    margin-left: 2px;
+    font-weight: bold;
+    padding: 6px 2px;
+    border-radius: 8px;
+}
+
+.hideHeader:hover {
+    background: #0da722;
+    cursor: pointer;
+}
+
+.headerController {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: fit-content;
+    position: fixed;
+}
+
+.heihtHolder {
+    display: flex;
+    flex-direction: row;
+    background: #008590;
+    padding: 5px;
+    margin-left: 2px;
+}
+
+.headerHeight {
+    padding: 10px;
+    color: #f0f2f5;
+}
+
+.heightController {
+    display: flex;
+    flex-direction: column;
+}
+
 .patient-row {
     display: flex;
     align-items: center;
@@ -502,7 +548,7 @@ body {
 
 .add-cc {
     font-size: 1rem;
-    font-weight: 700; 
+    font-weight: 700;
     letter-spacing: 0.02em;
     margin-left: 5px;
     cursor: pointer;
@@ -593,7 +639,7 @@ body {
     font-family: kalpurush, 'Times New Roman', Times, serif;
 }
 
-.diagnosis{
+.diagnosis {
     margin-top: 15px;
 }
 
