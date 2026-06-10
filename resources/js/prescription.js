@@ -4,13 +4,6 @@ const patientName = document.getElementById('patientName');
 const age = document.getElementById('age');
 const date = document.getElementById('date');
 
-// header controller
-const divider = document.getElementById('divider');
-const hideHeader = document.getElementById('hideHeader');
-const prescriptionheader = document.getElementById('header');
-const headerHeightIncrease = document.getElementById('increase');
-const headerHeightDecrease = document.getElementById('decrease');
-
 // popup layout
 const dialog = document.getElementById('myPopup');
 const confirmBtn = document.getElementById('confirmBtn');
@@ -592,39 +585,4 @@ document.addEventListener('click', function (event) {
         // Clicked outside! Hide the list
         dosesList.style.display = 'none';
     }
-});
-
-let hidden = false;
-let increased = false;
-hideHeader.addEventListener('click', () => {
-    if (!hidden) {
-        prescriptionheader.style.visibility = 'hidden'
-        divider.style.visibility = 'hidden'
-        hidden = true;
-        hideHeader.innerText = 'Unhide header'
-    } else {
-        prescriptionheader.style.visibility = 'visible'
-        divider.style.visibility = 'visible'
-        hidden = false
-        hideHeader.innerText = 'Hide header'
-    }
-});
-
-
-headerHeightIncrease.addEventListener('click', () => {
-
-    // 1. Get the current numeric value
-    let currentHeight = parseFloat(divider.style.marginTop) || 0;
-
-    // 2. Increment and apply back with the unit
-    divider.style.marginTop = `${++currentHeight}mm`;
-});
-
-headerHeightDecrease.addEventListener('click', () => {
-
-    // 1. Get the current numeric value
-    let currentHeight = parseFloat(divider.style.marginTop) || 0;
-
-    // 2. Increment and apply back with the unit
-    divider.style.marginTop = `${--currentHeight}mm`;
 });

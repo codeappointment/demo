@@ -41,9 +41,22 @@ const confirmBtn = document.getElementById('confirmBtn');
 const label = document.getElementById('label');
 const inputField = document.getElementById('popupInput');
 const cancelBtn = document.getElementById('cancelButn');
-const alertModal = document.getElementById('signinAlert')
-const cancel = document.getElementById('cancel')
-const signin = document.getElementById('signin')
+const alertModal = document.getElementById('signinAlert');
+const cancel = document.getElementById('cancel');
+const signin = document.getElementById('signin');
+
+// header controller
+const divider = document.getElementById('divider');
+const hideHeader = document.getElementById('hideHeader');
+const prescriptionheader = document.getElementById('header');
+const headerHeightIncrease = document.getElementById('increase');
+const headerHeightDecrease = document.getElementById('decrease');
+const saveSetting = document.getElementById('saveSetting');
+let loadedHeaderState = prescriptionheader.style.visibility || '';
+let loadedHeaderHeight = divider.style.marginTop || 0;
+let newHeaderState = 'visible';
+let newHeaderHeight = '0';
+let hidden = false;
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -125,6 +138,21 @@ async function getUserDocument(userID) {
                 contact.innerText = contact_no;
             else contact.innerText = 'Click to add contact no.';
 
+            loadedHeaderState = userData.headerstate || 'visible';
+            loadedHeaderHeight = userData.headerHeight || 0;
+
+            if (loadedHeaderState === 'visible') {
+                hidden = true;
+
+            } else {
+                hidden = false;
+            }
+            // hidden boolean value is reversed to mimic click adjust hide button function
+            headerHideUnhide();
+
+            divider.style.visibility = loadedHeaderState;
+            divider.style.marginTop = loadedHeaderHeight;
+
             // console.log("First Name:", userData.name);
         } else {
             userDataExists = false;
@@ -173,7 +201,15 @@ function basicText() {
 function openModal(element, labelText) {
     activeElement = element;
     label.innerText = 'Enter ' + labelText;
-    inputField.value = activeElement.innerText; // Clear previous input
+    if (element.innerText === 'Click to add patient name' ||
+        element.innerText === 'Click to add age' ||
+        element.innerText === 'Click to add gender') {
+        inputField.value = '';
+    } else {
+        inputField.value = activeElement.innerText;
+    }
+
+
     if (!auth.currentUser) {
         alertModal.showModal();
     } else
@@ -361,3 +397,94 @@ function sendPrescriptionData() {
         console.log('Prescription submitted!')
     })
 }
+
+
+let increased = false;
+
+
+hideHeader.addEventListener('click', () => {
+
+    headerHideUnhide();
+
+    newHeaderState = prescriptionheader.style.visibility;
+    headerStateChangeObserver();
+});
+
+
+headerHeightIncrease.addEventListener('click', () => {
+
+    // 1. Get the current numeric value
+    let currentHeight = parseFloat(divider.style.marginTop) || 0;
+
+    // 2. Increment and apply back with the unit
+    divider.style.marginTop = `${++currentHeight}mm`;
+
+    newHeaderHeight = divider.style.marginTop || 0;
+    headerHeightChangeObserver();
+});
+
+headerHeightDecrease.addEventListener('click', () => {
+
+    // 1. Get the current numeric value
+    let currentHeight = parseFloat(divider.style.marginTop) || 0;
+
+    // 2. Increment and apply back with the unit
+    divider.style.marginTop = `${--currentHeight}mm`;
+
+    newHeaderHeight = divider.style.marginTop || 0;
+    headerHeightChangeObserver();
+});
+
+
+
+function headerStateChangeObserver() {
+    const saveSetting = document.getElementById('saveSetting');
+    if (loadedHeaderState !== newHeaderState) {
+        saveSetting.style.visibility = 'visible'
+    } else {
+        saveSetting.style.visibility = 'hidden'
+    }
+    newHeaderState = prescriptionheader.style.visibility;
+    // console.log('hidden state: ' + newHeaderState)
+}
+
+function headerHeightChangeObserver() {
+
+    if (loadedHeaderHeight !== newHeaderHeight) {
+        saveSetting.style.visibility = 'visible'
+    } else {
+        saveSetting.style.visibility = 'hidden'
+    }
+
+    newHeaderHeight = divider.style.marginTop;
+    // console.log('height: ' + newHeaderHeight)
+}
+
+function headerHideUnhide() {
+    if (!hidden) {
+        prescriptionheader.style.visibility = 'hidden'
+        divider.style.visibility = 'hidden'
+        hidden = true;
+        hideHeader.innerText = 'Unhide header'
+    } else {
+        prescriptionheader.style.visibility = 'visible'
+        divider.style.visibility = 'visible'
+        hidden = false
+        hideHeader.innerText = 'Hide header'
+    }
+}
+
+saveSetting.addEventListener('click', () => {
+    saveSetting.style.visibility = 'hidden'
+    const headerData = {
+        headerstate: newHeaderState,
+        headerHeight: newHeaderHeight
+    }
+
+    if (userDataExists)
+        updateDoc(documentReference, headerData).then(() => {
+
+            console.log('setting saved');
+        });
+})
+

@@ -40,7 +40,9 @@
                 <button id="decrease">&#9660;</button>
             </div>
         </div>
-
+        <button class ="saveSetting", id = "saveSetting" style="visibility: hidden">
+            Save settings
+        </button>
     </div>
 
     @include('popupLayout')

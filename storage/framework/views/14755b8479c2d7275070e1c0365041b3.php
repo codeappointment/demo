@@ -40,7 +40,9 @@
                 <button id="decrease">&#9660;</button>
             </div>
         </div>
-
+        <button class ="saveSetting", id = "saveSetting" style="visibility: hidden">
+            Save settings
+        </button>
     </div>
 
     <?php echo $__env->make('popupLayout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
