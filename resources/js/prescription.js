@@ -430,7 +430,7 @@ function mobileDownload() {
                     // 6. Restore button state
                     downloadBtn.innerText = "Download Prescription PDF";
                     downloadBtn.disabled = false;
-                    window.location.reload();
+                    // window.location.reload();
                 }).catch((error) => {
                     console.error("PDF generation failed:", error);
                     downloadBtn.innerText = "Download Failed";

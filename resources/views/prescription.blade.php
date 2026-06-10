@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<button class ="download", id = "download" style="visibility: hidden">
-    Download
-</button>
+
 
 <head>
     <meta charset="UTF-8">
@@ -27,6 +25,12 @@
 </head>
 
 <body>
+    <button class ="download", id = "download"\>
+        Download
+    </button>
+    <button class ="template", id = "template">
+        Save Template
+    </button>
     <div class="headerController", id="headerController">
         <button class ="hideHeader", id = "hideHeader">
             Hide Header

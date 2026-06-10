@@ -45,6 +45,8 @@ const alertModal = document.getElementById('signinAlert');
 const cancel = document.getElementById('cancel');
 const signin = document.getElementById('signin');
 
+// template
+const template = document.getElementById('template');
 // header controller
 const divider = document.getElementById('divider');
 const hideHeader = document.getElementById('hideHeader');
@@ -186,7 +188,7 @@ function getFormattedRxList(rx) {
 
         const dose = document.createElement('div');
         dose.classList.add('kalpurush');
-        dose.innerHTML = rxArray[1];
+        dose.innerHTML = rxArray[1].replace(/।/g, '|');
 
         items.appendChild(drugName)
             .appendChild(span);
@@ -215,6 +217,7 @@ hospitalName.addEventListener('click', () => openModal(hospitalName, 'Chamber Na
 address.addEventListener('click', () => openModal(address, 'Chamber address'));
 schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
 contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
+template.addEventListener('click', () => openModal(template, 'a name of this template'));
 
 function basicText() {
     doctorName.innerText = 'Click to add doctor name';
@@ -235,7 +238,8 @@ function openModal(element, labelText) {
     label.innerText = 'Enter ' + labelText;
     if (element.innerText === 'Click to add patient name' ||
         element.innerText === 'Click to add age' ||
-        element.innerText === 'Click to add gender') {
+        element.innerText === 'Click to add gender' ||
+        element.innerText === 'Save Template') {
         inputField.value = '';
     } else {
         inputField.value = activeElement.innerText;
@@ -288,7 +292,8 @@ function updateCancelPopUp() {
                 break;
         }
     } else {
-        activeElement.innerText = val;
+        if (activeElement !== template) // excluding text update of template button
+            activeElement.innerText = val;
         if (auth.currentUser) {
             createUpdateData(activeElement, val);
         }
@@ -330,7 +335,8 @@ function createUpdateData(field, value) {
 
     if (userDataExists) {
 
-        if (field !== age && field !== gender && field !== patientName)
+        if (field !== age && field !== gender && field !== patientName && field !== template) {
+            // for header content update
             updateDoc(documentReference, data)
                 .then(() => {
                     getUserDocument(userID);
@@ -340,16 +346,22 @@ function createUpdateData(field, value) {
                     console.error("Error adding document: ", error);
                 });
 
-    } else {
+        }
 
-        setDoc(documentReference, data)
-            .then(() => {
-                getUserDocument(userID);
-                console.log("Success data update!");
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
+    } else {
+        // for header content update
+        if (field !== age && field !== gender && field !== patientName && field !== template)
+            setDoc(documentReference, data)
+                .then(() => {
+                    getUserDocument(userID);
+                    console.log("Success data update!");
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+    }
+    if (field === template) {
+        saveTemplate(value)
     }
 }
 
@@ -360,7 +372,7 @@ downloadBtn.addEventListener('click', () => {
 
 function sendPrescriptionData() {
 
-    const prescriptionReference = doc(db, "users", userID, 'prescription', `${Date.now()}`);
+    const prescriptionReference = doc(db, "users", userID, 'prescription', patientName.innerText + ' ' + age.innerText);
 
     const ccItems = document.querySelectorAll('#ccList li');
 
@@ -404,11 +416,21 @@ function sendPrescriptionData() {
 
 
     const diagnosis = document.getElementById('diagnosis');
-
     const rxItems = document.querySelectorAll('#rxList li');
+
+
     const rxitemTexts = Array.from(rxItems).map(li => {
-        return li.textContent.trim();
+        const itemObject = {}; // Use a plain object instead of a Map
+
+        for (let i = 0; i < li.children.length; i++) {
+            itemObject[i] = li.children[i].textContent;
+        }
+
+        return itemObject;
     });
+
+    // Now rxitemTexts is an array of plain objects: [{0: "text", 1: "text"}, {...}]
+    // You can safely pass this to setDoc()
 
     const advItems = document.querySelectorAll('#adviceList li');
     const advItemTexts = Array.from(advItems).map(li => {
@@ -428,6 +450,63 @@ function sendPrescriptionData() {
 
     setDoc(prescriptionReference, prescriptionData).then(() => {
         console.log('Prescription submitted!')
+    })
+}
+
+
+function saveTemplate(templateName) {
+
+    const prescriptionReference = doc(db, "users", userID, 'template', templateName);
+
+    const invitems = document.querySelectorAll('#advList li');
+
+    const invitemTexts = Array.from(invitems)
+        .filter(li => {
+            // 1. Find the checkbox inside this specific <li>
+            const checkbox = li.querySelector('input[type="checkbox"]');
+
+            // 2. Only keep this <li> if the checkbox exists AND is checked
+            return checkbox && checkbox.checked;
+        })
+        .map(li => {
+            // 3. Clone the node so we can safely remove the input element 
+            // without messing up the actual webpage UI
+            const clonedLi = li.cloneNode(true);
+            const input = clonedLi.querySelector('input');
+            if (input) input.remove(); // Remove the input HTML completely
+
+            // 4. Return just the remaining text ("CBC")
+            return clonedLi.textContent.trim();
+        });
+
+    const rxItems = document.querySelectorAll('#rxList li');
+
+
+    const rxitemTexts = Array.from(rxItems).map(li => {
+        const itemObject = {}; // Use a plain object instead of a Map
+
+        for (let i = 0; i < li.children.length; i++) {
+            itemObject[i] = li.children[i].textContent;
+        }
+
+        return itemObject;
+    });
+
+    // Now rxitemTexts is an array of plain objects: [{0: "text", 1: "text"}, {...}]
+    // You can safely pass this to setDoc()
+
+    const advItems = document.querySelectorAll('#adviceList li');
+    const advItemTexts = Array.from(advItems).map(li => {
+        return li.childNodes[0].textContent.trim();
+    });
+    const prescriptionData = {
+        inv: invitemTexts,
+        rx: rxitemTexts,
+        adv: advItemTexts,
+    }
+
+    setDoc(prescriptionReference, prescriptionData).then(() => {
+        console.log('Template submitted!')
     })
 }
 
@@ -522,4 +601,5 @@ saveSetting.addEventListener('click', () => {
             });
     } else { alertModal.showModal() }
 })
+
 
