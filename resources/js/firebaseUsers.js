@@ -153,7 +153,11 @@ async function getUserDocument(userID) {
             divider.style.visibility = loadedHeaderState;
             divider.style.marginTop = loadedHeaderHeight;
 
-            // console.log("First Name:", userData.name);
+            const rx = userData.rx;
+
+
+            getFormattedRxList(rx);
+
         } else {
             userDataExists = false;
             console.log("No such document found!");
@@ -165,6 +169,34 @@ async function getUserDocument(userID) {
     }
 }
 
+function getFormattedRxList(rx) {
+    const drugList = document.getElementById('rxList');
+    Object.keys(rx).forEach(key => {
+        const rxArray = rx[key];
+        // const htmlOutput = formatRxData(rxArray);
+        const items = document.createElement('li');
+        // items.textContent = 'some text';
+        drugList.append(items);
+
+        const drugName = document.createElement('strong')
+        drugName.innerHTML = rxArray[0];
+
+        const span = document.createElement('span');
+        span.innerHTML = "\u00d7";
+
+        const dose = document.createElement('div');
+        dose.classList.add('kalpurush');
+        dose.innerHTML = rxArray[1];
+
+        items.appendChild(drugName)
+            .appendChild(span);
+        items.appendChild(dose);
+        drugList.append(items)
+
+        drugList.style.display = 'block'
+
+    });
+}
 confirmBtn.addEventListener('click', () => {
     createUpdateData
 });
@@ -324,7 +356,8 @@ function createUpdateData(field, value) {
 const downloadBtn = document.getElementById('download');
 downloadBtn.addEventListener('click', () => {
     sendPrescriptionData();
-})
+});
+
 function sendPrescriptionData() {
 
     const prescriptionReference = doc(db, "users", userID, 'prescription', `${Date.now()}`);
@@ -355,7 +388,7 @@ function sendPrescriptionData() {
             // 1. Find the checkbox inside this specific <li>
             const checkbox = li.querySelector('input[type="checkbox"]');
 
-            // 2. Only keep this <li> if the checkbox exists AND is NOT checked
+            // 2. Only keep this <li> if the checkbox exists AND is checked
             return checkbox && checkbox.checked;
         })
         .map(li => {
@@ -475,16 +508,18 @@ function headerHideUnhide() {
 }
 
 saveSetting.addEventListener('click', () => {
-    saveSetting.style.visibility = 'hidden'
-    const headerData = {
-        headerstate: newHeaderState,
-        headerHeight: newHeaderHeight
-    }
+    if (auth.currentUser) {
+        saveSetting.style.visibility = 'hidden'
+        const headerData = {
+            headerstate: newHeaderState,
+            headerHeight: newHeaderHeight
+        }
 
-    if (userDataExists)
-        updateDoc(documentReference, headerData).then(() => {
+        if (userDataExists)
+            updateDoc(documentReference, headerData).then(() => {
 
-            console.log('setting saved');
-        });
+                console.log('setting saved');
+            });
+    } else { alertModal.showModal() }
 })
 

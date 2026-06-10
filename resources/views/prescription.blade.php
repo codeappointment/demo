@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<button class ="download", id = "download">
+<button class ="download", id = "download" style="visibility: hidden">
     Download
 </button>
 
