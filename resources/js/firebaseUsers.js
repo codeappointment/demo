@@ -2,10 +2,11 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
-import { getFirestore, collection, addDoc, setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, updateDoc, getDoc, getDocs } from "firebase/firestore";
 
 import { app } from './firebaseAuth.js';
 import { signInWithGoogle } from './signin.js';
+import { map } from "firebase/firestore/pipelines";
 
 
 const auth = getAuth(app);
@@ -46,7 +47,9 @@ const cancel = document.getElementById('cancel');
 const signin = document.getElementById('signin');
 
 // template
-const template = document.getElementById('template');
+const saveTemplateBtn = document.getElementById('saveTemplateBtn');
+const templateList = document.getElementById('templateList');
+
 // header controller
 const divider = document.getElementById('divider');
 const hideHeader = document.getElementById('hideHeader');
@@ -70,7 +73,7 @@ onAuthStateChanged(auth, (user) => {
         userID = auth.currentUser.email
         documentReference = doc(db, "users", userID);
         getUserDocument(userID);
-
+        savedtemplateList();
         // ...
     } else {
         // User is signed out
@@ -154,12 +157,7 @@ async function getUserDocument(userID) {
 
             divider.style.visibility = loadedHeaderState;
             divider.style.marginTop = loadedHeaderHeight;
-
-            const rx = userData.rx;
-
-
-            getFormattedRxList(rx);
-
+            
         } else {
             userDataExists = false;
             console.log("No such document found!");
@@ -217,7 +215,7 @@ hospitalName.addEventListener('click', () => openModal(hospitalName, 'Chamber Na
 address.addEventListener('click', () => openModal(address, 'Chamber address'));
 schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
 contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
-template.addEventListener('click', () => openModal(template, 'a name of this template'));
+saveTemplateBtn.addEventListener('click', () => openModal(saveTemplate, 'a name for this template'));
 
 function basicText() {
     doctorName.innerText = 'Click to add doctor name';
@@ -292,7 +290,7 @@ function updateCancelPopUp() {
                 break;
         }
     } else {
-        if (activeElement !== template) // excluding text update of template button
+        if (activeElement !== saveTemplate) // excluding text update of template button
             activeElement.innerText = val;
         if (auth.currentUser) {
             createUpdateData(activeElement, val);
@@ -335,7 +333,7 @@ function createUpdateData(field, value) {
 
     if (userDataExists) {
 
-        if (field !== age && field !== gender && field !== patientName && field !== template) {
+        if (field !== age && field !== gender && field !== patientName && field !== saveTemplate) {
             // for header content update
             updateDoc(documentReference, data)
                 .then(() => {
@@ -350,7 +348,7 @@ function createUpdateData(field, value) {
 
     } else {
         // for header content update
-        if (field !== age && field !== gender && field !== patientName && field !== template)
+        if (field !== age && field !== gender && field !== patientName && field !== saveTemplate)
             setDoc(documentReference, data)
                 .then(() => {
                     getUserDocument(userID);
@@ -360,7 +358,7 @@ function createUpdateData(field, value) {
                     console.error("Error adding document: ", error);
                 });
     }
-    if (field === template) {
+    if (field === saveTemplate) {
         saveTemplate(value)
     }
 }
@@ -603,3 +601,36 @@ saveSetting.addEventListener('click', () => {
 })
 
 
+async function savedtemplateList() {
+
+    const querySnapshot = await getDocs(collection(db, "users", userID, "template"));
+    querySnapshot.forEach((doc) => {
+
+        const listItems = document.createElement('li');
+        const nameChild = document.createElement('div');
+        nameChild.classList.add('selectable');
+        nameChild.innerHTML = doc.id;
+        listItems.appendChild(nameChild);
+        templateList.append(listItems);
+    });
+
+}
+
+templateList.addEventListener('click', function (e) {
+    const documentName = e.target.innerText;
+    getTemplate(documentName);
+
+});
+
+async function getTemplate(templateName) {
+    const templateReference = doc(db, "users", userID, "template", templateName)
+
+    const documentSnapshot = await getDoc(templateReference);
+
+    if (documentSnapshot.exists()) {
+       
+        const userData = documentSnapshot.data();
+        const rx = userData.rx;
+       getFormattedRxList(rx);
+    }
+}

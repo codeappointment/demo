@@ -28,9 +28,8 @@
     <button class ="download", id = "download"\>
         Download
     </button>
-    <button class ="template", id = "template">
-        Save Template
-    </button>
+
+
     <div class="headerController", id="headerController">
         <button class ="hideHeader", id = "hideHeader">
             Hide Header
@@ -48,7 +47,21 @@
             Save settings
         </button>
     </div>
+    <button class ="saveTemplateBtn", id = "saveTemplateBtn">
+        Save Template
+    </button>
 
+    <div class="savedHolder">
+
+        <strong class="templateListHeader">Saved</strong>
+        <div class="templateList" id="templateList">
+{{-- 
+            <li class="selectable">Fever drugs</li>
+            <li class="selectable">Pneumonia drugs</li>
+            <li class="selectable">cardiac drugs</li> --}}
+
+        </div>
+    </div>
     @include('popupLayout')
     @include('signinAlert')
     <div class="page", id = "page">
@@ -110,7 +123,8 @@
                     </div>
 
                     <ul class="bullet-list" id='oeList'>
-                        <li>Temp: <input id="temp" class="oeinput" placeholder="℉"></input><span>&#xd7;</span></li>
+                        <li>Temp: <input id="temp" class="oeinput" placeholder="℉"></input><span>&#xd7;</span>
+                        </li>
                         <li>BP: <input id="bp" class="oeinput" placeholder="mmHg"></input><span>&#xd7;</span>
                         </li>
                         <li>Pulse: <input id="pulse" class="oeinput"></input><span>&#xd7;</span></li>

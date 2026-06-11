@@ -28,9 +28,8 @@
     <button class ="download", id = "download"\>
         Download
     </button>
-    <button class ="template", id = "template">
-        Save Template
-    </button>
+
+
     <div class="headerController", id="headerController">
         <button class ="hideHeader", id = "hideHeader">
             Hide Header
@@ -48,7 +47,18 @@
             Save settings
         </button>
     </div>
+    <button class ="saveTemplateBtn", id = "saveTemplateBtn">
+        Save Template
+    </button>
 
+    <div class="savedHolder">
+
+        <strong class="templateListHeader">Saved</strong>
+        <div class="templateList" id="templateList">
+
+
+        </div>
+    </div>
     <?php echo $__env->make('popupLayout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <?php echo $__env->make('signinAlert', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <div class="page", id = "page">
@@ -110,7 +120,8 @@
                     </div>
 
                     <ul class="bullet-list" id='oeList'>
-                        <li>Temp: <input id="temp" class="oeinput" placeholder="℉"></input><span>&#xd7;</span></li>
+                        <li>Temp: <input id="temp" class="oeinput" placeholder="℉"></input><span>&#xd7;</span>
+                        </li>
                         <li>BP: <input id="bp" class="oeinput" placeholder="mmHg"></input><span>&#xd7;</span>
                         </li>
                         <li>Pulse: <input id="pulse" class="oeinput"></input><span>&#xd7;</span></li>

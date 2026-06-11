@@ -269,7 +269,8 @@ body {
     cursor: pointer;
     background: #059eac;
 }
-.template {
+
+.saveTemplateBtn {
     position: fixed;
     top: 100px;
     right: 20px;
@@ -283,10 +284,55 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     font-weight: bold;
 }
+
 .template:hover {
     cursor: pointer;
     background: #908200;
 }
+
+.savedHolder {
+    position: fixed;
+    top: 146px;
+    right: 10px;
+    left: auto;
+    bottom: auto;
+}
+
+.templateListHeader {
+    /* position: fixed; */
+    /* top: 146px; */
+    /* right: 109px; */
+    /* left: auto; */
+    /* bottom: auto;  */
+    font-size: .8em;
+    background: #009065;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    padding-bottom: 20px;
+    color: #f9fd16;
+    border-radius: 6px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
+    font-weight: bold;
+}
+
+.templateList {
+    list-style-type: none;
+    /* position: fixed; */
+    /* top: 170px; */
+    /* right: 20px; */
+    /* left: auto; */
+    /* bottom: auto; */
+    margin-top: 4px;
+    background: #009065;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 11px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
+
 
 .page {
     max-width: 900px;
