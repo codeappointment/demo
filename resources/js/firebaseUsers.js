@@ -73,7 +73,7 @@ onAuthStateChanged(auth, (user) => {
         userID = auth.currentUser.email
         documentReference = doc(db, "users", userID);
         getUserDocument(userID);
-        savedtemplateList();
+        getSavedtemplateList();
         // ...
     } else {
         // User is signed out
@@ -157,7 +157,7 @@ async function getUserDocument(userID) {
 
             divider.style.visibility = loadedHeaderState;
             divider.style.marginTop = loadedHeaderHeight;
-            
+
         } else {
             userDataExists = false;
             console.log("No such document found!");
@@ -186,7 +186,7 @@ function getFormattedRxList(rx) {
 
         const dose = document.createElement('div');
         dose.classList.add('kalpurush');
-        dose.innerHTML = rxArray[1].replace(/।/g, '|');
+        dose.innerHTML = rxArray[1];
 
         items.appendChild(drugName)
             .appendChild(span);
@@ -197,6 +197,49 @@ function getFormattedRxList(rx) {
 
     });
 }
+
+async function getformattedInvestigationList(inv) {
+    const investigationList = document.getElementById('advList');
+    Object.keys(inv).forEach(key => {
+        const invArray = inv[key];
+        // const htmlOutput = formatRxData(rxArray);
+        const items = document.createElement('li');
+        // items.textContent = 'some text';
+        investigationList.append(items);
+
+        // add check box
+        let checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = true;
+        checkbox.textContent = invArray;
+        items.appendChild(checkbox);
+
+        items.append(invArray);
+        investigationList.prepend(items);
+
+    });
+}
+
+async function getformattedAdviceList(adv) {
+    const adviceList = document.getElementById('adviceList');
+    Object.keys(adv).forEach(key => {
+        const advArray = adv[key];
+        // const htmlOutput = formatRxData(rxArray);
+        const items = document.createElement('li');
+        // items.textContent = 'some text';
+        adviceList.append(items);
+
+        const span = document.createElement('span');
+        span.innerHTML = "\u00d7";
+
+        items.append(advArray);
+        items.append(span);
+        adviceList.prepend(items);
+
+        adviceList.style.display = 'block'
+    });
+}
+
 confirmBtn.addEventListener('click', () => {
     createUpdateData
 });
@@ -215,7 +258,7 @@ hospitalName.addEventListener('click', () => openModal(hospitalName, 'Chamber Na
 address.addEventListener('click', () => openModal(address, 'Chamber address'));
 schedule.addEventListener('click', () => openModal(schedule, 'Chamber schedule'));
 contact.addEventListener('click', () => openModal(contact, 'Contact for appointment'));
-saveTemplateBtn.addEventListener('click', () => openModal(saveTemplate, 'a name for this template'));
+saveTemplateBtn.addEventListener('click', () => openModal(saveTemplateBtn, 'a name for this template'));
 
 function basicText() {
     doctorName.innerText = 'Click to add doctor name';
@@ -250,11 +293,12 @@ function openModal(element, labelText) {
         dialog.showModal();
 }
 
+// signin popup
 signin.addEventListener('click', () => {
     signInWithGoogle();
     alertModal.close();
 });
-
+// signin popup
 cancel.addEventListener('click', () => {
 
     alertModal.close();
@@ -290,10 +334,12 @@ function updateCancelPopUp() {
                 break;
         }
     } else {
-        if (activeElement !== saveTemplate) // excluding text update of template button
+        if (activeElement !== saveTemplateBtn) // excluding text update of template button
             activeElement.innerText = val;
         if (auth.currentUser) {
-            createUpdateData(activeElement, val);
+            if (activeElement !== saveTemplateBtn) // exclude for updatDoc function call
+                createUpdateData(activeElement, val);
+            else saveTemplate(val)
         }
 
     }
@@ -484,7 +530,7 @@ function saveTemplate(templateName) {
         const itemObject = {}; // Use a plain object instead of a Map
 
         for (let i = 0; i < li.children.length; i++) {
-            itemObject[i] = li.children[i].textContent;
+            itemObject[i] = li.children[i].textContent.replace(/×/g, '');
         }
 
         return itemObject;
@@ -504,6 +550,7 @@ function saveTemplate(templateName) {
     }
 
     setDoc(prescriptionReference, prescriptionData).then(() => {
+        getSavedtemplateList(userID)
         console.log('Template submitted!')
     })
 }
@@ -601,36 +648,51 @@ saveSetting.addEventListener('click', () => {
 })
 
 
-async function savedtemplateList() {
+async function getSavedtemplateList() {
 
     const querySnapshot = await getDocs(collection(db, "users", userID, "template"));
-    querySnapshot.forEach((doc) => {
+    const savedHolder = document.getElementById('savedHolder');
 
-        const listItems = document.createElement('li');
-        const nameChild = document.createElement('div');
-        nameChild.classList.add('selectable');
-        nameChild.innerHTML = doc.id;
-        listItems.appendChild(nameChild);
-        templateList.append(listItems);
-    });
+    templateList.innerHTML = '';
+    if (!querySnapshot.empty) {
 
+        savedHolder.style.visibility = 'visible'
+        querySnapshot.forEach((doc) => {
+
+            const listItems = document.createElement('li');
+            const nameChild = document.createElement('div');
+            const span = document.createElement('span');
+            span.innerHTML = " \u00d7";
+            nameChild.classList.add('selectable');
+            nameChild.innerHTML = doc.id;
+            listItems.appendChild(nameChild)
+                .appendChild(span);
+            templateList.append(listItems);
+        });
+    } else {
+        console.log('empty')
+    }
 }
 
 templateList.addEventListener('click', function (e) {
-    const documentName = e.target.innerText;
-    getTemplate(documentName);
+    const documentName = e.target.innerText.replace(/×/g, ''); // if not replaced, takes × as part of document name
+    getTemplateData(documentName);
 
 });
 
-async function getTemplate(templateName) {
+async function getTemplateData(templateName) {
     const templateReference = doc(db, "users", userID, "template", templateName)
 
     const documentSnapshot = await getDoc(templateReference);
 
     if (documentSnapshot.exists()) {
-       
+
         const userData = documentSnapshot.data();
         const rx = userData.rx;
-       getFormattedRxList(rx);
+        const inv = userData.inv;
+        const adv = userData.adv;
+        getFormattedRxList(rx);
+        getformattedInvestigationList(inv);
+        getformattedAdviceList(adv);
     }
 }

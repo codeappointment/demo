@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescription</title>
+    <title>ওষুধ লিখ | Prescription App</title>
     <link rel="stylesheet" href="views/prescription.css">
     <script>
         window.investigations = <?php echo json_encode($investigations, 15, 512) ?>;
@@ -51,11 +51,11 @@
         Save Template
     </button>
 
-    <div class="savedHolder">
+    <div class="savedHolder" id="savedHolder" style="visibility: hidden">
 
-        <strong class="templateListHeader">Saved</strong>
+        <strong class="templateListHeader">My Templates</strong>
         <div class="templateList" id="templateList">
-
+            
 
         </div>
     </div>

@@ -232,8 +232,9 @@
         font-weight: bold;
     }
 
-    .template {
-        visibility: hidden;
+    .saveTemplateBtn, 
+    .savedHolder {
+        visibility: hidden !important;
     }
 
 }
@@ -299,11 +300,6 @@ body {
 }
 
 .templateListHeader {
-    /* position: fixed; */
-    /* top: 146px; */
-    /* right: 109px; */
-    /* left: auto; */
-    /* bottom: auto;  */
     font-size: .8em;
     background: #009065;
     color: white;
@@ -318,11 +314,6 @@ body {
 
 .templateList {
     list-style-type: none;
-    /* position: fixed; */
-    /* top: 170px; */
-    /* right: 20px; */
-    /* left: auto; */
-    /* bottom: auto; */
     margin-top: 4px;
     background: #009065;
     color: white;
@@ -333,6 +324,42 @@ body {
     font-weight: bold;
 }
 
+.templateList li:hover{
+    color: #ece472;
+}
+
+.templateList span {
+    /* Shape and Size */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    /* Colors */
+    background-color: #fdfcfc;
+    color: rgb(41, 41, 41);
+    border: solid rgb(41, 41, 41) 1px;
+
+    /* Centering the Unicode X */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+
+    /* Font & Cursor */
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+
+    /* Prevent text selection when clicking fast */
+    user-select: none;
+
+    transition: background 0.2s ease;
+}
+
+.templateList span:hover {
+    background-color: #f06969;
+    color: #f8dada;
+}
 
 .page {
     max-width: 900px;
@@ -652,8 +679,8 @@ body {
 
     /* Colors */
     background-color: #fdfcfc;
-    color: rgb(155, 154, 154);
-    /* border: solid rgb(150, 150, 150) 1px; */
+    color: rgb(41, 41, 41);
+    border: solid rgb(150, 150, 150) 1px;
 
     /* Centering the Unicode X */
     display: inline-flex;
@@ -698,6 +725,10 @@ body {
     margin-top: 5px;
 }
 
+.rx-list li:hover {
+    cursor: pointer;
+    color: #2e68aa;
+}
 
 .bullet-list li::before,
 .investigation-list li::before,
