@@ -32,7 +32,7 @@ const addadv = document.getElementById('addadv');
 const invsuggestionList = document.getElementById('invsuggestionList');
 
 
-// drugInput:ayout items
+// drugInput layout items
 
 const addDrug = document.getElementById('addDrug'); // button
 const drugList = document.getElementById('rxList');
@@ -50,10 +50,14 @@ const alertText = document.getElementById('alert');
 const adviceList = document.getElementById('adviceList');
 const adviceInput = document.getElementById('adviceInput');
 const adviceSiggestionList = document.getElementById('adviceSiggestionList');
-const addAdvice = document.getElementById('addAdvice')
-// Track which element is currently being edited
+const addAdvice = document.getElementById('addAdvice');
 
-
+// drug edit popup
+const drugEdit = document.getElementById('drugEdit');
+const cancelEdit = document.getElementById('cancelEdit');
+const confirmEdit = document.getElementById('confirmEdit');
+const editlabel = document.getElementById('editlabel');
+const editInput = document.getElementById('editInput');
 
 document.addEventListener('keydown', confirm);
 document.addEventListener('keydown', cancel);
@@ -157,7 +161,7 @@ addDrug.addEventListener('click', () => {
     let suggest;
 
     let durationValue = duration.value;
-    if (suggestion.value !== '') suggest = " (" + suggestion.value + ")";
+    if (suggestion.value !== '') suggest = " | " + suggestion.value;
     else suggest = '';
 
     if (dayWeekMonth.value === 'চলবে') {
@@ -209,16 +213,16 @@ drugNameInput.addEventListener('input', function () {
     const alert = document.getElementById('alert');
     if (this.value.trim() !== '')
         alert.style.display = "none";
-    // if (input.value.trim() !== '') {
-    //     list.style.display = 'block';
-    // } else {
-    //     list.style.display = 'none';
-    // }
 });
 
 drugSuggestionList.addEventListener('click', function (e) {
     drugNameInput.value = e.target.innerHTML;
     drugSuggestionList.style.display = 'none'
+});
+
+editsuggestionList.addEventListener('click', function (e) {
+    editInput.value = e.target.innerHTML;
+    editsuggestionList.style.display = 'none'
 });
 
 ccsuggestionList.addEventListener('click', function (e) {
@@ -250,7 +254,8 @@ duration.addEventListener('input', function () {
         alert.style.display = "none";
 });
 
-// const drugList = getElementById('rxList');s
+// const drugList = getElementById('rxList');
+let targetElement;
 drugList.addEventListener('click', function (e) {
     // Check if the clicked element is a SPAN
     if (e.target.tagName === "SPAN") {
@@ -260,6 +265,40 @@ drugList.addEventListener('click', function (e) {
             drugList.style.display = 'none';
         }
     }
+
+    if (e.target.tagName === "STRONG") {
+        editlabel.innerText = 'Edit drug'
+        editInput.value = e.target.innerText.replace(/×/g, '').trim();
+        targetElement = e.target
+        drugEdit.showModal();
+        drugNameInput.value = ''
+    }
+
+    if (e.target.tagName === "DIV") {
+        editlabel.innerText = 'Edit dose'
+        editInput.value = e.target.innerText
+        targetElement = e.target
+        drugEdit.showModal();
+        drugNameInput.value = ''
+    }
+
+});
+
+cancelEdit.addEventListener('click', () => {
+    drugEdit.close();
+});
+confirmEdit.addEventListener('click', () => {
+    const newInput = editInput.value;
+
+    if (targetElement.tagName === "STRONG")
+        targetElement.innerHTML = newInput + '<span>×</span>'
+    else {
+        const stringPart = newInput.split('|').map(item => item.trim());
+        console.log(stringPart[0])
+        targetElement.innerHTML = newInput
+    }
+
+    drugEdit.close();
 });
 
 adviceList.addEventListener('click', function (e) {
@@ -586,3 +625,4 @@ document.addEventListener('click', function (event) {
         dosesList.style.display = 'none';
     }
 });
+

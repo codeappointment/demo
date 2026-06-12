@@ -49,6 +49,9 @@ const alertLabel = document.getElementById('label');
 const cancel = document.getElementById('cancel');
 const signin = document.getElementById('signin');
 
+// druglist
+const drugList = document.getElementById('rxList');
+
 // template
 const saveTemplateBtn = document.getElementById('saveTemplateBtn');
 const templateList = document.getElementById('templateList');
@@ -173,7 +176,7 @@ async function getUserDocument(userID) {
 }
 
 function getFormattedRxList(rx) {
-    const drugList = document.getElementById('rxList');
+
     Object.keys(rx).forEach(key => {
         const rxArray = rx[key];
         // const htmlOutput = formatRxData(rxArray);
@@ -598,7 +601,6 @@ headerHeightDecrease.addEventListener('click', () => {
 });
 
 
-
 function headerStateChangeObserver() {
     const saveSetting = document.getElementById('saveSetting');
     if (loadedHeaderState !== newHeaderState) {
@@ -713,6 +715,7 @@ function deleteAlert(documentName) {
     });
 
 }
+
 async function removeTemplate(templateName) {
     const templateReference = doc(db, "users", userID, "template", templateName);
     deleteDoc(templateReference)
@@ -739,6 +742,7 @@ async function getTemplateData(templateName) {
         getformattedAdviceList(adv);
     }
 }
+
 function showSuccessToast(message) {
     const container = document.getElementById('toast-container');
 

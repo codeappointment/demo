@@ -66,6 +66,7 @@
     @include('popupLayout')
     @include('signinAlert')
     @include('alertPopup')
+    @include('drugEditWindow')
     <div class="page", id = "page">
 
         <div class="header" id="header">

@@ -1,7 +1,9 @@
 
 
-const drugNameInput = document.getElementById('drugName'); 
+const drugNameInput = document.getElementById('drugName');
+const editInput = document.getElementById('editInput');
 const suggestionList = document.getElementById('suggestionList');
+const editsuggestionList = document.getElementById('editsuggestionList');
 
 const workerCode = `
     let brands = [];
@@ -31,16 +33,35 @@ try {
         console.log("Worker said:", e.data);
 
         const matches = e.data;
-        suggestionList.style.display = 'block';
-        suggestionList.innerHTML = matches.slice(0, 100)
-            .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
-            .join('');
+        if (drugNameInput.value !== '') {
+            suggestionList.style.display = 'block';
+            suggestionList.innerHTML = matches.slice(0, 100)
+                .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
+                .join('');
+        } else {
+            editsuggestionList.style.display = 'block';
+            editsuggestionList.innerHTML = matches.slice(0, 100)
+                .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
+                .join('');
+        }
     };
 
     drugNameInput.addEventListener('input', (e) => {
         const query = e.target.value.trim();
         if (!query) {
             suggestionList.style.display = 'none';
+            return;
+        }
+        worker.postMessage({
+            type: 'search',
+            data: query
+        });
+    });
+
+    editInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        if (!query) {
+            editsuggestionList.style.display = 'none';
             return;
         }
         worker.postMessage({

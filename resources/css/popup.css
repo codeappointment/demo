@@ -174,3 +174,47 @@ dialog::backdrop {
         opacity: 0;
     }
 }
+
+/* edit drug popup */
+
+.drugEdit{
+    /* position: relative;
+    padding: 10px;
+    background: #008590; */
+}
+.editInput {
+    border: 1px solid #9796f3;
+    outline: none;
+    line-height: 1.1em;
+    font-family: 'Times New Roman', Times, serif;
+    width: 250px;
+    padding: .9em;
+}
+
+.editsuggestionList {
+    display: flex;
+    align-items: start;
+    left: 0;
+    width: 85%;
+    margin-left: 10px;
+    padding: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: #008590;
+    background: rgb(255, 243, 204);
+    border: 1px solid gray;
+    box-shadow: #4d4d4d 0px 0px 1px;
+    z-index: 9999;
+    border-radius: 5px;
+    display: none;
+}
+
+.editsuggestionList li{
+    display: flex;
+    align-items: start;
+    text-align: start;
+}
+
+.gap{
+    height: 200px;
+}

@@ -730,9 +730,14 @@ body {
     margin-top: 5px;
 }
 
-.rx-list li:hover {
+.rx-list strong:hover {
     cursor: pointer;
     color: #2e68aa;
+}
+
+.rx-list div:hover {
+    cursor: pointer;
+    color: #257e1d;
 }
 
 .bullet-list li::before,
