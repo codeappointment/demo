@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
-import { getFirestore, collection, addDoc, setDoc, doc, updateDoc, getDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, updateDoc, getDoc, getDocs, deleteDoc } from "firebase/firestore";
 
 import { app } from './firebaseAuth.js';
 import { signInWithGoogle } from './signin.js';
@@ -43,6 +43,9 @@ const label = document.getElementById('label');
 const inputField = document.getElementById('popupInput');
 const cancelBtn = document.getElementById('cancelButn');
 const alertModal = document.getElementById('signinAlert');
+
+// alert popup
+const alertLabel = document.getElementById('label');
 const cancel = document.getElementById('cancel');
 const signin = document.getElementById('signin');
 
@@ -343,7 +346,7 @@ function updateCancelPopUp() {
         }
 
     }
-    dialog.close();
+
 };
 
 confirmBtn.addEventListener('click', updateCancelPopUp);
@@ -378,13 +381,14 @@ function createUpdateData(field, value) {
         data = { contact: value }
 
     if (userDataExists) {
-
+        dialog.close();
         if (field !== age && field !== gender && field !== patientName && field !== saveTemplate) {
             // for header content update
             updateDoc(documentReference, data)
                 .then(() => {
                     getUserDocument(userID);
                     console.log("Success data update!");
+                    showSuccessToast('Data update success !')
                 })
                 .catch((error) => {
                     console.error("Error adding document: ", error);
@@ -393,6 +397,7 @@ function createUpdateData(field, value) {
         }
 
     } else {
+        dialog.close();
         // for header content update
         if (field !== age && field !== gender && field !== patientName && field !== saveTemplate)
             setDoc(documentReference, data)
@@ -404,9 +409,7 @@ function createUpdateData(field, value) {
                     console.error("Error adding document: ", error);
                 });
     }
-    if (field === saveTemplate) {
-        saveTemplate(value)
-    }
+
 }
 
 const downloadBtn = document.getElementById('download');
@@ -549,10 +552,12 @@ function saveTemplate(templateName) {
         adv: advItemTexts,
     }
 
+    dialog.close();
     setDoc(prescriptionReference, prescriptionData).then(() => {
-        getSavedtemplateList(userID)
-        console.log('Template submitted!')
-    })
+        getSavedtemplateList(userID);
+        console.log('Template submitted!');
+        showSuccessToast('Template saved !')
+    });
 }
 
 
@@ -670,15 +675,53 @@ async function getSavedtemplateList() {
             templateList.append(listItems);
         });
     } else {
+        savedHolder.style.visibility = 'hidden'
         console.log('empty')
     }
 }
 
 templateList.addEventListener('click', function (e) {
-    const documentName = e.target.innerText.replace(/×/g, ''); // if not replaced, takes × as part of document name
-    getTemplateData(documentName);
+    const li = e.target.closest('li');
+    const documentName = li.textContent.replace(/×/g, '').trim(); // if not replaced, takes × as part of document name
+    if (e.target.tagName !== "SPAN") {
+
+        getTemplateData(documentName);
+    } else {
+
+        deleteAlert(documentName);
+    }
 
 });
+
+function deleteAlert(documentName) {
+    const deleteAlert = document.getElementById('deleteAlert');
+    const labelText = document.getElementById('labelText');
+    const cancelDel = document.getElementById('cancelDel');
+    const deleteBtn = document.getElementById('deleteBtn');
+
+    const boldElement = document.createElement('strong')
+    boldElement.innerText = documentName;
+    labelText.innerHTML = 'Delete template <strong>' + documentName + '</strong>?';
+    deleteAlert.showModal();
+
+    deleteBtn.addEventListener('click', () => {
+        deleteAlert.close();
+        removeTemplate(documentName);
+    });
+    cancelDel.addEventListener('click', () => {
+        deleteAlert.close();
+    });
+
+}
+async function removeTemplate(templateName) {
+    const templateReference = doc(db, "users", userID, "template", templateName);
+    deleteDoc(templateReference)
+        .then(() => {
+            getSavedtemplateList();
+            console.log('deleted');
+            showSuccessToast('Template deleted !');
+        });
+}
 
 async function getTemplateData(templateName) {
     const templateReference = doc(db, "users", userID, "template", templateName)
@@ -696,3 +739,25 @@ async function getTemplateData(templateName) {
         getformattedAdviceList(adv);
     }
 }
+function showSuccessToast(message) {
+    const container = document.getElementById('toast-container');
+
+    // Create toast element
+    const toast = document.createElement('div');
+    if (message.includes('delete')) toast.style.background = "red"
+    toast.className = 'toast';
+    toast.innerText = message;
+
+    // Append to container
+    container.appendChild(toast);
+
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        // Wait for the slide-out animation to finish before removing from DOM
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3000);
+}
+

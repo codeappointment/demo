@@ -62,8 +62,10 @@
 
         </div>
     </div>
+    <div id="toast-container"></div>
     @include('popupLayout')
     @include('signinAlert')
+    @include('alertPopup')
     <div class="page", id = "page">
 
         <div class="header" id="header">

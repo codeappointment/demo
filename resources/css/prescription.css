@@ -286,6 +286,11 @@ body {
     font-weight: bold;
 }
 
+.saveTemplateBtn:hover{
+    cursor: pointer;
+     background: #ac9b05;
+}
+
 .template:hover {
     cursor: pointer;
     background: #908200;
