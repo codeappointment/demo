@@ -18,8 +18,8 @@
             </div>
             <div id="drugEditSection">
 
-                <select class="duration" , id="duration" type="text" style="width: 30px" placeholder="5"></select>
-                <select id="dayWeekMonth" class="dayWeekMonth kalpurush" name="days">
+                <select class="duration" , id="durationEdit" type="text" style="width: 30px" placeholder="5"></select>
+                <select id="editDayWeekMonth" class="dayWeekMonth kalpurush" name="days">
                     <option value="select">দিন/মাস</option>
                     <option value="দিন">দিন</option>
                     <option value="সপ্তাহ">সপ্তাহ</option>
@@ -27,15 +27,15 @@
                     <option value="বছর">বছর</option>
                     <option value="চলবে">চলবে</option>
                 </select>
-                <form style="display: flex" id="mealRelation" , class="mealRelation">
-                    <input type="radio" id="bm" class="bm" name="mealTime" value="খাবার আগে">
+                <form style="display: flex" id="editMealRelation" , class="mealRelation">
+                    <input type="radio" id="editbm" class="bm" name="editmealTime" value="খাবার আগে">
                     <label for="basic">খাবার আগে</label><br>
 
-                    <input type="radio" id="am" class="am" name="mealTime" value="খাবার পরে">
+                    <input type="radio" id="editam" class="am" name="editmealTime" value="খাবার পরে">
                     <label for="pro">খাবার পরে</label><br>
                 </form>
                 <input type="text" center placeholder="Additional suggestion" class="suggestion" ,
-                    id="suggestion"></input>
+                    id="editSuggestion"></input>
             </div>
             <div class = "button-holder">
                 <button id="cancelEdit" class="cancel-button">Cancel</button>

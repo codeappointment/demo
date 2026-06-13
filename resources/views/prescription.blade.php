@@ -5,7 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ওষুধ লিখ | Prescription App</title>
+    <meta property="og:title" content="ওষুধ লিখ | Oshudh likho">
+    <meta property="og:description" content="Oshudh likho is free online prescription app to create printed prescription for doctors">
+    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYnT3mFytoihq8yqOcPHLZvG1jje-tL8x5vIuAKmXprz-paVHNaTng8d6tGH36O3-9waICVCV5nYAcvYDG4PRXsVPXsT8pexAC3WYakQ&s=10">
+    {{-- <meta property="og:url" content="https://yourdomain.com/page-url"> --}}
+    {{-- <meta property="og:type" content="website"> --}}
+    <title>ওষুধ লিখ | Oshudh likho</title>
     <link rel="stylesheet" href="views/prescription.css">
     <script>
         window.investigations = @json($investigations);

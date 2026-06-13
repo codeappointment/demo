@@ -52,13 +52,17 @@ const adviceInput = document.getElementById('adviceInput');
 const adviceSiggestionList = document.getElementById('adviceSiggestionList');
 const addAdvice = document.getElementById('addAdvice');
 
-// drug edit popup
+//edit drug  popup
 const drugEdit = document.getElementById('drugEdit');
 const cancelEdit = document.getElementById('cancelEdit');
 const confirmEdit = document.getElementById('confirmEdit');
 const editlabel = document.getElementById('editlabel');
 const editInput = document.getElementById('editInput');
 const drugEditSection = document.getElementById('drugEditSection');
+const durationEdit = document.getElementById('durationEdit');
+const editDayWeekMonth = document.getElementById('editDayWeekMonth');
+const editMealRelation = document.getElementById('editMealRelation');
+const editSuggestion = document.getElementById('editSuggestion')
 
 document.addEventListener('keydown', confirm);
 document.addEventListener('keydown', cancel);
@@ -281,18 +285,26 @@ drugList.addEventListener('click', function (e) {
         editInput.value = e.target.innerText
         targetElement = e.target
         drugEdit.showModal();
-        drugNameInput.value = ''
+        drugNameInput.value = '' // to clear druginput layout drugname input
         drugEditSection.style.display = 'block'
         const newInput = editInput.value;
         const stringPart = newInput.split('|').map(item => item.trim());
-        editInput.value = stringPart[0]
-        duration.value = stringPart[2].slice(0, 2).trim()
-        dayWeekMonth.value = stringPart[2].slice(2).trim()
+        editInput.value = stringPart[0] // 1+0+1
+        durationEdit.value = stringPart[2].slice(0, 2).trim() // ৭ দিন
+        editDayWeekMonth.value = stringPart[2].slice(2).trim() // দিন মাস চলবে 
 
-        if (stringPart[1] === "খাবার আগে") document.getElementById('bm').checked = true
-        else document.getElementById('am').checked = true
-        suggestion.value = stringPart[3]
+        if (stringPart[1] === "খাবার আগে") document.getElementById('editbm').checked = true
+        else document.getElementById('editam').checked = true
+        editSuggestion.value = stringPart[3] // জ্বর থাকলে
 
+        for (let i = 1; i <= 30; i++) {
+            const option = document.createElement('option');
+
+            option.value = enToBn(i);
+            option.textContent = enToBn(i);
+
+            durationEdit.appendChild(option)
+        }
     }
 
 });
@@ -312,27 +324,28 @@ confirmEdit.addEventListener('click', () => {
 
         // getting form data
 
-        const data = new FormData(mealRelation);
-        const mealStatus = data.get('mealTime');
+        const data = new FormData(editMealRelation);
+        const editmealStatus = data.get('editmealTime');
 
         let suggest;
 
-        let durationValue = duration.value;
-        if (suggestion.value !== '') suggest = " | " + suggestion.value;
+        let durationValue = durationEdit.value;
+        if (editSuggestion.value !== '') suggest = " | " + editSuggestion.value;
         else suggest = '';
 
-        if (dayWeekMonth.value === 'চলবে') {
+        if (editDayWeekMonth.value === 'চলবে') {
             durationValue = '-';
         }
+        
         const dose = document.createElement('div');
         dose.classList.add('kalpurush');
         dose.innerHTML = editInput.value +
             " | " +
-            mealStatus +
+            editmealStatus +
             " | " +
             durationValue +
             " " +
-            dayWeekMonth.value +
+            editDayWeekMonth.value +
 
             suggest;
 
@@ -511,7 +524,7 @@ function mobileDownload() {
                     // 6. Restore button state
                     downloadBtn.innerText = "Download Prescription PDF";
                     downloadBtn.disabled = false;
-                    // window.location.reload();
+                    window.location.reload();
                 }).catch((error) => {
                     console.error("PDF generation failed:", error);
                     downloadBtn.innerText = "Download Failed";
