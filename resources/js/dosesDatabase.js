@@ -2,6 +2,9 @@
 
 const doseInput = document.getElementById('dose');
 const dosesList = document.getElementById('dosesList');
+const suggestionList = document.getElementById('suggestionList');
+const editsuggestionList = document.getElementById('editsuggestionList');
+const editlabel = document.getElementById('editlabel');
 
 const workerCode = `
     let doses = [];
@@ -26,14 +29,22 @@ try {
     });
 
     worker.onmessage = function (e) {
-       
-        console.log("Worker said:", e.data);
-
         const matches = e.data;
-        dosesList.style.display = 'block';
-        dosesList.innerHTML = matches.slice(0, 100)
-            .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
-            .join('');
+        if (doseInput.value !== '') {
+
+            dosesList.style.display = 'block';
+            dosesList.innerHTML = matches.slice(0, 100)
+                .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
+                .join('');
+        } else {
+            if (editlabel.innerText.includes('dose')) {
+                editsuggestionList.classList.add('kalpurush');
+                editsuggestionList.style.display = 'block';
+                editsuggestionList.innerHTML = matches.slice(0, 100)
+                    .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
+                    .join('');
+            }
+        }
     };
 
     doseInput.addEventListener('input', (e) => {
@@ -49,6 +60,19 @@ try {
         });
     });
 
+    editInput.addEventListener('input', (e) => {
+        if (editlabel.innerText.includes('dose')) {
+            const query = e.target.value.trim();
+            if (!query) {
+                editsuggestionList.style.display = 'none';
+                return;
+            }
+            worker.postMessage({
+                type: 'search',
+                data: query
+            });
+        }
+    });
 
 } catch (error) {
     // 

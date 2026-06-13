@@ -175,13 +175,23 @@ dialog::backdrop {
     }
 }
 
-/* edit drug popup */
-
-.drugEdit{
-    /* position: relative;
-    padding: 10px;
-    background: #008590; */
+.loadingContainer {
+    background-color: #0a0944;
+    /* Green for success */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    animation: slideIn 0.3s ease forwards;
 }
+
+.loadingContainer.hide{
+    animation: slideOut 0.3s ease forwards;
+}
+
 .editInput {
     border: 1px solid #9796f3;
     outline: none;
@@ -209,12 +219,12 @@ dialog::backdrop {
     display: none;
 }
 
-.editsuggestionList li{
+.editsuggestionList li {
     display: flex;
     align-items: start;
     text-align: start;
 }
 
-.gap{
+.gap {
     height: 200px;
 }

@@ -58,6 +58,7 @@ const cancelEdit = document.getElementById('cancelEdit');
 const confirmEdit = document.getElementById('confirmEdit');
 const editlabel = document.getElementById('editlabel');
 const editInput = document.getElementById('editInput');
+const drugEditSection = document.getElementById('drugEditSection');
 
 document.addEventListener('keydown', confirm);
 document.addEventListener('keydown', cancel);
@@ -272,6 +273,7 @@ drugList.addEventListener('click', function (e) {
         targetElement = e.target
         drugEdit.showModal();
         drugNameInput.value = ''
+        drugEditSection.style.display = 'none'
     }
 
     if (e.target.tagName === "DIV") {
@@ -280,6 +282,17 @@ drugList.addEventListener('click', function (e) {
         targetElement = e.target
         drugEdit.showModal();
         drugNameInput.value = ''
+        drugEditSection.style.display = 'block'
+        const newInput = editInput.value;
+        const stringPart = newInput.split('|').map(item => item.trim());
+        editInput.value = stringPart[0]
+        duration.value = stringPart[2].slice(0, 2).trim()
+        dayWeekMonth.value = stringPart[2].slice(2).trim()
+
+        if (stringPart[1] === "খাবার আগে") document.getElementById('bm').checked = true
+        else document.getElementById('am').checked = true
+        suggestion.value = stringPart[3]
+
     }
 
 });
@@ -296,7 +309,36 @@ confirmEdit.addEventListener('click', () => {
         const stringPart = newInput.split('|').map(item => item.trim());
         console.log(stringPart[0])
         targetElement.innerHTML = newInput
+
+        // getting form data
+
+        const data = new FormData(mealRelation);
+        const mealStatus = data.get('mealTime');
+
+        let suggest;
+
+        let durationValue = duration.value;
+        if (suggestion.value !== '') suggest = " | " + suggestion.value;
+        else suggest = '';
+
+        if (dayWeekMonth.value === 'চলবে') {
+            durationValue = '-';
+        }
+        const dose = document.createElement('div');
+        dose.classList.add('kalpurush');
+        dose.innerHTML = editInput.value +
+            " | " +
+            mealStatus +
+            " | " +
+            durationValue +
+            " " +
+            dayWeekMonth.value +
+
+            suggest;
+
+        targetElement.innerHTML = dose.innerText
     }
+
 
     drugEdit.close();
 });

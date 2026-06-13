@@ -1,9 +1,10 @@
 
 
 const drugNameInput = document.getElementById('drugName');
-const editInput = document.getElementById('editInput');
 const suggestionList = document.getElementById('suggestionList');
+const editInput = document.getElementById('editInput');
 const editsuggestionList = document.getElementById('editsuggestionList');
+const editlabel = document.getElementById('editlabel');
 
 const workerCode = `
     let brands = [];
@@ -30,7 +31,6 @@ try {
     });
 
     worker.onmessage = function (e) {
-        console.log("Worker said:", e.data);
 
         const matches = e.data;
         if (drugNameInput.value !== '') {
@@ -39,10 +39,12 @@ try {
                 .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
                 .join('');
         } else {
-            editsuggestionList.style.display = 'block';
-            editsuggestionList.innerHTML = matches.slice(0, 100)
-                .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
-                .join('');
+            if (editlabel.innerText.includes('drug')) {
+                editsuggestionList.style.display = 'block';
+                editsuggestionList.innerHTML = matches.slice(0, 100)
+                    .map(i => `<li class = "selectable" id = "selectable">${i}</li>`)
+                    .join('');
+            }
         }
     };
 
@@ -59,15 +61,17 @@ try {
     });
 
     editInput.addEventListener('input', (e) => {
-        const query = e.target.value.trim();
-        if (!query) {
-            editsuggestionList.style.display = 'none';
-            return;
+        if (editlabel.innerText.includes('drug')) {
+            const query = e.target.value.trim();
+            if (!query) {
+                editsuggestionList.style.display = 'none';
+                return;
+            }
+            worker.postMessage({
+                type: 'search',
+                data: query
+            });
         }
-        worker.postMessage({
-            type: 'search',
-            data: query
-        });
     });
 
 

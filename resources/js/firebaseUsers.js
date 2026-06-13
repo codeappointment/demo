@@ -56,6 +56,10 @@ const drugList = document.getElementById('rxList');
 const saveTemplateBtn = document.getElementById('saveTemplateBtn');
 const templateList = document.getElementById('templateList');
 
+// loading dialogue
+const loadingContainer = document.getElementById('loadingContainer');
+const loadingText = document.getElementById('loadingText');
+
 // header controller
 const divider = document.getElementById('divider');
 const hideHeader = document.getElementById('hideHeader');
@@ -385,10 +389,13 @@ function createUpdateData(field, value) {
 
     if (userDataExists) {
         dialog.close();
-        if (field !== age && field !== gender && field !== patientName && field !== saveTemplate) {
+
+        if (field !== age && field !== gender && field !== patientName && field !== saveTemplateBtn) {
             // for header content update
+            loadingMsg('Submitting data...')
             updateDoc(documentReference, data)
                 .then(() => {
+                    loadingContainer.close();
                     getUserDocument(userID);
                     console.log("Success data update!");
                     showSuccessToast('Data update success !')
@@ -401,16 +408,20 @@ function createUpdateData(field, value) {
 
     } else {
         dialog.close();
+
         // for header content update
-        if (field !== age && field !== gender && field !== patientName && field !== saveTemplate)
+        if (field !== age && field !== gender && field !== patientName && field !== saveTemplateBtn) {
+            loadingMsg('Submitting data...')
             setDoc(documentReference, data)
                 .then(() => {
+                    loadingContainer.close();
                     getUserDocument(userID);
                     console.log("Success data update!");
                 })
                 .catch((error) => {
                     console.error("Error adding document: ", error);
                 });
+        }
     }
 
 }
@@ -506,6 +517,7 @@ function sendPrescriptionData() {
 
 function saveTemplate(templateName) {
 
+    loadingMsg('Saving template...')
     const prescriptionReference = doc(db, "users", userID, 'template', templateName);
 
     const invitems = document.querySelectorAll('#advList li');
@@ -557,6 +569,7 @@ function saveTemplate(templateName) {
 
     dialog.close();
     setDoc(prescriptionReference, prescriptionData).then(() => {
+        loadingContainer.close()
         getSavedtemplateList(userID);
         console.log('Template submitted!');
         showSuccessToast('Template saved !')
@@ -718,8 +731,10 @@ function deleteAlert(documentName) {
 
 async function removeTemplate(templateName) {
     const templateReference = doc(db, "users", userID, "template", templateName);
+    loadingMsg('Deleting template...')
     deleteDoc(templateReference)
         .then(() => {
+            loadingContainer.close()
             getSavedtemplateList();
             console.log('deleted');
             showSuccessToast('Template deleted !');
@@ -727,6 +742,7 @@ async function removeTemplate(templateName) {
 }
 
 async function getTemplateData(templateName) {
+    loadingMsg('Loading template...');
     const templateReference = doc(db, "users", userID, "template", templateName)
 
     const documentSnapshot = await getDoc(templateReference);
@@ -740,6 +756,9 @@ async function getTemplateData(templateName) {
         getFormattedRxList(rx);
         getformattedInvestigationList(inv);
         getformattedAdviceList(adv);
+        loadingContainer.close();
+    } else {
+
     }
 }
 
@@ -765,3 +784,29 @@ function showSuccessToast(message) {
     }, 3000);
 }
 
+function showLoadingToast(message) {
+    const container = document.getElementById('toast-container');
+
+    // Create toast element
+    const toast = document.createElement('div');
+    if (message.includes('delete')) toast.style.background = "red"
+    toast.className = 'toast';
+    toast.innerText = message;
+
+    // Append to container
+    container.appendChild(toast);
+
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        // Wait for the slide-out animation to finish before removing from DOM
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3000);
+}
+
+function loadingMsg(message) {
+    loadingText.innerHTML = '<strong>' + message + '</strong>'
+    loadingContainer.showModal();
+}

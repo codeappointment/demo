@@ -63,10 +63,12 @@
         </div>
     </div>
     <div id="toast-container"></div>
+    
     @include('popupLayout')
     @include('signinAlert')
     @include('alertPopup')
     @include('drugEditWindow')
+    @include('loadingMessage')
     <div class="page", id = "page">
 
         <div class="header" id="header">
