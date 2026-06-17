@@ -28,8 +28,7 @@ try {
     });
 
     worker.onmessage = function (e) {
-        console.log("Worker said:", e.data);
-
+    
         const matches = e.data;
         ccsuggestionList.style.display = 'block';
         ccsuggestionList.innerHTML = matches.slice(0, 100)

@@ -70,13 +70,46 @@ document.addEventListener('keydown', cancel);
 const currentDate = new Date();
 date.innerText = currentDate.toLocaleDateString('en-GB');
 
+ccinput.addEventListener('input', () => {
+
+    if (ccinput.value !== '') {
+        addcc.style.background = '#5ccf6b'
+        addcc.innerText = '\u2794'
+
+    } else {
+        resetActiveBtn(addcc);
+    }
+
+});
+
+oeinput.addEventListener('input', () => {
+
+    if (oeinput.value !== '') {
+        addoe.style.background = '#5ccf6b'
+        addoe.innerText = '\u2794'
+    } else {
+        resetActiveBtn(addoe)
+    }
+
+});
+
+advinput.addEventListener('input', () => {
+
+    if (advinput.value !== '') {
+        addadv.style.background = '#5ccf6b'
+        addadv.innerText = '\u2794'
+    } else {
+        resetActiveBtn(addadv)
+    }
+
+});
 
 addcc.addEventListener('click', () => {
 
     const newListItem = ccinput.value;
     if (ccinput.value.trim() === '') return;
     addtoListItems(newListItem, cclist, ccinput);
-
+    resetActiveBtn(addcc)
 });
 
 cclist.addEventListener('click', function (e) {
@@ -93,7 +126,7 @@ addoe.addEventListener('click', () => {
     const newListItem = oeinput.value;
     if (oeinput.value.trim() === '') return;
     addtoListItems(newListItem, oelist, oeinput);
-
+    resetActiveBtn(addoe)
 });
 
 oelist.addEventListener('click', function (e) {
@@ -110,7 +143,7 @@ addadv.addEventListener('click', () => {
     const newListItem = advinput.value;
     if (advinput.value.trim() === '') return;
     addCheckBox(newListItem, investigationList, advinput);
-
+    resetActiveBtn(addadv)
 });
 
 investigationList.addEventListener('click', function (e) {
@@ -295,7 +328,8 @@ drugList.addEventListener('click', function (e) {
 
         if (stringPart[1] === "খাবার আগে") document.getElementById('editbm').checked = true
         else document.getElementById('editam').checked = true
-        editSuggestion.value = stringPart[3] // জ্বর থাকলে
+
+        editSuggestion.value = stringPart[3] || '' // জ্বর থাকলে
 
         for (let i = 1; i <= 30; i++) {
             const option = document.createElement('option');
@@ -336,7 +370,7 @@ confirmEdit.addEventListener('click', () => {
         if (editDayWeekMonth.value === 'চলবে') {
             durationValue = '-';
         }
-        
+
         const dose = document.createElement('div');
         dose.classList.add('kalpurush');
         dose.innerHTML = editInput.value +
@@ -383,7 +417,12 @@ addAdvice.addEventListener('click', function (e) {
 
 function confirm(event) {
     if (event.key === 'Enter') {
-
+        addcc.style.background = '#d1d1d1'
+        addoe.style.background = '#d1d1d1'
+        addadv.style.background = '#d1d1d1'
+        resetActiveBtn(addcc)
+        resetActiveBtn(addoe)
+        resetActiveBtn(addadv)
         if (ccinput.value.trim() !== '') {
             const newCCItem = ccinput.value;
             addtoListItems(newCCItem, cclist, ccinput);
@@ -442,6 +481,11 @@ function addCheckBox(eliment, targetList, targetInput) {
     targetList.prepend(items); // join at top of list
     invsuggestionList.style.display = 'none'
     targetInput.value = '';
+}
+
+function resetActiveBtn(button) {
+    button.style.background = '#d1d1d1'
+    button.innerText = '+'
 }
 
 const temp = document.getElementById('temp');

@@ -232,7 +232,7 @@
         font-weight: bold;
     }
 
-    .saveTemplateBtn, 
+    .saveTemplateBtn,
     .savedHolder {
         visibility: hidden !important;
     }
@@ -250,8 +250,8 @@ body {
 
 .download {
     position: fixed;
-    top: 40px;
-    right: 20px;
+    top: 90px;
+    right: 10px;
     left: auto;
     bottom: auto;
     background: #008590;
@@ -271,10 +271,30 @@ body {
     background: #059eac;
 }
 
+.authBbtn {
+    position: fixed;
+    top: 4px;
+    right: 20px;
+    left: auto;
+    bottom: auto;
+    background: #00900c;
+    color: white;
+    border: none;
+    padding: 4px 6px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
+
+.authBbtn:hover {
+    cursor: pointer;
+    background: #07ac14;
+}
+
 .saveTemplateBtn {
     position: fixed;
-    top: 100px;
-    right: 20px;
+    top: 140px;
+    right: 10px;
     left: auto;
     bottom: auto;
     background: #908200;
@@ -286,9 +306,9 @@ body {
     font-weight: bold;
 }
 
-.saveTemplateBtn:hover{
+.saveTemplateBtn:hover {
     cursor: pointer;
-     background: #ac9b05;
+    background: #ac9b05;
 }
 
 .template:hover {
@@ -298,7 +318,7 @@ body {
 
 .savedHolder {
     position: fixed;
-    top: 146px;
+    top: 180px;
     right: 10px;
     left: auto;
     bottom: auto;
@@ -323,13 +343,15 @@ body {
     background: #009065;
     color: white;
     border: none;
+    overflow-y: auto;
+    max-height: 300px;
     padding: 8px 10px;
     border-radius: 11px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     font-weight: bold;
 }
 
-.templateList li:hover{
+.templateList li:hover {
     color: #ece472;
 }
 

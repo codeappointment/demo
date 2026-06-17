@@ -28,8 +28,6 @@ try {
     });
 
     worker.onmessage = function (e) {
-       
-        console.log("Worker said:", e.data);
 
         const matches = e.data;
         invsuggestionList.style.display = 'block';

@@ -6,8 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="ওষুধ লিখ | Oshudh likho">
-    <meta property="og:description" content="Oshudh likho is free online prescription app to generate printed prescription">
-    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYnT3mFytoihq8yqOcPHLZvG1jje-tL8x5vIuAKmXprz-paVHNaTng8d6tGH36O3-9waICVCV5nYAcvYDG4PRXsVPXsT8pexAC3WYakQ&s=10">
+    <meta property="og:description"
+        content="Oshudh likho is free online prescription app to generate printed prescription">
+    <meta property="og:image"
+        content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYnT3mFytoihq8yqOcPHLZvG1jje-tL8x5vIuAKmXprz-paVHNaTng8d6tGH36O3-9waICVCV5nYAcvYDG4PRXsVPXsT8pexAC3WYakQ&s=10">
     <meta property="og:url" content="https://oshudhlikho.com/">
     <meta property="og:type" content="website">
     <title>ওষুধ লিখ | Oshudh Likho</title>
@@ -30,7 +32,11 @@
 </head>
 
 <body>
-    <button class ="download", id = "download"\>
+    <div class="authHolder">
+        <button class ="authBbtn", id = "signinBtn">Sign in</button>
+
+    </div>
+    <button class ="download", id = "download">
         Download
     </button>
 
@@ -52,12 +58,12 @@
             Save settings
         </button>
     </div>
-    <button class ="saveTemplateBtn", id = "saveTemplateBtn">
-        Save Template
-    </button>
+
 
     <div class="savedHolder" id="savedHolder" style="visibility: hidden">
-
+        <button class ="saveTemplateBtn", id = "saveTemplateBtn">
+            Save Template
+        </button>
         <strong class="templateListHeader">My Templates</strong>
         <div class="templateList" id="templateList">
             {{-- 
@@ -68,7 +74,7 @@
         </div>
     </div>
     <div id="toast-container"></div>
-    
+
     @include('popupLayout')
     @include('signinAlert')
     @include('alertPopup')
@@ -114,7 +120,7 @@
         <div class="content">
             <div class="column column-left">
                 <div class="cc-section">
-                    <div class="sec-heading">C/C</div>
+                    <div class="sec-heading">Chief Complaints</div>
                     <div class="cc-input"><input id="ccinput" class="ccinput"
                             placeholder="Add complaints"></input><span id="addcc" , class="add-cc">+</span></div>
                     <div class="ccsuggestionList" id="ccsuggestionList">
@@ -127,7 +133,7 @@
                     </ul>
                 </div>
                 <div class="obe-section">
-                    <div class="label-small">O/E</div>
+                    <div class="label-small">Examination Findings</div>
                     <div class="cc-input"><input id="oeinput" class="oeinput"
                             placeholder="Add new findings"></input><span id="addoe" class="add-cc">+</span>
                     </div>

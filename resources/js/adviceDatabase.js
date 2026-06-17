@@ -25,8 +25,6 @@ try {
 
     worker.onmessage = function (e) {
        
-        console.log("Worker said:", e.data);
-
         const matches = e.data;
         adviceSiggestionList.style.display = 'block';
         adviceSiggestionList.innerHTML = matches.slice(0, 100)

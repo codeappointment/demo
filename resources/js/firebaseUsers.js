@@ -16,6 +16,9 @@ let userID;
 let userDataExists = false;
 let activeElement = null;
 
+// signin
+const signinBtn = document.getElementById('signinBtn');
+
 // header left section
 const doctorName = document.getElementById('doctorName');
 const qualification = document.getElementById('qualification');
@@ -84,10 +87,14 @@ onAuthStateChanged(auth, (user) => {
         documentReference = doc(db, "users", userID);
         getUserDocument(userID);
         getSavedtemplateList();
+        signinBtn.innerText = 'Sign out'
+        signinBtn.style.background = 'red'
         // ...
     } else {
         // User is signed out
         basicText();
+        signinBtn.innerText = 'Sign in'
+        signinBtn.style.background = '#00900c'
     }
 });
 
@@ -303,11 +310,24 @@ function openModal(element, labelText) {
         dialog.showModal();
 }
 
+// top sign in
+signinBtn.addEventListener('click', () => {
+    if(!auth.currentUser){
+       signInWithGoogle();
+     } else {
+        auth.signOut()
+        window.location.reload()
+     }
+    
+});
+
 // signin popup
 signin.addEventListener('click', () => {
     signInWithGoogle();
     alertModal.close();
 });
+
+
 // signin popup
 cancel.addEventListener('click', () => {
 
@@ -719,13 +739,13 @@ function deleteAlert(documentName) {
     labelText.innerHTML = 'Delete template <strong>' + documentName + '</strong>?';
     deleteAlert.showModal();
 
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn.onclick = () =>  {
         deleteAlert.close();
         removeTemplate(documentName);
-    });
-    cancelDel.addEventListener('click', () => {
+    };
+    cancelDel.onclick = () =>  {
         deleteAlert.close();
-    });
+    };
 
 }
 
