@@ -5,11 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="ওষুধ লিখ | Oshudh likho">
+    <meta property="og:title" content="ওষুধ লিখ | Oshudh Likho">
     <meta property="og:description"
-        content="Oshudh likho is free online prescription app to generate printed prescription">
+        content="Oshudh Likho is free online prescription app to generate printed prescription">
     <meta property="og:image"
-        content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYnT3mFytoihq8yqOcPHLZvG1jje-tL8x5vIuAKmXprz-paVHNaTng8d6tGH36O3-9waICVCV5nYAcvYDG4PRXsVPXsT8pexAC3WYakQ&s=10">
+        content="https://firebasestorage.googleapis.com/v0/b/prescription-f0a87.firebasestorage.app/o/preveiw.PNG?alt=media&token=dea62f14-5c7f-43e2-a396-e69e467349d1">
     <meta property="og:url" content="https://oshudhlikho.com/">
     <meta property="og:type" content="website">
     <title>ওষুধ লিখ | Oshudh Likho</title>
