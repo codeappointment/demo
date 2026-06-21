@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
 import { getFirestore, collection, addDoc, setDoc, doc, updateDoc, getDoc, getDocs, deleteDoc } from "firebase/firestore";
@@ -15,6 +15,7 @@ let documentReference;
 let userID;
 let userDataExists = false;
 let activeElement = null;
+import { sendEmailVerification } from "firebase/auth";
 
 // signin
 const signinBtn = document.getElementById('signinBtn');
@@ -39,7 +40,7 @@ const address = document.getElementById('address');
 const schedule = document.getElementById('schedule');
 const contact = document.getElementById('contact');
 
-// popup layout
+// edit item popup layout
 const dialog = document.getElementById('myPopup');
 const confirmBtn = document.getElementById('confirmBtn');
 const label = document.getElementById('label');
@@ -47,10 +48,28 @@ const inputField = document.getElementById('popupInput');
 const cancelBtn = document.getElementById('cancelButn');
 const alertModal = document.getElementById('signinAlert');
 
-// alert popup
+// mail pass signup ui popup
+const emailPassModal = document.getElementById('loginContainer');
+const signinTab = document.getElementById('signinTab');
+const signupTab = document.getElementById('signupTab');
+const emailInput = document.getElementById('emailInput');
+const passInput = document.getElementById('passInput');
+const passConfirmInput = document.getElementById('passConfirmInput');
+const passAlert = document.getElementById('passAlert');
+const submitBtn = document.getElementById('submitBtn');
+const btnText = document.getElementById('btnText');
+const googleSigninBtn = document.getElementById('googleSigninBtn')
+
+// signin alert popup
 const alertLabel = document.getElementById('label');
 const cancel = document.getElementById('cancel');
 const signin = document.getElementById('signin');
+
+// email verify reload popup
+const verifyReloadModal = document.getElementById('verifyReloadModal');
+const reloadText = document.getElementById('reloadText');
+const reload = document.getElementById('reload');
+const reloadspinner = document.getElementById('reloadspinner')
 
 // druglist
 const drugList = document.getElementById('rxList');
@@ -76,20 +95,28 @@ let newHeaderState = 'visible';
 let newHeaderHeight = '0';
 let hidden = false;
 
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
+        // authenticateFromEmail()
         const doctorName = document.getElementById('doctorName')
         // doctorName.innerText = user.displayName;
         userID = auth.currentUser.email
         documentReference = doc(db, "users", userID);
-        getUserDocument(userID);
-        getSavedtemplateList();
-        signinBtn.innerText = 'Sign out'
-        signinBtn.style.background = 'red'
-        // ...
+
+        if (user.emailVerified) {
+            getUserDocument(userID);
+            getSavedtemplateList();
+            signinBtn.innerText = 'Sign out'
+            signinBtn.style.background = 'red'
+        } else {
+            if (!isSignUp) // if not checked, createUser() calls onAuthStateChanged and popup funcion changes
+                emailVerifyPopUp() // only to invoke when user did not verify mail and accidentally reloads page
+        }
+
     } else {
         // User is signed out
         basicText();
@@ -97,7 +124,6 @@ onAuthStateChanged(auth, (user) => {
         signinBtn.style.background = '#00900c'
     }
 });
-
 
 async function getUserDocument(userID) {
     // 1. Create a reference to the specific document
@@ -177,7 +203,7 @@ async function getUserDocument(userID) {
 
         } else {
             userDataExists = false;
-            console.log("No such document found!");
+            // console.log("No such document found!");
             basicText();
 
         }
@@ -312,18 +338,22 @@ function openModal(element, labelText) {
 
 // top sign in
 signinBtn.addEventListener('click', () => {
-    if(!auth.currentUser){
-       signInWithGoogle();
-     } else {
+
+
+    if (!auth.currentUser) {
+        // signInWithGoogle();
+        emailPassModal.showModal();
+    } else {
         auth.signOut()
         window.location.reload()
-     }
-    
+    }
+
 });
 
 // signin popup
 signin.addEventListener('click', () => {
-    signInWithGoogle();
+    // signInWithGoogle();
+    emailPassModal.showModal()
     alertModal.close();
 });
 
@@ -417,7 +447,6 @@ function createUpdateData(field, value) {
                 .then(() => {
                     loadingContainer.close();
                     getUserDocument(userID);
-                    console.log("Success data update!");
                     showSuccessToast('Data update success !')
                 })
                 .catch((error) => {
@@ -436,7 +465,6 @@ function createUpdateData(field, value) {
                 .then(() => {
                     loadingContainer.close();
                     getUserDocument(userID);
-                    console.log("Success data update!");
                 })
                 .catch((error) => {
                     console.error("Error adding document: ", error);
@@ -530,7 +558,7 @@ function sendPrescriptionData() {
     }
 
     setDoc(prescriptionReference, prescriptionData).then(() => {
-        console.log('Prescription submitted!')
+        // console.log('Prescription submitted!')
     })
 }
 
@@ -591,7 +619,6 @@ function saveTemplate(templateName) {
     setDoc(prescriptionReference, prescriptionData).then(() => {
         loadingContainer.close()
         getSavedtemplateList(userID);
-        console.log('Template submitted!');
         showSuccessToast('Template saved !')
     });
 }
@@ -682,7 +709,7 @@ saveSetting.addEventListener('click', () => {
         if (userDataExists)
             updateDoc(documentReference, headerData).then(() => {
 
-                console.log('setting saved');
+                // console.log('setting saved');
             });
     } else { alertModal.showModal() }
 })
@@ -711,7 +738,7 @@ async function getSavedtemplateList() {
         });
     } else {
         savedHolder.style.visibility = 'hidden'
-        console.log('empty')
+        // console.log('empty')
     }
 }
 
@@ -739,11 +766,11 @@ function deleteAlert(documentName) {
     labelText.innerHTML = 'Delete template <strong>' + documentName + '</strong>?';
     deleteAlert.showModal();
 
-    deleteBtn.onclick = () =>  {
+    deleteBtn.onclick = () => {
         deleteAlert.close();
         removeTemplate(documentName);
     };
-    cancelDel.onclick = () =>  {
+    cancelDel.onclick = () => {
         deleteAlert.close();
     };
 
@@ -756,7 +783,7 @@ async function removeTemplate(templateName) {
         .then(() => {
             loadingContainer.close()
             getSavedtemplateList();
-            console.log('deleted');
+            // console.log('deleted');
             showSuccessToast('Template deleted !');
         });
 }
@@ -830,3 +857,187 @@ function loadingMsg(message) {
     loadingText.innerHTML = '<strong>' + message + '</strong>'
     loadingContainer.showModal();
 }
+
+// firebase email pass function
+let isSignUp = false;
+signinTab.onclick = () => {
+    passConfirmInput.style.visibility = 'hidden'
+    btnText.innerText = 'Sign in'
+    signinTab.classList.add('active')
+    signupTab.classList.remove('active')
+    document.getElementById('headerText').innerText = 'Sign in'
+    isSignUp = false;
+};
+
+signupTab.onclick = () => {
+    passConfirmInput.style.visibility = 'visible'
+    btnText.innerText = 'Submit'
+    signupTab.classList.add('active')
+    signinTab.classList.remove('active')
+    document.getElementById('headerText').innerText = 'Sign Up'
+    isSignUp = true
+};
+
+submitBtn.onclick = () => {
+    getCredentials()
+
+    // createUsers or login from sign in credential
+}
+
+passConfirmInput.addEventListener('input', function () {
+    passAlert.style.visibility = 'hidden'
+    passConfirmInput.style.background = '#ffffff'
+});
+
+passInput.addEventListener('input', function () {
+    passAlert.style.visibility = 'hidden'
+    passConfirmInput.style.background = '#ffffff'
+});
+
+googleSigninBtn.onclick = () => {
+    signInWithGoogle()
+    emailPassModal.close()
+}
+
+closeModal.onclick = () => {
+    emailPassModal.close();
+}
+
+// hide the sign in windwo by clicking outside or pressing escape
+
+document.addEventListener('click', closeModals)
+
+function closeModals(event) {
+    if (event.key === 'Escape') {
+        emailPassModal.close()
+    }
+}
+
+// sign in with email paas or google sign in 
+async function getCredentials() {
+
+    const userEmail = emailInput.value;
+    const userPass = passInput.value;
+    const userPassConfirm = passConfirmInput.value;
+    submitBtn.classList.add('loading');
+
+    // 2. Change the text to show active progress
+    btnText.innerText = "Signing In...";
+    if (isSignUp) {
+
+        // match confirm password
+        if (userPass !== userPassConfirm) {
+            passConfirmInput.style.background = '#facaca'
+            passAlert.style.visibility = 'visible'
+        } else {
+            // create new user
+            createUser(userEmail, userPass)
+        }
+    } else {
+        // login with existing user
+        loginUser(userEmail, userPass)
+    }
+
+}
+
+async function createUser(email, password) {
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed up 
+            const user = userCredential.user;
+
+            // console.log(user.email)
+
+            emailPassModal.close();
+            verifyReloadModal.showModal();
+            reloadText.innerText = 'Check spam. A verification mail has been sent to ' + user.email + '. Click the verification link. After verification success, reload this page.'
+
+            sendEmailVerification(auth.currentUser)
+                .then(() => {
+
+
+                    reload.onclick = () => {
+                        reload.classList.add('loading')
+                        user.reload().then(() => {
+                            if (user.emailVerified) {
+                                reload.classList.remove('loading')
+                                verifyReloadModal.close();
+                                getUserDocument(userID);
+                                getSavedtemplateList();
+                                signinBtn.innerText = 'Sign out'
+                                signinBtn.style.background = 'red'
+                            } else {
+                                reloadText.innerText = 'You haven\'t clicked the verification link sent to your email spam!'
+                                reloadText.style.color = 'red'
+                                reload.classList.remove('loading')
+                            }
+                        })
+
+                    }
+                });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            passAlert.style.visibility = 'visible'
+            passAlert.innerText = errorMessage
+            submitBtn.classList.remove('loading')
+            btnText.innerText = 'Submit'
+        });
+}
+
+function emailVerifyPopUp() {
+    verifyReloadModal.showModal();
+    reloadText.innerText = 'Email is not verified'
+    reload.innerText = 'Send verification email'
+
+    reload.onclick = () => {
+        reload.classList.add('loading')
+        sendEmailVerification(auth.currentUser)
+            .then(() => {
+                reload.innerText = 'Reload page'
+                reloadText.innerText = 'Check spam. A verification mail has been sent to ' + auth.currentUser.email + '. Click the verification link. After verification success, reload this page.'
+                reload.classList.remove('loading')
+                reload.onclick = () => {
+                    reload.classList.add('loading')
+                    auth.currentUser.reload().then(() => {
+                        if (auth.currentUser.emailVerified) {
+                            reload.classList.remove('loading')
+                            verifyReloadModal.close();
+                            getUserDocument(userID);
+                            getSavedtemplateList();
+                            signinBtn.innerText = 'Sign out'
+                            signinBtn.style.background = 'red'
+                        } else {
+                            reloadText.innerText = 'You haven\'t clicked the verification link sent to your email spam!'
+                            reloadText.style.color = 'red'
+                            reload.classList.remove('loading')
+                        }
+                    })
+                }
+            })
+    }
+}
+
+async function loginUser(email, password) {
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed up 
+            const user = userCredential.user;
+
+            // console.log(user.email)
+            emailPassModal.close()
+            getUserDocument()
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            passAlert.style.visibility = 'visible'
+            passAlert.innerText = 'Email or password did not match'
+            submitBtn.classList.remove('loading')
+            btnText.innerText = 'Sign in'
+        });
+}
+

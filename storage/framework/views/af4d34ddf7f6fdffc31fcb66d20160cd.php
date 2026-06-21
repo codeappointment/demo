@@ -26,4 +26,4 @@
 
     </body>
 
-</html>
+</html><?php /**PATH C:\Users\Zubayer\Herd\demo\resources\views/popupLayout.blade.php ENDPATH**/ ?>

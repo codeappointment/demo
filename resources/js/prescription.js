@@ -258,10 +258,6 @@ drugSuggestionList.addEventListener('click', function (e) {
     drugSuggestionList.style.display = 'none'
 });
 
-editsuggestionList.addEventListener('click', function (e) {
-    editInput.value = e.target.innerHTML;
-    editsuggestionList.style.display = 'none'
-});
 
 ccsuggestionList.addEventListener('click', function (e) {
     ccinput.value = e.target.innerHTML;

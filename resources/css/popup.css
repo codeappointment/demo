@@ -188,7 +188,7 @@ dialog::backdrop {
     animation: slideIn 0.3s ease forwards;
 }
 
-.loadingContainer.hide{
+.loadingContainer.hide {
     animation: slideOut 0.3s ease forwards;
 }
 
@@ -227,4 +227,222 @@ dialog::backdrop {
 
 .gap {
     height: 200px;
+}
+
+
+/* email pass login */
+
+body {
+    background-color: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card Container */
+.login-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 340px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+/* Tab Navigation */
+.tab-container {
+    display: flex;
+    padding: 4px;
+    gap: 1px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.2s ease;
+}
+
+/* Active Tab (Login) */
+.tab.active {
+    background-color: #0026e6;
+    color: #ffffff;
+}
+
+/* Inactive Tab (Sign Up) */
+.tab:not(.active) {
+    background-color: #cccccc;
+    color: #4b5563;
+}
+
+.tab:not(.active):hover {
+    background-color: #bfbfbf;
+}
+
+/* Form Body Layout */
+.form-body {
+    padding: 24px;
+    text-align: center;
+}
+
+h2 {
+    color: #111827;
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* Input Fields */
+input[type="email"],
+input[type="password"] {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.passAlert {
+    color: red;
+}
+
+input:focus {
+    border-color: #1a73e8;
+}
+
+/* Primary Action Button */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #1557b0;
+}
+
+/* Divider Text */
+.divider {
+    margin: 16px 0;
+    margin-bottom: 29px;
+    font-size: 12px;
+    color: #9ca3af;
+    text-transform: uppercase;
+}
+
+/* Google Sign-In Button */
+.btn-google {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff;
+    color: #3c4043;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-google img {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-google:hover {
+    background-color: #f8f9fa;
+}
+
+/* loading animaton  */
+/* Center the button contents (text and spinner) */
+.btn-primary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Space between spinner and text */
+    position: relative;
+    cursor: pointer;
+}
+
+
+/* The Loading Circle */
+.spinner {
+    display: none;
+    /* Hidden by default */
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    /* Light white background ring */
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    /* Solid white top ring to create the loading chunk */
+    animation: spin 0.8s linear infinite;
+    /* Smooth continuous rotation */
+}
+
+/* Keyframes to rotate the circle 360 degrees */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Loading State Modifier Class */
+.btn-primary.loading {
+    background-color: #1557b0;
+    /* Darker blue to indicate processing */
+    pointer-events: none;
+    /* Prevent double clicks while loading */
+    opacity: 0.8;
+}
+
+/* Show the spinner when the button has the .loading class */
+.btn-primary.loading .spinner {
+    display: inline-block;
+}
+
+
+.closeModal {
+    background: #555555;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    margin-top: 10px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
+
+.closeModal:hover {
+    background: #757474;
+    cursor: pointer;
+}
+
+.forgotPass {
+    color: #0026e6;
+    margin-bottom: 10px;
+    margin-top: 0;
+    text-underline-offset: 100px;
+    cursor: pointer;
 }
