@@ -325,9 +325,7 @@ function basicText() {
 function openModal(element, labelText) {
     activeElement = element;
     label.innerText = 'Enter ' + labelText;
-    if (element.innerText === 'Click to add patient name' ||
-        element.innerText === 'Click to add age' ||
-        element.innerText === 'Click to add gender' ||
+    if (element.innerText.includes('Click to add') ||
         element.innerText === 'Save Template') {
         inputField.value = '';
     } else {
