@@ -1,9 +1,13 @@
 /* popup.css */
+/* Mobile Responsive Styles */
 
 @media (max-width: 480px) {
     .signinAlert {
         min-width: 60%;
         padding: 10px;
+    }
+    .login-container {
+        min-width: 80%;
     }
 }
 
@@ -26,7 +30,7 @@
     border: 1px solid #9796f3;
     outline: none;
     line-height: 1.1em;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: kalpurush, 'Times New Roman', Times, serif;
     width: 60%;
     padding: .9em;
 }
@@ -232,18 +236,10 @@ dialog::backdrop {
 
 /* email pass login */
 
-body {
-    background-color: #f3f4f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* Card Container */
 .login-container {
     background-color: #ffffff;
-    width: 100%;
-    max-width: 340px;
+    width: 22%;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     overflow: hidden;
@@ -255,6 +251,7 @@ body {
     display: flex;
     padding: 4px;
     gap: 1px;
+    margin-bottom: 0;
 }
 
 .tab {
@@ -288,13 +285,17 @@ body {
 .form-body {
     padding: 24px;
     text-align: center;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 h2 {
     color: #111827;
     font-size: 22px;
-    margin-bottom: 20px;
     font-weight: 700;
+    padding: 0;
+    margin: 0;
+    margin-top: 0;
 }
 
 /* Input Fields */
@@ -303,11 +304,12 @@ input[type="password"] {
     width: 90%;
     padding: 12px;
     margin-bottom: 0;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #ececec;
     border-radius: 6px;
     font-size: 14px;
     color: #111827;
-    outline: none;
+    background: #ececec;
+    margin-top: 5px;
     transition: border-color 0.2s;
 }
 
@@ -315,9 +317,9 @@ input[type="password"] {
     color: red;
 }
 
-input:focus {
+/* input:focus {
     border-color: #1a73e8;
-}
+} */
 
 /* Primary Action Button */
 .btn-primary {
@@ -339,10 +341,10 @@ input:focus {
 
 /* Divider Text */
 .divider {
-    margin: 16px 0;
+    margin: 12px 0;
     margin-bottom: 29px;
-    font-size: 12px;
-    color: #9ca3af;
+    font-size: 10px;
+    color: #727579;
     text-transform: uppercase;
 }
 
@@ -352,7 +354,7 @@ input:focus {
     padding: 12px;
     background-color: #ffffff;
     color: #3c4043;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #c9c9c9;
     border-radius: 6px;
     font-size: 14px;
     font-weight: 500;
@@ -360,6 +362,7 @@ input:focus {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -370,7 +373,7 @@ input:focus {
 }
 
 .btn-google:hover {
-    background-color: #f8f9fa;
+    background-color: #b9ffd6;
 }
 
 /* loading animaton  */
@@ -422,6 +425,11 @@ input:focus {
     display: inline-block;
 }
 
+.wrongEmail {
+    background: red;
+    color: white;
+    margin-top: 15px;
+}
 
 .closeModal {
     background: #555555;

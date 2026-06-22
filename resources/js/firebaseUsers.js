@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, deleteUser } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
 import { getFirestore, collection, addDoc, setDoc, doc, updateDoc, getDoc, getDocs, deleteDoc } from "firebase/firestore";
@@ -15,7 +15,7 @@ let documentReference;
 let userID;
 let userDataExists = false;
 let activeElement = null;
-import { sendEmailVerification } from "firebase/auth";
+let forgotPassClicked = false;
 
 // signin
 const signinBtn = document.getElementById('signinBtn');
@@ -25,10 +25,13 @@ const doctorName = document.getElementById('doctorName');
 const qualification = document.getElementById('qualification');
 const affiliation = document.getElementById('affiliation');
 const BMDC = document.getElementById('BMDC');
+
+// patient section
 const patientName = document.getElementById('patientName');
 const age = document.getElementById('age');
 const gender = document.getElementById('gender');
 const date = document.getElementById('date');
+const phone = document.getElementById('phone')
 
 // header center section 
 
@@ -59,6 +62,8 @@ const passAlert = document.getElementById('passAlert');
 const submitBtn = document.getElementById('submitBtn');
 const btnText = document.getElementById('btnText');
 const googleSigninBtn = document.getElementById('googleSigninBtn')
+const closeModalBtn = document.getElementById('closeModalBtn')
+const forgotPass = document.getElementById('forgotPass')
 
 // signin alert popup
 const alertLabel = document.getElementById('label');
@@ -69,7 +74,7 @@ const signin = document.getElementById('signin');
 const verifyReloadModal = document.getElementById('verifyReloadModal');
 const reloadText = document.getElementById('reloadText');
 const reload = document.getElementById('reload');
-const reloadspinner = document.getElementById('reloadspinner')
+const deleteUserBtn = document.getElementById('delete')
 
 // druglist
 const drugList = document.getElementById('rxList');
@@ -94,7 +99,7 @@ let loadedHeaderHeight = divider.style.marginTop || 0;
 let newHeaderState = 'visible';
 let newHeaderHeight = '0';
 let hidden = false;
-
+let isSignUp = false;
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -114,7 +119,7 @@ onAuthStateChanged(auth, (user) => {
             signinBtn.style.background = 'red'
         } else {
             if (!isSignUp) // if not checked, createUser() calls onAuthStateChanged and popup funcion changes
-                emailVerifyPopUp() // only to invoke when user did not verify mail and accidentally reloads page
+                emailVerifyPopUp(userID) // only to invoke when user did not verify mail and accidentally reloads page
         }
 
     } else {
@@ -476,12 +481,22 @@ function createUpdateData(field, value) {
 
 const downloadBtn = document.getElementById('download');
 downloadBtn.addEventListener('click', () => {
-    sendPrescriptionData();
+    const phoneNumber = phone.value;
+    if (phoneNumber !== '') {
+        sendPrescriptionData(phoneNumber);
+    } else {
+        phone.classList.add('has-error')
+    }
+
 });
 
-function sendPrescriptionData() {
+phone.addEventListener('input', () => {
+    phone.classList.remove('has-error')
+})
 
-    const prescriptionReference = doc(db, "users", userID, 'prescription', patientName.innerText + ' ' + age.innerText);
+function sendPrescriptionData(phoneNumber) {
+
+    const prescriptionReference = doc(db, 'prescription', phoneNumber);
 
     const ccItems = document.querySelectorAll('#ccList li');
 
@@ -546,6 +561,7 @@ function sendPrescriptionData() {
         return li.childNodes[0].textContent.trim();
     });
     const prescriptionData = {
+        docID: userID,
         nam: patientName.innerText,
         ages: age.innerText,
         dat: date.innerText,
@@ -859,7 +875,7 @@ function loadingMsg(message) {
 }
 
 // firebase email pass function
-let isSignUp = false;
+
 signinTab.onclick = () => {
     passConfirmInput.style.visibility = 'hidden'
     btnText.innerText = 'Sign in'
@@ -878,6 +894,13 @@ signupTab.onclick = () => {
     isSignUp = true
 };
 
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+});
+
 submitBtn.onclick = () => {
     getCredentials()
 
@@ -886,12 +909,17 @@ submitBtn.onclick = () => {
 
 passConfirmInput.addEventListener('input', function () {
     passAlert.style.visibility = 'hidden'
-    passConfirmInput.style.background = '#ffffff'
+    passConfirmInput.style.background = '#ececec'
 });
 
 passInput.addEventListener('input', function () {
     passAlert.style.visibility = 'hidden'
-    passConfirmInput.style.background = '#ffffff'
+    passInput.style.background = '#ececec'
+});
+
+emailInput.addEventListener('input', function () {
+    passAlert.style.visibility = 'hidden'
+    emailInput.style.background = '#ececec'
 });
 
 googleSigninBtn.onclick = () => {
@@ -899,18 +927,84 @@ googleSigninBtn.onclick = () => {
     emailPassModal.close()
 }
 
-closeModal.onclick = () => {
+closeModalBtn.onclick = () => {
     emailPassModal.close();
+    emailPassModalReset()
+}
+forgotPass.onclick = () => {
+    forgotPassClicked = true;
+    passInput.style.display = 'none'
+    passConfirmInput.style.display = 'none'
+    googleSigninBtn.style.display = 'none'
+    signinTab.style.display = 'none'
+    signupTab.style.display = 'none'
+    document.getElementById('divider').style.display = 'none'
+    document.getElementById('headerText').innerText = 'Enter your email'
+    forgotPass.style.display = 'none'
+    btnText.innerText = 'Send password reset link';
+    if (forgotPassClicked) // this will prevent sending pass reset mail when try to login
+        submitBtn.onclick = () => {
+            submitBtn.classList.add('loading')
+            const emailForPassReset = emailInput.value
+            const validEmail = validateEmail(emailForPassReset)
+            if (validEmail) {
+                forgotPassClicked = false;
+                sendPasswordResetEmail(auth, emailForPassReset)
+                    .then(() => {
+                        submitBtn.classList.remove('loading')
+                        emailPassModalReset()
+                        emailPassModal.close()
+                        verifyReloadModal.showModal()
+                        reloadText.innerHTML = 'An email with reset link hase been sent to <b>' + emailForPassReset + '</b>. Open <b>SPAM</b> folder of your email'
+                        deleteUserBtn.style.display = 'none'
+                        reload.innerText = 'OK'
+                        reload.onclick = () => {
+                            window.location.reload()
+                        }
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        console.log(errorMessage)
+                        // ..
+                    });
+            } else {
+                emailInput.style.backgroundColor = '#ffb5b5'
+            }
+        }
 }
 
-// hide the sign in windwo by clicking outside or pressing escape
-
-document.addEventListener('click', closeModals)
-
-function closeModals(event) {
-    if (event.key === 'Escape') {
-        emailPassModal.close()
+function emailPassModalReset() {
+    emailInput.style.background = '#ececec'
+    passInput.style.background = '#ececec'
+    passConfirmInput.style.background = '#ececec'
+    emailInput.value = ''
+    passInput.value = ''
+    passConfirmInput.value = ''
+    passInput.style.display = 'block'
+    passConfirmInput.style.display = 'block'
+    googleSigninBtn.style.display = 'block'
+    signinTab.style.display = 'block'
+    signupTab.style.display = 'block'
+    document.getElementById('divider').style.display = 'block'
+    forgotPass.style.display = 'block'
+    if (isSignUp) {
+        document.getElementById('headerText').innerText = 'Sign Up'
+        btnText.innerText = 'Submit'
+    } else {
+        document.getElementById('headerText').innerText = 'Sign in'
+        btnText.innerText = 'Sign in'
     }
+    passAlert.style.visibility = 'hidden'
+
+}
+
+function validateEmail(email) {
+    // Standard regular expression pattern for emails
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Returns true if the email matches the pattern, false if it doesn't
+    return emailPattern.test(email);
 }
 
 // sign in with email paas or google sign in 
@@ -919,23 +1013,53 @@ async function getCredentials() {
     const userEmail = emailInput.value;
     const userPass = passInput.value;
     const userPassConfirm = passConfirmInput.value;
-    submitBtn.classList.add('loading');
 
-    // 2. Change the text to show active progress
-    btnText.innerText = "Signing In...";
     if (isSignUp) {
 
         // match confirm password
-        if (userPass !== userPassConfirm) {
-            passConfirmInput.style.background = '#facaca'
+        const validEmail = validateEmail(emailInput.value);
+        if (!validEmail) {
+            emailInput.style.background = '#facaca'
+            passAlert.innerText = 'Enter valid Email'
             passAlert.style.visibility = 'visible'
+        } else if (emailInput.value !== '' && passInput.value !== '' && passConfirmInput.value !== '') {
+            if (userPass !== userPassConfirm) {
+                passConfirmInput.style.background = '#facaca'
+                passAlert.style.visibility = 'visible'
+                submitBtn.classList.remove('loading');
+                btnText.innerText = "Submit";
+            } else {
+                // create new user
+                submitBtn.classList.add('loading');
+
+                // 2. Change the text to show active progress
+                btnText.innerText = "Signing In...";
+                createUser(userEmail, userPass)
+            }
         } else {
-            // create new user
-            createUser(userEmail, userPass)
+            if (emailInput.value === '') emailInput.style.background = '#facaca'
+            if (passInput.value === '') passInput.style.background = '#facaca'
+            if (passConfirmInput.value === '') passConfirmInput.style.background = '#facaca'
         }
     } else {
+
         // login with existing user
-        loginUser(userEmail, userPass)
+        const validEmail = validateEmail(emailInput.value);
+        if (!validEmail) {
+            emailInput.style.background = '#facaca'
+            passAlert.innerText = 'Enter valid Email'
+            passAlert.style.visibility = 'visible'
+        } else if (emailInput.value !== '' && passInput.value !== '') {
+            submitBtn.classList.add('loading');
+
+            // 2. Change the text to show active progress
+            btnText.innerText = "Signing In...";
+            loginUser(userEmail, userPass)
+        } else {
+            if (emailInput.value === '') emailInput.style.background = '#facaca'
+            if (passInput.value === '') passInput.style.background = '#facaca'
+        }
+
     }
 
 }
@@ -951,12 +1075,27 @@ async function createUser(email, password) {
 
             emailPassModal.close();
             verifyReloadModal.showModal();
-            reloadText.innerText = 'Check spam. A verification mail has been sent to ' + user.email + '. Click the verification link. After verification success, reload this page.'
+            reloadText.innerHTML = 'An email with verification link has been sent to <b>' + user.email + '</b>. ' + ' Check <b>SPAM</b> folder. Click the verification link. After verification success, reload this page.'
 
             sendEmailVerification(auth.currentUser)
                 .then(() => {
 
+                    deleteUserBtn.onclick = () => {
+                        deleteUserBtn.classList.add('loading')
+                        deleteUser(auth.currentUser)
 
+                            .then(() => {
+                                deleteUserBtn.classList.remove('loading')
+                                verifyReloadModal.close()
+                                window.location.reload()
+                            })
+                            .catch((error) => {
+                                deleteUserBtn.classList.remove('loading')
+                                auth.signOut()
+                                verifyReloadModal.close()
+                                console.error("Error deleting user:", error.message);
+                            });
+                    }
                     reload.onclick = () => {
                         reload.classList.add('loading')
                         user.reload().then(() => {
@@ -987,17 +1126,32 @@ async function createUser(email, password) {
         });
 }
 
-function emailVerifyPopUp() {
+function emailVerifyPopUp(email) {
     verifyReloadModal.showModal();
-    reloadText.innerText = 'Email is not verified'
+    reloadText.innerHTML = '<b>' + email + '</b>' + ' is not verified'
     reload.innerText = 'Send verification email'
 
+    deleteUserBtn.onclick = () => {
+        deleteUserBtn.classList.add('loading')
+        deleteUser(auth.currentUser)
+
+            .then(() => {
+                deleteUserBtn.classList.remove('loading')
+                verifyReloadModal.close()
+                window.location.reload()
+            })
+            .catch((error) => {
+                deleteUserBtn.classList.remove('loading')
+                auth.signOut()
+                verifyReloadModal.close()
+            });
+    }
     reload.onclick = () => {
         reload.classList.add('loading')
         sendEmailVerification(auth.currentUser)
             .then(() => {
                 reload.innerText = 'Reload page'
-                reloadText.innerText = 'Check spam. A verification mail has been sent to ' + auth.currentUser.email + '. Click the verification link. After verification success, reload this page.'
+                reloadText.innerHTML = 'An email with verification link has been sent to <b>' + auth.currentUser.email + '</b>. Open <b>SPAM</b> forlder. Click the verification link. After verification success, reload this page.'
                 reload.classList.remove('loading')
                 reload.onclick = () => {
                     reload.classList.add('loading')

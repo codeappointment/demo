@@ -17,6 +17,10 @@
                     <span class="spinner" id="reloadspinner"></span>
                     <span class="btn-text">Reload Page</span>
                 </button>
+                <button id="delete" class="btn-primary wrongEmail">
+                    <span class="spinner" id="reloadspinner"></span>
+                    <span class="btn-text">I typed wrong email</span>
+                </button>
             </div>
         </div>
     </dialog>

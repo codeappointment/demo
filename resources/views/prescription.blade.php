@@ -117,6 +117,7 @@
             <div class="field"><strong>Date:</strong>
                 <div id="date" class="date">04/10/2025</div>
             </div>
+            <div class="phonefield" id="phonefield" type= "number"><strong>Patient's Phone:</strong> <input id="phone" class="phone" placeholder="017********"></input></div>
         </div>
 
         <div class="content">

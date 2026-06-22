@@ -4,6 +4,8 @@ const patientName = document.getElementById('patientName');
 const age = document.getElementById('age');
 const date = document.getElementById('date');
 
+// patient section
+const phonefield = document.getElementById('phonefield');
 // popup layout
 const dialog = document.getElementById('myPopup');
 const confirmBtn = document.getElementById('confirmBtn');
@@ -62,7 +64,8 @@ const drugEditSection = document.getElementById('drugEditSection');
 const durationEdit = document.getElementById('durationEdit');
 const editDayWeekMonth = document.getElementById('editDayWeekMonth');
 const editMealRelation = document.getElementById('editMealRelation');
-const editSuggestion = document.getElementById('editSuggestion')
+const editSuggestion = document.getElementById('editSuggestion');
+const editsuggestionList = document.getElementById('editsuggestionList')
 
 document.addEventListener('keydown', confirm);
 document.addEventListener('keydown', cancel);
@@ -258,6 +261,10 @@ drugSuggestionList.addEventListener('click', function (e) {
     drugSuggestionList.style.display = 'none'
 });
 
+editsuggestionList.addEventListener('click', function (e) {
+    editInput.value = e.target.innerHTML;
+    editsuggestionList.style.display = 'none'
+});
 
 ccsuggestionList.addEventListener('click', function (e) {
     ccinput.value = e.target.innerHTML;
@@ -517,6 +524,7 @@ const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
 );
 const downloadBtn = document.getElementById('download');
 const element = document.getElementById('page');
+const phone = document.getElementById('phone')
 
 mobileDownload();
 function mobileDownload() {
@@ -524,60 +532,67 @@ function mobileDownload() {
 
         if (downloadBtn) {
             downloadBtn.addEventListener('click', () => {
-                mobileDesktopView();
+                if (phone.value !== '') {
+                    mobileDesktopView();
 
-                togglePrint();
-                // 1. Visual feedback (Optional: Change button text while processing)
-                downloadBtn.innerText = "Generating PDF...";
-                downloadBtn.disabled = true;
+                    togglePrint();
+                    // 1. Visual feedback (Optional: Change button text while processing)
+                    downloadBtn.innerText = "Generating PDF...";
+                    downloadBtn.disabled = true;
 
-                // 2. Options for high-quality rendering
-                const options = {
-                    scale: 2,             // Sharpens text and images (retina quality)
-                    useCORS: true,        // Allows loading external assets/images if any
-                    logging: false        // Turns off console spam
-                };
+                    // 2. Options for high-quality rendering
+                    const options = {
+                        scale: 2,             // Sharpens text and images (retina quality)
+                        useCORS: true,        // Allows loading external assets/images if any
+                        logging: false        // Turns off console spam
+                    };
 
-                // 3. Render HTML to Canvas
-                html2canvas(element, options).then((canvas) => {
-                    const imgData = canvas.toDataURL('image/png');
+                    // 3. Render HTML to Canvas
+                    html2canvas(element, options).then((canvas) => {
+                        const imgData = canvas.toDataURL('image/png');
 
-                    // 4. Initialize jsPDF (A4 Portrait, measurements in millimeters)
-                    const { jsPDF } = window.jspdf;
-                    const pdf = new jsPDF('p', 'mm', 'a4');
+                        // 4. Initialize jsPDF (A4 Portrait, measurements in millimeters)
+                        const { jsPDF } = window.jspdf;
+                        const pdf = new jsPDF('p', 'mm', 'a4');
 
-                    // A4 dimensions
-                    const pdfWidth = 210;
-                    const pdfHeight = 297;
+                        // A4 dimensions
+                        const pdfWidth = 210;
+                        const pdfHeight = 297;
 
-                    // Calculate responsive height keeping aspect ratio intact
-                    const imgWidth = pdfWidth;
-                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                        // Calculate responsive height keeping aspect ratio intact
+                        const imgWidth = pdfWidth;
+                        const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-                    // 5. Add image to PDF and trigger save
-                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    const patientName = document.getElementById('patientName');
-                    const age = document.getElementById('age');
-                    const pdfName = patientName.innerText + ' ' + age.innerText;
-                    pdf.save(pdfName + '.pdf');
+                        // 5. Add image to PDF and trigger save
+                        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                        const patientName = document.getElementById('patientName');
+                        const age = document.getElementById('age');
+                        const pdfName = patientName.innerText + ' ' + age.innerText;
+                        pdf.save(pdfName + '.pdf');
 
-                    // 6. Restore button state
-                    downloadBtn.innerText = "Download Prescription PDF";
-                    downloadBtn.disabled = false;
-                    window.location.reload();
-                }).catch((error) => {
-                    console.error("PDF generation failed:", error);
-                    downloadBtn.innerText = "Download Failed";
-                    downloadBtn.disabled = false;
-                });
+                        // 6. Restore button state
+                        downloadBtn.innerText = "Download Prescription PDF";
+                        downloadBtn.disabled = false;
+                        window.location.reload();
+                    }).catch((error) => {
+                        console.error("PDF generation failed:", error);
+                        downloadBtn.innerText = "Download Failed";
+                        downloadBtn.disabled = false;
+                    });
+                } else {
+                    phone.classList.add('has-error')
+                }
             });
         }
+
     });
+
 }
 
 function togglePrint() {
     // download.style.display = 'none'
 
+    phonefield.style.display = 'none'
     ccinput.style.display = 'none'
     cclist.style.background = 'none'
     addcc.style.display = 'none'

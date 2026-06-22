@@ -634,6 +634,10 @@ body {
     margin-bottom: 28px;
     font-family: kalpurush, 'Times New Roman', Times, serif;
 }
+.phone.has-error {
+    border: 2px solid #ef4444;
+    background-color: #ffb5b5;
+}
 
 .patient-row .field {
     display: flex;
@@ -648,6 +652,9 @@ body {
     cursor: pointer;
 }
 
+.phonefield {
+        width: 200px;
+    }
 .content {
     display: flex;
     grid-template-columns: 1fr 1fr;
@@ -1184,6 +1191,10 @@ body {
     .patient-row {
 
         font-family: kalpurush, 'Times New Roman', Times, serif;
+    }
+
+    .phonefield {
+        display: none;
     }
 
     .content {
