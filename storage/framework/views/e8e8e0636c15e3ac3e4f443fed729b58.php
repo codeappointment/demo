@@ -34,7 +34,7 @@
                 </button>
             </div>
 
-            <div class="divider" id="divider"><br> For mobile and personal desktop</div>
+            <div class="divider" id="dividerLogin"><br> For mobile and personal desktop</div>
 
             <button class="btn-google" id="googleSigninBtn">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"

@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <div class="searchRxHolder" id="searchRxHolder">
+    <div class="searchRxHolder" id="searchRxHolder" style="visibility: hidden">
         <div class="searchHeader">Search Prescription</div>
         <input type="text" class="searchInput" id="searchInput" placeholder="Enter patient's phone">
 

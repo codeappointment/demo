@@ -85,6 +85,7 @@ const saveTemplateBtn = document.getElementById('saveTemplateBtn');
 const templateList = document.getElementById('templateList');
 
 //searchRxList 
+const searchRxHolder = document.getElementById('searchRxHolder')
 const searchRxList = document.getElementById('searchRxList')
 const searchInput = document.getElementById('searchInput')
 const searchBtn = document.getElementById('searchBtn')
@@ -119,6 +120,7 @@ onAuthStateChanged(auth, (user) => {
         documentReference = doc(db, "users", userID);
 
         if (user.emailVerified) {
+            searchRxHolder.style.visibility = 'visible'
             getUserDocument(userID);
             getSavedtemplateList();
             signinBtn.innerText = 'Sign out'
@@ -1099,7 +1101,7 @@ forgotPass.onclick = () => {
     googleSigninBtn.style.display = 'none'
     signinTab.style.display = 'none'
     signupTab.style.display = 'none'
-    document.getElementById('divider').style.display = 'none'
+    document.getElementById('dividerLogin').style.display = 'none'
     document.getElementById('headerText').innerText = 'Enter your email'
     forgotPass.style.display = 'none'
     btnText.innerText = 'Send password reset link';
@@ -1116,7 +1118,7 @@ forgotPass.onclick = () => {
                         emailPassModalReset()
                         emailPassModal.close()
                         verifyReloadModal.showModal()
-                        reloadText.innerHTML = 'An email with reset link hase been sent to <b>' + emailForPassReset + '</b>. Open <b>SPAM</b> folder of your email'
+                        reloadText.innerHTML = 'An email with reset link hase been sent to <b>' + emailForPassReset + '</b>. Open your email'
                         deleteUserBtn.style.display = 'none'
                         reload.innerText = 'OK'
                         reload.onclick = () => {
@@ -1147,7 +1149,7 @@ function emailPassModalReset() {
     googleSigninBtn.style.display = 'block'
     signinTab.style.display = 'block'
     signupTab.style.display = 'block'
-    document.getElementById('divider').style.display = 'block'
+    document.getElementById('dividerLogin').style.display = 'block'
     forgotPass.style.display = 'block'
     if (isSignUp) {
         document.getElementById('headerText').innerText = 'Sign Up'
@@ -1236,7 +1238,7 @@ async function createUser(email, password) {
 
             emailPassModal.close();
             verifyReloadModal.showModal();
-            reloadText.innerHTML = 'An email with verification link has been sent to <b>' + user.email + '</b>. ' + ' Check <b>SPAM</b> folder. Click the verification link. After verification success, reload this page.'
+            reloadText.innerHTML = 'An email with verification link has been sent to <b>' + user.email + '</b>. ' + ' Click the verification link. After verification success, reload this page.'
 
             sendEmailVerification(auth.currentUser)
                 .then(() => {
@@ -1268,7 +1270,7 @@ async function createUser(email, password) {
                                 signinBtn.innerText = 'Sign out'
                                 signinBtn.style.background = 'red'
                             } else {
-                                reloadText.innerText = 'You haven\'t clicked the verification link sent to your email spam!'
+                                reloadText.innerText = 'You haven\'t clicked the verification link sent to your email!'
                                 reloadText.style.color = 'red'
                                 reload.classList.remove('loading')
                             }
@@ -1312,7 +1314,7 @@ function emailVerifyPopUp(email) {
         sendEmailVerification(auth.currentUser)
             .then(() => {
                 reload.innerText = 'Reload page'
-                reloadText.innerHTML = 'An email with verification link has been sent to <b>' + auth.currentUser.email + '</b>. Open <b>SPAM</b> forlder. Click the verification link. After verification success, reload this page.'
+                reloadText.innerHTML = 'An email with verification link has been sent to <b>' + auth.currentUser.email + '</b>. Click the verification link. After verification success, reload this page.'
                 reload.classList.remove('loading')
                 reload.onclick = () => {
                     reload.classList.add('loading')
@@ -1325,7 +1327,7 @@ function emailVerifyPopUp(email) {
                             signinBtn.innerText = 'Sign out'
                             signinBtn.style.background = 'red'
                         } else {
-                            reloadText.innerText = 'You haven\'t clicked the verification link sent to your email spam!'
+                            reloadText.innerText = 'You haven\'t clicked the verification link sent to your email!'
                             reloadText.style.color = 'red'
                             reload.classList.remove('loading')
                         }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Online Prescription Software with Patient Data Saving | Oshudh Likho</title>
+    <title>ওষুধ লিখ | Oshudh Likho | Free Online Prescription Software with Patient Data Record EMR</title>
     <meta name="description"
         content="Oshudh Likho is a free online prescription software that saves patient data as EMRs securely and helps doctors generate prescriptions fast.">
     <meta name="keywords"
@@ -72,7 +72,7 @@
                     including prescription software, and is also working on AI-based software for the medical community,
                     which is currently under development.</p>
                 <p style="margin: 0; font-family: 'Times New Roman', Times, serif; font-size: 17px;">For more
-                    information, you can email <a href="mailto:zubayer.42@gmail.com"
+                    information, you can email at: <a href="mailto:zubayer.42@gmail.com"
                         style="color: #1d4ed8;">zubayer.42@gmail.com</a>.</p>
             </section>
         </div>

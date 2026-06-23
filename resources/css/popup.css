@@ -431,6 +431,10 @@ input[type="password"] {
     margin-top: 15px;
 }
 
+.wrongEmail:hover {
+    background: rgb(201, 16, 16);
+}
+
 .closeModal {
     background: #555555;
     color: white;
