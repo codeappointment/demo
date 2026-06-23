@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, deleteUser } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
-import { getFirestore, collection, addDoc, setDoc, doc, updateDoc, getDoc, getDocs, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, query, where, addDoc, setDoc, doc, updateDoc, getDoc, getDocs, deleteDoc } from "firebase/firestore";
 
 import { app } from './firebaseAuth.js';
 import { signInWithGoogle } from './signin.js';
@@ -31,7 +31,8 @@ const patientName = document.getElementById('patientName');
 const age = document.getElementById('age');
 const gender = document.getElementById('gender');
 const date = document.getElementById('date');
-const phone = document.getElementById('phone')
+const phone = document.getElementById('phone');
+const diagnosis = document.getElementById('diagnosis');
 
 // header center section 
 
@@ -82,6 +83,11 @@ const drugList = document.getElementById('rxList');
 // template
 const saveTemplateBtn = document.getElementById('saveTemplateBtn');
 const templateList = document.getElementById('templateList');
+
+//searchRxList 
+const searchRxList = document.getElementById('searchRxList')
+const searchInput = document.getElementById('searchInput')
+const searchBtn = document.getElementById('searchBtn')
 
 // loading dialogue
 const loadingContainer = document.getElementById('loadingContainer');
@@ -217,8 +223,9 @@ async function getUserDocument(userID) {
     }
 }
 
-function getFormattedRxList(rx) {
+function getFormattedRxList(rx, searchPrescription) {
 
+    if (searchPrescription) drugList.innerHTML = ''
     Object.keys(rx).forEach(key => {
         const rxArray = rx[key];
         // const htmlOutput = formatRxData(rxArray);
@@ -246,8 +253,10 @@ function getFormattedRxList(rx) {
     });
 }
 
-async function getformattedInvestigationList(inv) {
+async function getformattedInvestigationList(inv, searchPrescription) {
     const investigationList = document.getElementById('advList');
+    if (searchPrescription)
+        investigationList.innerHTML = ''
     Object.keys(inv).forEach(key => {
         const invArray = inv[key];
         // const htmlOutput = formatRxData(rxArray);
@@ -268,8 +277,10 @@ async function getformattedInvestigationList(inv) {
     });
 }
 
-async function getformattedAdviceList(adv) {
+async function getformattedAdviceList(adv, searchPrescription) {
     const adviceList = document.getElementById('adviceList');
+    if (searchPrescription)
+        adviceList.innerHTML = ''
     Object.keys(adv).forEach(key => {
         const advArray = adv[key];
         // const htmlOutput = formatRxData(rxArray);
@@ -285,6 +296,50 @@ async function getformattedAdviceList(adv) {
         adviceList.prepend(items);
 
         adviceList.style.display = 'block'
+    });
+}
+
+async function getformattedCCList(cc, searchPrescription) {
+    const ccList = document.getElementById('ccList');
+    if (searchPrescription)
+        ccList.innerHTML = ''
+    Object.keys(cc).forEach(key => {
+        const advArray = cc[key];
+        // const htmlOutput = formatRxData(rxArray);
+        const items = document.createElement('li');
+        // items.textContent = 'some text';
+        ccList.append(items);
+
+        const span = document.createElement('span');
+        span.innerHTML = "\u00d7";
+
+        items.append(advArray);
+        items.append(span);
+        ccList.prepend(items);
+
+        ccList.style.display = 'block'
+    });
+}
+
+async function getformattedOEist(oe, searchPrescription) {
+    const oeList = document.getElementById('oeList');
+    if (searchPrescription)
+        oeList.innerHTML = ''
+    Object.keys(oe).forEach(key => {
+        const advArray = oe[key];
+        // const htmlOutput = formatRxData(rxArray);
+        const items = document.createElement('li');
+        // items.textContent = 'some text';
+        oeList.append(items);
+
+        const span = document.createElement('span');
+        span.innerHTML = "\u00d7";
+
+        items.append(advArray);
+        items.append(span);
+        oeList.prepend(items);
+
+        oeList.style.display = 'block'
     });
 }
 
@@ -366,6 +421,13 @@ cancel.addEventListener('click', () => {
 
     alertModal.close();
 });
+
+searchBtn.onclick = () => {
+    if (searchInput.value !== '') {
+        const phone = searchInput.value;
+        getRx(phone)
+    }
+}
 
 function updateCancelPopUp() {
     const val = inputField.value;
@@ -490,11 +552,19 @@ downloadBtn.addEventListener('click', () => {
 
 phone.addEventListener('input', () => {
     phone.classList.remove('has-error')
-})
+});
+
+searchInput.addEventListener('input', () => {
+
+    searchRxList.innerHTML = ''
+    searchRxList.classList.remove('templateList')
+});
+
 
 function sendPrescriptionData(phoneNumber) {
 
-    const prescriptionReference = doc(db, 'prescription', phoneNumber);
+    const currentTimeMillis = `${Date.now()}` // Date.now().toString();
+    const prescriptionReference = doc(db, 'prescription', currentTimeMillis);
 
     const ccItems = document.querySelectorAll('#ccList li');
 
@@ -536,8 +606,6 @@ function sendPrescriptionData(phoneNumber) {
             return clonedLi.textContent.trim();
         });
 
-
-    const diagnosis = document.getElementById('diagnosis');
     const rxItems = document.querySelectorAll('#rxList li');
 
 
@@ -560,8 +628,10 @@ function sendPrescriptionData(phoneNumber) {
     });
     const prescriptionData = {
         docID: userID,
+        ph: phoneNumber,
         nam: patientName.innerText,
         ages: age.innerText,
+        gen: gender.innerText,
         dat: date.innerText,
         cc: ccitemTexts,
         oe: oeitemTexts,
@@ -616,8 +686,12 @@ function saveTemplate(templateName) {
         return itemObject;
     });
 
-    // Now rxitemTexts is an array of plain objects: [{0: "text", 1: "text"}, {...}]
-    // You can safely pass this to setDoc()
+    const ccItems = document.querySelectorAll('#ccList li');
+
+
+    const ccitemTexts = Array.from(ccItems).map(li => {
+        return li.childNodes[0].textContent.trim();
+    });
 
     const advItems = document.querySelectorAll('#adviceList li');
     const advItemTexts = Array.from(advItems).map(li => {
@@ -627,6 +701,7 @@ function saveTemplate(templateName) {
         inv: invitemTexts,
         rx: rxitemTexts,
         adv: advItemTexts,
+        cc: ccitemTexts,
     }
 
     dialog.close();
@@ -756,6 +831,42 @@ async function getSavedtemplateList() {
     }
 }
 
+async function getRx(phone) {
+    loadingMsg('Loading prescription...')
+    const myPrescriptions = query(collection(db, "prescription"),
+        where("docID", "==", userID), where("ph", "==", phone));
+
+    const querySnapshot = await getDocs(myPrescriptions);
+    if (!querySnapshot.empty) {
+        searchRxList.innerHTML = ''
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            const formattedDate = new Intl.DateTimeFormat('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit'
+            }).format(Number(doc.id));
+
+            const listItems = document.createElement('li');
+            const nameChild = document.createElement('div');
+
+            nameChild.classList.add('selectable');
+            nameChild.innerHTML = formattedDate;
+            nameChild.dataset.timesmap = doc.id;
+            listItems.appendChild(nameChild);
+            searchRxList.classList.add('templateList')
+            searchRxList.classList.add('searchRxList')
+            searchRxList.append(listItems);
+            loadingContainer.close();
+        });
+    } else {
+        showSuccessToast('No record found!')
+        loadingContainer.close();
+    }
+}
+
+
 templateList.addEventListener('click', function (e) {
     const li = e.target.closest('li');
     const documentName = li.textContent.replace(/×/g, '').trim(); // if not replaced, takes × as part of document name
@@ -766,6 +877,14 @@ templateList.addEventListener('click', function (e) {
 
         deleteAlert(documentName);
     }
+
+});
+
+searchRxList.addEventListener('click', function (e) {
+
+    console.log(e.target.dataset.timesmap)
+    const timesmap = e.target.dataset.timesmap;
+    getSavedPrescription(timesmap)
 
 });
 
@@ -814,10 +933,53 @@ async function getTemplateData(templateName) {
         const rx = userData.rx;
         const inv = userData.inv;
         const adv = userData.adv;
-        getFormattedRxList(rx);
-        getformattedInvestigationList(inv);
-        getformattedAdviceList(adv);
+        const cc = userData.cc;
+        getFormattedRxList(rx, false);
+        getformattedInvestigationList(inv, false);
+        getformattedAdviceList(adv, false);
+        getformattedCCList(cc, false)
         loadingContainer.close();
+    } else {
+
+    }
+}
+
+async function getSavedPrescription(timesmap) {
+    loadingMsg('Loading prescription...');
+    const templateReference = doc(db, "prescription", timesmap)
+
+    const documentSnapshot = await getDoc(templateReference);
+
+    if (documentSnapshot.exists()) {
+
+        const userData = documentSnapshot.data();
+        const rx = userData.rx;
+        const inv = userData.inv;
+        const adv = userData.adv;
+        const cc = userData.cc;
+        const oe = userData.oe;
+
+        const dates = userData.dat;
+        date.innerText = dates;
+
+        const name = userData.nam;
+        patientName.innerText = name;
+
+        const ages = userData.ages;
+        age.innerText = ages;
+
+        const sex = userData.gen;
+        gender.innerText = sex;
+
+        const diag = userData.diag;
+        diagnosis.value = diag;
+
+        getFormattedRxList(rx, true);
+        getformattedInvestigationList(inv, true);
+        getformattedAdviceList(adv, true);
+        getformattedCCList(cc, true);
+        getformattedOEist(oe, true);
+        loadingContainer.close()
     } else {
 
     }
@@ -829,6 +991,7 @@ function showSuccessToast(message) {
     // Create toast element
     const toast = document.createElement('div');
     if (message.includes('delete')) toast.style.background = "red"
+    if (message.includes('No record')) toast.style.background = "red"
     toast.className = 'toast';
     toast.innerText = message;
 

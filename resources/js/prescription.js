@@ -573,7 +573,7 @@ function mobileDownload() {
                         // 6. Restore button state
                         downloadBtn.innerText = "Download Prescription PDF";
                         downloadBtn.disabled = false;
-                        window.location.reload();
+                        // window.location.reload();
                     }).catch((error) => {
                         console.error("PDF generation failed:", error);
                         downloadBtn.innerText = "Download Failed";
@@ -690,16 +690,6 @@ function mobileDesktopView() {
     // We set a fixed desktop width and allow user zooming.
     viewport.setAttribute('content', 'width=1024, initial-scale=0.25, minimum-scale=0.25, maximum-scale=5.0, user-scalable=yes');
 }
-// Force reload a script on every page load via JavaScript
-const script = document.createElement('script');
-script.src = "/resources/js/app.js?v=" + new Date().getTime(); // Appends unique timestamp
-document.head.appendChild(script);
-window.addEventListener("pageshow", function (event) {
-    // If the page was loaded from the browser history/cache cache, force a hard reload
-    if (event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) {
-        window.location.reload();
-    }
-});
 
 document.addEventListener('click', function (event) {
     // Check if the clicked element is inside the search container

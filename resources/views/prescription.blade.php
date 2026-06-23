@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="ওষুধ লিখ | Oshudh Likho">
     <meta property="og:description"
-        content="Oshudh Likho is free online prescription app to generate printed prescription">
+        content="Free online prescription software for doctors. Create, print and save patient prescriptions with EMR support.">
+    <meta name="keywords"
+        content="prescription software, online prescription generator, EMR software, doctor prescription app">
     <meta property="og:image"
         content="https://firebasestorage.googleapis.com/v0/b/prescription-f0a87.firebasestorage.app/o/preveiw.PNG?alt=media&token=dea62f14-5c7f-43e2-a396-e69e467349d1">
     <meta property="og:url" content="https://oshudhlikho.com/">
     <meta property="og:type" content="website">
-    <title>ওষুধ লিখ | Oshudh Likho</title>
+    <title>ওষুধ লিখ | Oshudh Likho | A Free Online Prescription Software for Doctors</title>
     <link rel="stylesheet" href="views/prescription.css">
     <script>
         window.investigations = @json($investigations);
@@ -73,6 +75,20 @@
 
         </div>
     </div>
+
+    <div class="searchRxHolder" id="searchRxHolder">
+        <div class="searchHeader">Search Prescription</div>
+        <input type="text" class="searchInput" id="searchInput" placeholder="Enter patient's phone">
+
+        <button class ="searchBtn", id = "searchBtn">Search</button>
+        <div class="searchRxList" id="searchRxList">
+            {{-- 
+            <li class="selectable">Fever drugs</li>
+            <li class="selectable">Pneumonia drugs</li>
+            <li class="selectable">cardiac drugs</li> --}}
+
+        </div>
+    </div>
     <div id="toast-container"></div>
 
     @include('popupLayout')
@@ -117,7 +133,8 @@
             <div class="field"><strong>Date:</strong>
                 <div id="date" class="date">04/10/2025</div>
             </div>
-            <div class="phonefield" id="phonefield" type= "number"><strong>Patient's Phone:</strong> <input id="phone" class="phone" placeholder="017********"></input></div>
+            <div class="phonefield" id="phonefield" type= "number"><strong>Patient's Phone:</strong> <input
+                    id="phone" class="phone" placeholder="017********"></input></div>
         </div>
 
         <div class="content">
@@ -259,6 +276,11 @@
                 {{-- end of drug input layout --}}
             </div>
         </div>
+    </div>
+
+    <div class="about-footer" style="text-align: center; margin: 20px 0;">
+        <a href="{{ url('/about') }}" style="color: #1d4ed8; text-decoration: none; font-size: 0.95rem;">About this
+            prescription software</a>
     </div>
 </body>
 

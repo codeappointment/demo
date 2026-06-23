@@ -237,6 +237,10 @@
         visibility: hidden !important;
     }
 
+    .searchRxHolder {
+        display: none;
+    }
+
 }
 
 body {
@@ -501,7 +505,7 @@ body {
     text-align: center;
     border-radius: 8px;
     line-height: 1.1;
-    margin-left: 0;
+    margin-right: 75px;
     font-family: kalpurush, 'Times New Roman', Times, serif;
     margin-bottom: 0;
 }
@@ -634,6 +638,7 @@ body {
     margin-bottom: 28px;
     font-family: kalpurush, 'Times New Roman', Times, serif;
 }
+
 .phone.has-error {
     border: 2px solid #ef4444;
     background-color: #ffb5b5;
@@ -653,8 +658,9 @@ body {
 }
 
 .phonefield {
-        width: 200px;
-    }
+    width: 200px;
+}
+
 .content {
     display: flex;
     grid-template-columns: 1fr 1fr;
@@ -1020,22 +1026,58 @@ body {
     position: relative;
 }
 
+.searchRxHolder {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 200px;
+    left: 5px;
+    max-width: 150px;
+}
 
+.searchHeader {
+    background: #ffffff;
+    border: none;
+    color: #776f03;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 2px;
+    margin-bottom: .9px;
+    margin-top: 0;
+    border-radius:5px 5px 0 0 ;
+}
 
+.searchInput {
+    background: #ececec;
+    padding: 5px;
+    border-radius: 0 0 4px 4px ;
+    border: none;
+}
 
+.searchRxList{
+    background: #405369;
+    border-radius: 4px;
+
+}
+
+.searchBtn {
+    background: #196d86;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    margin-top: 4px;
+    padding: 4px 2px;
+    border-radius: 4px;
+}
+
+.searchBtn:hover {
+    background: #1b86a7;
+    cursor: pointer;
+}
 
 /* Print styles */
-
-/* @media (max-width: 840px) {
-    .content {
-        grid-template-columns: 0.9fr;
-    }
-    .column-left {
-        border-right: none;
-        border-bottom: 0px solid black;
-        padding-bottom: 0;
-    }
-} */
 
 @media print {
     body {
