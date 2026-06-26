@@ -5,16 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>ওষুধ লিখ | Oshudh Likho | Free Online Prescription Software with Patient Data Record EMR</title>
+    <meta name="description"
+        content="Oshudh Likho is a free online prescription software that saves patient data as EMRs securely and helps doctors generate prescriptions fast.">
+    <meta name="keywords"
+        content="free online prescription software, EMR, patient data saving, prescription generator, medical prescription app, electronic prescription">
     <meta property="og:title" content="ওষুধ লিখ | Oshudh Likho">
     <meta property="og:description"
-        content="Free online prescription software for doctors. Create, print and save patient prescriptions with EMR support.">
-    <meta name="keywords"
-        content="prescription software, online prescription generator, EMR software, doctor prescription app">
+        content=" Oshudh Likho is a free online prescription software that saves patient data as EMRs securely and helps doctors generate prescriptions fast.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/about') }}">
     <meta property="og:image"
         content="https://firebasestorage.googleapis.com/v0/b/prescription-f0a87.firebasestorage.app/o/preveiw.PNG?alt=media&token=dea62f14-5c7f-43e2-a396-e69e467349d1">
-    <meta property="og:url" content="https://oshudhlikho.com/">
-    <meta property="og:type" content="website">
-    <title>ওষুধ লিখ | Oshudh Likho | A Free Online Prescription Software for Doctors</title>
     <link rel="stylesheet" href="views/prescription.css">
     <script>
         window.investigations = @json($investigations);

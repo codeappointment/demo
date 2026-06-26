@@ -9,7 +9,8 @@
         content="Oshudh Likho is a free online prescription software that saves patient data as EMRs securely and helps doctors generate prescriptions fast.">
     <meta name="keywords"
         content="free online prescription software, EMR, patient data saving, prescription generator, medical prescription app, electronic prescription">
-    <meta property="og:title" content="Free Online Prescription Software with Patient Data Saving, EMR | Oshudh Likho">
+    <meta property="og:title"
+        content=" ওষুধ লিখ | Oshudh Likho| Free Online Prescription Software with Patient Data Saving, EMR">
     <meta property="og:description"
         content="Create and save patient prescriptions online for free with Oshudh Likho. Store patient data, print prescriptions, and manage visits easily.">
     <meta property="og:type" content="website">
@@ -46,7 +47,8 @@
                     clean, modern workflow for clinical documentation and patient management.</p>
                 <p style="text-align: justify; font-family: 'Times New Roman', Times, serif; font-size: 17px;">
                     <strong>Start using Oshudh Likho today to save time, print prescriptions faster, and keep patient
-                        data organized.</strong></p>
+                        data organized.</strong>
+                </p>
                 <p><a href="{{ url('/') }}" style="color: #1d4ed8; text-decoration: none;">Return to prescription
                         page</a></p>
             </section>

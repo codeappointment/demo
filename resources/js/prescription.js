@@ -527,7 +527,7 @@ const element = document.getElementById('page');
 const phone = document.getElementById('phone')
 
 mobileDownload();
-function mobileDownload() {
+export function mobileDownload() {
     document.addEventListener('DOMContentLoaded', () => {
 
         if (downloadBtn) {

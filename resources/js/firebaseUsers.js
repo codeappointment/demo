@@ -644,7 +644,8 @@ function sendPrescriptionData(phoneNumber) {
     }
 
     setDoc(prescriptionReference, prescriptionData).then(() => {
-        // console.log('Prescription submitted!')
+        showSuccessToast('Prescription saved')
+        window.location.reload()
     })
 }
 
