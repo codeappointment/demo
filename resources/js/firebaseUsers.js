@@ -149,13 +149,13 @@ onAuthStateChanged(auth, (user) => {
 async function checkSession() {
     fetch('/check-session')
         .then(response => {
-            console.log(response.status);
-            console.log(response.ok);
-            if (!response.ok) {
-                console.log('session expired');
-            } else {
-                console.log('session live');
-            }
+            // console.log(response.status);
+            // console.log(response.ok);
+            // if (!response.ok) {
+            //     console.log('session expired');
+            // } else {
+            //     console.log('session live');
+            // }
         });
 console.log('session checking..');
 }
@@ -917,8 +917,8 @@ printBtn.addEventListener('click', () => {
 
     const phoneNumber = phone.value;
     if (phoneNumber !== '') {
-        const oldTitle = document.title;
-        document.title = patientName.innerText + " " + age.innerText;
+        // const oldTitle = document.title;
+        // document.title = patientName.innerText + " " + age.innerText;
         resetAlert();
     } else {
         phone.classList.add('has-error')
