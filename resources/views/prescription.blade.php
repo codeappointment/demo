@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://oshudhlikho.com">
     <meta property="og:image"
         content="https://firebasestorage.googleapis.com/v0/b/prescription-f0a87.firebasestorage.app/o/preveiw.PNG?alt=media&token=dea62f14-5c7f-43e2-a396-e69e467349d1">
-    <link rel="stylesheet" href="views/prescription.css">
+    <link rel="stylesheet" href="/build/assets/prescription.css?v=15">
     <script>
         window.investigations = @json($investigations);
         window.brands = @json($brands);
@@ -30,9 +30,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    @vite(['resources/css/prescription.css', 'resources/css/popup.css'])
 
-    @vite(['resources/js/prescription.js', 'resources/js/app.js', 'resources/js/adviceDatabase.js', 'resources/js/complaints.js', 'resources/js/dosesDatabase.js', 'resources/js/drugDatabase.js', 'resources/js/firebaseAuth.js', 'resources/js/firebaseUsers.js', 'resources/js/investigationDatabase.js', 'resources/js/signin.js'])
+    {{-- production comment out --}}
+    @vite(['resources/css/prescription.css', 'resources/css/popup.css'])
+    @vite(['resources/js/prescription.js', 'resources/js/firebaseUsers.js'])
+    {{-- production comment out --}}
+
+    @vite(['resources/js/app.js', 'resources/js/adviceDatabase.js', 'resources/js/complaints.js', 'resources/js/dosesDatabase.js', 'resources/js/drugDatabase.js', 'resources/js/firebaseAuth.js', 'resources/js/investigationDatabase.js', 'resources/js/signin.js'])
+
+    {{-- production uncomment
+    <link rel="stylesheet" href="/build/assets/prescription.css?v=15">
+    <link rel="stylesheet" href="/build/assets/popup.css?v=15">
+
+    
+    <script type="module" src="/build/assets/prescription.js?v=16"></script>
+    <script type="module" src="/build/assets/firebaseUsers.js?v=16"></script> --}}
 </head>
 
 <body data-nosnippet>
@@ -40,6 +52,9 @@
         <button class ="authBbtn", id = "signinBtn">Sign in</button>
 
     </div>
+    <button class ="print", id = "print">
+        Print
+    </button>
     <button class ="download", id = "download">
         Download
     </button>
@@ -127,7 +142,8 @@
         <div class="divider" id="divider"></div>
 
         <div class="patient-row">
-            <div class="field"><strong>Name:</strong> <span id="patientName" class="patient-name">Click to add patient
+            <div class="field"><strong>Name:</strong> <span id="patientName" class="patient-name">Click to add
+                    patient
                     name</span></div>
             <div class="field"><strong>Age:</strong> <span id="age" class="age">Click to add age</span>
             </div>
@@ -137,16 +153,16 @@
             <div class="field"><strong>Date:</strong>
                 <div id="date" class="date">04/10/2025</div>
             </div>
-            <div class="phonefield" id="phonefield" type= "number"><strong>Patient's Phone:</strong> <input
-                    id="phone" class="phone" placeholder="017********"></input></div>
         </div>
-
+        <div class="phonefield" id="phonefield" type= "number"><strong>Patient's Phone:</strong> <input
+                id="phone" class="phone" placeholder="017********"></input></div>
         <div class="content">
             <div class="column column-left">
                 <div class="cc-section">
                     <div class="sec-heading">Chief Complaints</div>
                     <div class="cc-input"><input id="ccinput" class="ccinput"
-                            placeholder="Add complaints"></input><span id="addcc" , class="add-cc">+</span></div>
+                            placeholder="Complaints/Past History.."></input><span id="addcc" ,
+                            class="add-cc">+</span></div>
                     <div class="ccsuggestionList" id="ccsuggestionList">
                         {{-- generative suggestion-list --}}
                     </div>
@@ -159,7 +175,8 @@
                 <div class="obe-section">
                     <div class="label-small">Examination Findings</div>
                     <div class="cc-input"><input id="oeinput" class="oeinput"
-                            placeholder="Add new findings"></input><span id="addoe" class="add-cc">+</span>
+                            placeholder="Height/Weight/LMP/EDD.."></input><span id="addoe"
+                            class="add-cc">+</span>
                     </div>
 
                     <ul class="bullet-list" id='oeList'>

@@ -67,6 +67,11 @@ const editMealRelation = document.getElementById('editMealRelation');
 const editSuggestion = document.getElementById('editSuggestion');
 const editsuggestionList = document.getElementById('editsuggestionList')
 
+// print and download function
+const downloadBtn = document.getElementById('download');
+const element = document.getElementById('page');
+const phone = document.getElementById('phone');
+
 document.addEventListener('keydown', confirm);
 document.addEventListener('keydown', cancel);
 
@@ -311,29 +316,21 @@ drugList.addEventListener('click', function (e) {
         editlabel.innerText = 'Edit drug'
         editInput.value = e.target.innerText.replace(/×/g, '').trim();
         targetElement = e.target
-        drugEdit.showModal();
+
         drugNameInput.value = ''
         drugEditSection.style.display = 'none'
+        drugEdit.showModal();
     }
 
     if (e.target.tagName === "DIV") {
         editlabel.innerText = 'Edit dose'
         editInput.value = e.target.innerText
         targetElement = e.target
-        drugEdit.showModal();
         drugNameInput.value = '' // to clear druginput layout drugname input
         drugEditSection.style.display = 'block'
         const newInput = editInput.value;
         const stringPart = newInput.split('|').map(item => item.trim());
         editInput.value = stringPart[0] // 1+0+1
-        durationEdit.value = stringPart[2].slice(0, 2).trim() // ৭ দিন
-        editDayWeekMonth.value = stringPart[2].slice(2).trim() // দিন মাস চলবে 
-
-        if (stringPart[1] === "খাবার আগে") document.getElementById('editbm').checked = true
-        else document.getElementById('editam').checked = true
-
-        editSuggestion.value = stringPart[3] || '' // জ্বর থাকলে
-
         for (let i = 1; i <= 30; i++) {
             const option = document.createElement('option');
 
@@ -342,6 +339,16 @@ drugList.addEventListener('click', function (e) {
 
             durationEdit.appendChild(option)
         }
+        durationEdit.value = stringPart[2].slice(0, 2).trim() // ৭ দিন
+        editDayWeekMonth.value = stringPart[2].slice(2).trim() // দিন মাস চলবে 
+
+        if (stringPart[1] === "খাবার আগে") document.getElementById('editbm').checked = true
+        else document.getElementById('editam').checked = true
+
+        editSuggestion.value = stringPart[3] || '' // জ্বর থাকলে
+
+
+        drugEdit.showModal();
     }
 
 });
@@ -463,11 +470,12 @@ function cancel(event) {
 function addtoListItems(eliment, targetList, targetInput) {
     const items = document.createElement('li');
     items.textContent = eliment;
-    targetList.append(items);
+   
     let span = document.createElement('span')
     span.innerHTML = "\u00d7"
     items.appendChild(span);
-    targetInput.value = '';
+    targetInput.value = ''; 
+    targetList.prepend(items);
     ccsuggestionList.style.display = 'none'
     invsuggestionList.style.display = 'none'
 }
@@ -522,9 +530,7 @@ bp.addEventListener('click', () => {
 const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
     navigator.userAgent
 );
-const downloadBtn = document.getElementById('download');
-const element = document.getElementById('page');
-const phone = document.getElementById('phone')
+
 
 mobileDownload();
 export function mobileDownload() {
@@ -659,21 +665,22 @@ function togglePrint() {
 }
 
 // prevent cltr+P
-// window.addEventListener('keydown', function (e) {
-//     // Check if 'P' key is pressed
-//     const isPKey = e.key === 'p' || e.key === 'P' || e.keyCode === 80;
+window.addEventListener('keydown', function (e) {
+    // Check if 'P' key is pressed
+    const isPKey = e.key === 'p' || e.key === 'P' || e.keyCode === 80;
 
-//     // Detect Ctrl (Windows) or Cmd (Mac)
-//     const isControlKey = e.ctrlKey || e.metaKey;
+    // Detect Ctrl (Windows) or Cmd (Mac)
+    const isControlKey = e.ctrlKey || e.metaKey;
 
-//     if (isControlKey && isPKey) {
-//         // 1. Stop the browser's default print dialog from opening
-//         e.preventDefault();
+    if (isControlKey && isPKey) {
+        // 1. Stop the browser's default print dialog from opening
+        e.preventDefault();
 
-//         // 2. Trigger your custom print action/button click
-//         // triggerCustomPrint(); 
-//     }
-// });
+        // 2. Trigger your custom print action/button click
+        // triggerCustomPrint(); 
+    }
+});
+
 
 // force mobile to load desktop view
 function mobileDesktopView() {

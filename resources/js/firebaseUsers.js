@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, deleteUser } from "firebase/auth";
+import { setPersistence, browserSessionPersistence } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
 import { getFirestore, collection, query, where, addDoc, setDoc, doc, updateDoc, getDoc, getDocs, deleteDoc } from "firebase/firestore";
@@ -80,6 +81,10 @@ const deleteUserBtn = document.getElementById('delete')
 // druglist
 const drugList = document.getElementById('rxList');
 
+// print and download
+const downloadBtn = document.getElementById('download');
+const printBtn = document.getElementById('print');
+
 // template
 const saveTemplateBtn = document.getElementById('saveTemplateBtn');
 const templateList = document.getElementById('templateList');
@@ -108,8 +113,11 @@ let newHeaderHeight = '0';
 let hidden = false;
 let isSignUp = false;
 
+setPersistence(auth, browserSessionPersistence);
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
+        checkSession();
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
@@ -137,6 +145,21 @@ onAuthStateChanged(auth, (user) => {
         signinBtn.style.background = '#00900c'
     }
 });
+
+async function checkSession() {
+    fetch('/check-session')
+        .then(response => {
+            console.log(response.status);
+            console.log(response.ok);
+            if (!response.ok) {
+                console.log('session expired');
+            } else {
+                console.log('session live');
+            }
+        });
+console.log('session checking..');
+}
+
 
 async function getUserDocument(userID) {
     // 1. Create a reference to the specific document
@@ -541,11 +564,10 @@ function createUpdateData(field, value) {
 
 }
 
-const downloadBtn = document.getElementById('download');
 downloadBtn.addEventListener('click', () => {
     const phoneNumber = phone.value;
     if (phoneNumber !== '') {
-        sendPrescriptionData(phoneNumber);
+        savedPrescription(phoneNumber);
     } else {
         phone.classList.add('has-error')
     }
@@ -563,7 +585,7 @@ searchInput.addEventListener('input', () => {
 });
 
 
-function sendPrescriptionData(phoneNumber) {
+function savedPrescription(phoneNumber) {
 
     const currentTimeMillis = `${Date.now()}` // Date.now().toString();
     const prescriptionReference = doc(db, 'prescription', currentTimeMillis);
@@ -891,6 +913,40 @@ searchRxList.addEventListener('click', function (e) {
 
 });
 
+printBtn.addEventListener('click', () => {
+
+    const phoneNumber = phone.value;
+    if (phoneNumber !== '') {
+        const oldTitle = document.title;
+        document.title = patientName.innerText + " " + age.innerText;
+        resetAlert();
+    } else {
+        phone.classList.add('has-error')
+    }
+
+});
+
+function resetAlert() {
+    const deleteAlert = document.getElementById('deleteAlert');
+    const labelText = document.getElementById('labelText');
+    const cancelDel = document.getElementById('cancelDel');
+    const deleteBtn = document.getElementById('deleteBtn');
+    deleteBtn.innerText = 'Save and Print'
+
+    labelText.innerHTML = 'This will save the prescription and reset the page for next patient';
+    deleteAlert.showModal();
+
+    deleteBtn.onclick = () => {
+        const phoneNumber = phone.value;
+        deleteAlert.close();
+        window.print();
+        savedPrescription(phoneNumber);
+    };
+    cancelDel.onclick = () => {
+        deleteAlert.close();
+    };
+
+}
 function deleteAlert(documentName) {
     const deleteAlert = document.getElementById('deleteAlert');
     const labelText = document.getElementById('labelText');

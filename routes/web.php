@@ -13,3 +13,11 @@ Route::get('/clear-cache', function () {
 Route::get('/', [DatabaseController::class, 'drugLoader']);
 Route::view('/about', 'about');
 
+// routes/web.php
+
+Route::get('/check-session', function () {
+    return response()->json([
+        'logged_in' => session('logged_in'),
+        'all' => session()->all(),
+    ]);
+});
