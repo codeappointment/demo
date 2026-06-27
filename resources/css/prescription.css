@@ -1407,4 +1407,7 @@ body {
         display: none !important;
     }
 
+    .authHolder{
+        display: none !important;
+    }
 }
