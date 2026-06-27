@@ -1,5 +1,5 @@
 /* Mobile Responsive Styles */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .my-Popup {
         border: none;
         border-radius: 10px;
@@ -238,7 +238,7 @@
     }
 
     .searchRxHolder {
-       visibility: hidden !important;
+        visibility: hidden !important;
     }
 
 }
@@ -1047,17 +1047,17 @@ body {
     padding-top: 2px;
     margin-bottom: .9px;
     margin-top: 0;
-    border-radius:5px 5px 0 0 ;
+    border-radius: 5px 5px 0 0;
 }
 
 .searchInput {
     background: #ececec;
     padding: 5px;
-    border-radius: 0 0 4px 4px ;
+    border-radius: 0 0 4px 4px;
     border: none;
 }
 
-.searchRxList{
+.searchRxList {
     background: #405369;
     border-radius: 4px;
 
@@ -1086,6 +1086,7 @@ body {
         background: white !important;
         margin: 0;
         padding: 0;
+        width: 100% !important;
     }
 
     .header {
@@ -1348,6 +1349,21 @@ body {
 
     .download {
         display: none;
+    }
+
+    .savedHolder {
+        display: none !important;
+    }
+
+    .about-footer {
+        display: none !important;
+    }
+
+    .headerController {
+        display: none !important;
+    }
+    .searchRxHolder{
+        display: none !important;
     }
 
 }

@@ -659,21 +659,21 @@ function togglePrint() {
 }
 
 // prevent cltr+P
-window.addEventListener('keydown', function (e) {
-    // Check if 'P' key is pressed
-    const isPKey = e.key === 'p' || e.key === 'P' || e.keyCode === 80;
+// window.addEventListener('keydown', function (e) {
+//     // Check if 'P' key is pressed
+//     const isPKey = e.key === 'p' || e.key === 'P' || e.keyCode === 80;
 
-    // Detect Ctrl (Windows) or Cmd (Mac)
-    const isControlKey = e.ctrlKey || e.metaKey;
+//     // Detect Ctrl (Windows) or Cmd (Mac)
+//     const isControlKey = e.ctrlKey || e.metaKey;
 
-    if (isControlKey && isPKey) {
-        // 1. Stop the browser's default print dialog from opening
-        e.preventDefault();
+//     if (isControlKey && isPKey) {
+//         // 1. Stop the browser's default print dialog from opening
+//         e.preventDefault();
 
-        // 2. Trigger your custom print action/button click
-        // triggerCustomPrint(); 
-    }
-});
+//         // 2. Trigger your custom print action/button click
+//         // triggerCustomPrint(); 
+//     }
+// });
 
 // force mobile to load desktop view
 function mobileDesktopView() {

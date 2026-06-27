@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>ওষুধ লিখ | Oshudh Likho | Free Online Prescription Software with Patient Data Record EMR</title>
+    <title>ওষুধ লিখ | Oshudh Likho | Free Online Prescription Software & EMR for Doctors</title>
     <meta name="description"
         content="Oshudh Likho is a free online prescription software that saves patient data as EMRs securely and helps doctors generate prescriptions fast.">
     <meta name="keywords"
@@ -14,7 +14,7 @@
     <meta property="og:description"
         content=" Oshudh Likho is a free online prescription software that saves patient data as EMRs securely and helps doctors generate prescriptions fast.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<?php echo e(url('/about')); ?>">
+    <meta property="og:url" content="https://oshudhlikho.com">
     <meta property="og:image"
         content="https://firebasestorage.googleapis.com/v0/b/prescription-f0a87.firebasestorage.app/o/preveiw.PNG?alt=media&token=dea62f14-5c7f-43e2-a396-e69e467349d1">
     <link rel="stylesheet" href="views/prescription.css">
@@ -35,7 +35,7 @@
     <?php echo app('Illuminate\Foundation\Vite')(['resources/js/prescription.js', 'resources/js/app.js', 'resources/js/adviceDatabase.js', 'resources/js/complaints.js', 'resources/js/dosesDatabase.js', 'resources/js/drugDatabase.js', 'resources/js/firebaseAuth.js', 'resources/js/firebaseUsers.js', 'resources/js/investigationDatabase.js', 'resources/js/signin.js']); ?>
 </head>
 
-<body>
+<body data-nosnippet>
     <div class="authHolder">
         <button class ="authBbtn", id = "signinBtn">Sign in</button>
 
@@ -123,8 +123,10 @@
         <div class="patient-row">
             <div class="field"><strong>Name:</strong> <span id="patientName" class="patient-name">Click to add patient
                     name</span></div>
-            <div class="field"><strong>Age:</strong> <span id="age" class="age">Click to add age</span></div>
-            <div class="field"><strong>Gender:</strong> <span id="gender" class="age">Click to add gender</span>
+            <div class="field"><strong>Age:</strong> <span id="age" class="age">Click to add age</span>
+            </div>
+            <div class="field"><strong>Gender:</strong> <span id="gender" class="age">Click to add
+                    gender</span>
             </div>
             <div class="field"><strong>Date:</strong>
                 <div id="date" class="date">04/10/2025</div>
