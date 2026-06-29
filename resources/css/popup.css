@@ -340,18 +340,22 @@ input[type="password"] {
 }
 
 /* Divider Text */
-.divider {
-    margin: 12px 0;
-    margin-bottom: 29px;
+.dividerLogin {
     font-size: 10px;
     color: #727579;
     text-transform: uppercase;
+    height: 2px;
+    background: #10893e;
+    margin: 10px 0;
+    margin-bottom: 20px;
+    padding: 0;
 }
 
 /* Google Sign-In Button */
 .btn-google {
     width: 100%;
     padding: 12px;
+    margin-top: 28px;
     background-color: #ffffff;
     color: #3c4043;
     border: 1px solid #c9c9c9;

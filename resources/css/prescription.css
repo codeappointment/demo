@@ -602,8 +602,8 @@ body {
 .divider {
     height: 2px;
     background: #10893e;
-    margin: 10px 0;
-    margin-top: 0%;
+    margin: 0;
+    padding: 0;
     /* border-radius: 2px; */
 }
 
@@ -656,7 +656,7 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 24px;
-    margin-bottom: 28px;
+    margin-bottom: 5px;
     font-family: kalpurush, 'Times New Roman', Times, serif;
 }
 
@@ -680,6 +680,8 @@ body {
 
 .phonefield {
     width: 200px;
+    margin-top: 10px;
+    padding: 0;
 }
 
 .content {
@@ -689,8 +691,9 @@ body {
 }
 
 .column {
-    padding: 16px 0;
+    padding: 0;
     margin-left: 5px;
+    margin: 0;
     display: flex;
     position: relative;
     flex-direction: column;
@@ -765,9 +768,7 @@ body {
     color: #f8dada;
 }
 
-
 .bullet-list,
-.investigation-list,
 .rx-list,
 .adviceList {
     list-style: none;
@@ -776,11 +777,10 @@ body {
     padding-top: 0;
     min-height: 3rem;
     min-width: 9rem;
-    /* border:solid #5a5a5a 1px;s */
     margin: 0;
     padding: 10px;
     width: fit-content;
-    line-height: 1.7;
+    line-height: 1.5;
     background: #d8d8d8;
     border-radius: 8px;
     margin-top: 5px;
@@ -796,13 +796,22 @@ body {
     color: #257e1d;
 }
 
+
 .bullet-list li::before,
-.investigation-list li::before,
 .adviceList::before {
     content: "- ";
     width: 1.2em;
     text-align: right;
     margin-right: 0;
+}
+
+.bullet-list input[type="checkbox"] {
+    margin-left: 0;
+}
+
+#oeList li::before {
+    margin-right: 4px;
+    width: .9em;
 }
 
 #oeList li input {
@@ -813,9 +822,13 @@ body {
     display: flex;
     align-items: center;
     padding-left: 0;
+    margin-left: 0;
+    max-width: 220px;
 }
+
+
 #oeList {
-   
+
     padding-left: 0;
 }
 
@@ -827,6 +840,29 @@ body {
 #oeList li span {
     margin-left: 5px;
     /* pushes input to the right */
+}
+
+#ccList {
+    margin-left: 0;
+    padding-left: 0;
+    /* or a small value */
+}
+
+#ccList li {
+    display: flex;
+    align-items: flex-start;
+    max-width: 220px;
+}
+
+#ccList li::before {
+    content: "-";
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+#ccList li span {
+    min-width: 20px;
+    margin-left: 5px;
 }
 
 .kalpurush {
@@ -1032,6 +1068,17 @@ body {
     display: none;
 }
 
+#adviceList {
+    margin: 0;
+    padding: 0;
+    min-height: 1.1rem;
+}
+
+#adviceList li {
+    margin: 0;
+    padding: 0;
+}
+
 .additionalHeader {
     font-family: kalpurush, 'Times New Roman', Times, serif;
     font-size: 0.96rem;
@@ -1065,7 +1112,8 @@ body {
 .adviceInput {
     min-width: 300px;
     position: relative;
-    font-family: kalpurush,'Times New Roman', Times, serif;
+    margin-top: 0;
+    font-family: kalpurush, 'Times New Roman', Times, serif;
 }
 
 .searchRxHolder {
@@ -1294,12 +1342,23 @@ body {
     }
 
     .bullet-list,
-    .investigation-list {
+    .rx-list,
+    .adviceList {
+
+        line-height: 1.1;
+    }
+
+    .bullet-list {
         padding: 0;
         font-family: 'Times New Roman', Times, serif;
 
     }
 
+    .bullet-list li::before {
+        content: "- ";
+        width: auto;
+        margin-right: 0;
+    }
 
     .kalpurush {
 
@@ -1317,10 +1376,17 @@ body {
     .column-left {
         padding-right: 10px !important;
         border-right: 2px solid black !important;
+        min-height: 600px;
     }
 
     .cc-input {
         display: none;
+    }
+
+    #oeList li::before {
+        content: "- ";
+        width: auto !important;
+        margin-left: 0;
     }
 
     .bullet-list span,
@@ -1407,7 +1473,7 @@ body {
         display: none !important;
     }
 
-    .authHolder{
+    .authHolder {
         display: none !important;
     }
 }

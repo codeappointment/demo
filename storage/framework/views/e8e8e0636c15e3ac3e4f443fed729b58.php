@@ -48,3 +48,4 @@
 </body>
 
 </html>
+<?php /**PATH C:\Users\Zubayer\Herd\demo\resources\views/emailPassLogin.blade.php ENDPATH**/ ?>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ওষুধ লিখ | Oshudh Likho | Free Online Prescription Software & EMR for Doctors</title>
+    <meta name="description"
+        content="Oshudh Likho is a free online prescription software that saves patient data as EMRs securely and helps doctors generate prescriptions fast.">
+    <meta name="keywords"
+        content="free online prescription software, EMR, patient data saving, prescription generator, medical prescription app, electronic prescription">
+    <meta property="og:title" content="ওষুধ লিখ | Oshudh Likho">
+    <meta property="og:description"
+        content=" Oshudh Likho is a free online prescription software that saves patient data as EMRs securely and helps doctors generate prescriptions fast.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://oshudhlikho.com">
+    <meta property="og:image"
+        content="https://firebasestorage.googleapis.com/v0/b/prescription-f0a87.firebasestorage.app/o/preveiw.PNG?alt=media&token=dea62f14-5c7f-43e2-a396-e69e467349d1">
+    <link rel="stylesheet" href="/build/assets/prescription.css?v=15">
+    <script>
+        window.investigations = <?php echo json_encode($investigations, 15, 512) ?>;
+        window.brands = <?php echo json_encode($brands, 15, 512) ?>;
+        window.complaints = <?php echo json_encode($complaints, 15, 512) ?>;
+        window.doses = <?php echo json_encode($doses, 15, 512) ?>;
+        window.advices = <?php echo json_encode($advices, 15, 512) ?>;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+
+    
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/prescription.css', 'resources/css/popup.css']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/prescription.js', 'resources/js/firebaseUsers.js']); ?>
+    
+
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/app.js', 'resources/js/adviceDatabase.js', 'resources/js/complaints.js', 'resources/js/dosesDatabase.js', 'resources/js/drugDatabase.js', 'resources/js/firebaseAuth.js', 'resources/js/investigationDatabase.js', 'resources/js/signin.js']); ?>
+
+    
+</head>
+
+<body data-nosnippet>
+    <div class="authHolder">
+        <button class ="authBbtn", id = "signinBtn">Sign in</button>
+
+    </div>
+    <button class ="print", id = "print">
+        Print
+    </button>
+    <button class ="download", id = "download">
+        Download
+    </button>
+
+
+    <div class="headerController", id="headerController">
+        <button class ="hideHeader", id = "hideHeader">
+            Hide Header
+        </button>
+        <div class="heihtHolder">
+            <strong class ="headerHeight", id = "headerHeight">
+                Header height
+            </strong>
+            <div class="heightController">
+                <button id="increase">&#9650;</button>
+                <button id="decrease">&#9660;</button>
+            </div>
+        </div>
+        <button class ="saveSetting", id = "saveSetting" style="visibility: hidden">
+            Save settings
+        </button>
+    </div>
+
+
+    <div class="savedHolder" id="savedHolder" style="visibility: hidden">
+        <button class ="saveTemplateBtn", id = "saveTemplateBtn">
+            Save Template
+        </button>
+        <strong class="templateListHeader">My Templates</strong>
+        <div class="templateList" id="templateList">
+            
+
+        </div>
+    </div>
+
+    <div class="searchRxHolder" id="searchRxHolder" style="visibility: hidden">
+        <div class="searchHeader">Search Prescription</div>
+        <input type="text" class="searchInput" id="searchInput" placeholder="Enter patient's phone">
+
+        <button class ="searchBtn", id = "searchBtn">Search</button>
+        <div class="searchRxList" id="searchRxList">
+            
+
+        </div>
+    </div>
+    <div id="toast-container"></div>
+
+    <?php echo $__env->make('popupLayout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('signinAlert', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('alertPopup', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('drugEditWindow', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('loadingMessage', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('emailPassLogin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('emailVerifyReload', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <div class="page", id = "page">
+
+        <div class="header" id="header">
+
+            <div class="header-left">
+                <p class="doctor-name" id="doctorName">loading...</p>
+                <p class="doctor-qual" id="qualification"></p>
+                <p class="doctor-affiliation" id="affiliation"></p>
+                <div class="bmdc"><strong>BMDC No:</strong> <span id="BMDC" class="title"></span></div>
+            </div>
+
+            <div class="header-center">
+                <p class="specialist" id="specialist"></p>
+            </div>
+
+            <div class="header-right">
+                <p class="hospital-name" id="hospitalName"></p>
+                <p class="address" id="address"></p>
+                <p class="schedule" id="schedule"></p>
+                <div class="contact-no"><strong>Contact:</strong> <span id="contact" class="contact"></span></div>
+            </div>
+
+        </div>
+
+        <div class="divider" id="divider"></div>
+
+        <div class="patient-row">
+            <div class="field"><strong>Name:</strong> <span id="patientName" class="patient-name">Click to add
+                    patient
+                    name</span></div>
+            <div class="field"><strong>Age:</strong> <span id="age" class="age">Click to add age</span>
+            </div>
+            <div class="field"><strong>Gender:</strong> <span id="gender" class="age">Click to add
+                    gender</span>
+            </div>
+            <div class="field"><strong>Date:</strong>
+                <div id="date" class="date">04/10/2025</div>
+            </div>
+        </div>
+        <div class="phonefield" id="phonefield" type= "number"><strong>Patient's Phone:</strong> <input
+                id="phone" class="phone" placeholder="017********"></input></div>
+        <div class="content">
+            <div class="column column-left">
+                <div class="cc-section">
+                    <div class="sec-heading">Chief Complaints</div>
+                    <div class="cc-input"><input id="ccinput" class="ccinput"
+                            placeholder="Complaints/Past History.."></input><span id="addcc" ,
+                            class="add-cc">+</span></div>
+                    <div class="ccsuggestionList" id="ccsuggestionList">
+                        
+                    </div>
+                    <ul class="bullet-list" , id='ccList'>
+                        <li>Fever for three days<span>&#xd7;</span></li>
+                        <li>Caugh<span>&#xd7;</span></li>
+                        <li>Nausea<span>&#xd7;</span></li>
+                    </ul>
+                </div>
+                <div class="obe-section">
+                    <div class="label-small">Examination Findings</div>
+                    <div class="cc-input"><input id="oeinput" class="oeinput"
+                            placeholder="Height/Weight/LMP/EDD.."></input><span id="addoe"
+                            class="add-cc">+</span>
+                    </div>
+
+                    <ul class="bullet-list" id='oeList'>
+                        <li>Temp: <input id="temp" class="oeinput" placeholder="℉"></input><span>&#xd7;</span>
+                        </li>
+                        <li>BP: <input id="bp" class="oeinput" placeholder="mmHg"></input><span>&#xd7;</span>
+                        </li>
+                        <li>Pulse: <input id="pulse" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Resp: <input id="resp" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Anaemia: <input id="anaemia" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Cyanosis: <input id="cyanosis" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Heart: <input id="heart" class="oeinput"></input><span>&#xd7;</span></li>
+                        <li>Lung: <input id="lung" class="oeinput"></input><span>&#xd7;</span></li>
+
+                    </ul>
+                </div>
+
+                <div class="obe-section">
+                    <div class="label-small">Investigation advice:</div>
+                    <div class="cc-input"><input id="advinput" class="advinput" ,
+                            placeholder="Add new investigations"></input><span id="addadv" class="add-cc">+</span>
+                    </div>
+                    <div class="invsuggestionList" id="invsuggestionList">
+                        
+                    </div>
+                    <ul class="bullet-list" id="advList">
+
+                        <li><input type="checkbox" id="checkbox" name="checkbox">CBC</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Serum Creatinine</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Serum Electrolyte</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Fasting Blood Sugar</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">2HABF</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Lipit Profile</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">SGPT</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">SGOT</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Urine R/E</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Lipid Profile</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">Chest X-ray P/A view</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">USG whole abdomen</input></li>
+                        <li><input type="checkbox" id="checkbox" name="checkbox">USG Pregnancy Profile</input></li>
+
+                    </ul>
+                </div>
+                <strong class="diagnosis">Diagnosis:</strong>
+                <input class="advinput" id="diagnosis" placeholder="Diagnosis or D/D"></input>
+            </div>
+
+            <div class="column">
+                <div class="sec-heading">Rx</div>
+                <ul class="rx-list" id="rxList">
+                    
+                </ul>
+
+                
+                <div class="durgInputLayout" , id="durgInputLayout">
+                    <div>
+                        <div class = "nameSection", style="display: block, width: 100%">
+                            <input class="drugName" , id="drugName" required type="text" style="width: auto"
+                                placeholder="Tab Napa 500mg"></input>
+                            <div class="suggestion-list" id="suggestionList">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        
+                        <input type="text" center placeholder="1+0+1" class="dose" , id="dose"
+                            required></input>
+
+                        <div class="doses-list" id="dosesList">
+                            
+                        </div>
+                        
+                        <select class="duration" , id="duration" type="text" style="width: 30px"
+                            placeholder="5"></select>
+
+                        <select id="dayWeekMonth" class="dayWeekMonth kalpurush" name="days">
+                            <option value="select">দিন/মাস</option>
+                            <option value="দিন">দিন</option>
+                            <option value="সপ্তাহ">সপ্তাহ</option>
+                            <option value="মাস">মাস</option>
+                            <option value="বছর">বছর</option>
+                            <option value="চলবে">চলবে</option>
+                        </select>
+                        <form style="display: flex" id="mealRelation" , class="mealRelation">
+                            <input type="radio" id="bm" class="bm" name="mealTime" value="খাবার আগে">
+                            <label for="basic">খাবার আগে</label><br>
+
+                            <input type="radio" id="am" class="am" name="mealTime" value="খাবার পরে">
+                            <label for="pro">খাবার পরে</label><br>
+                        </form>
+                        <input type="text" center placeholder="Additional suggestion" class="suggestion" ,
+                            id="suggestion"></input>
+                        <button class="addDrug" id="addDrug">Add Drug</button>
+
+                    </div>
+                    <p class ="alert" id = "alert">*Missing filed*</p>
+                </div>
+
+                <div class = "additionalHeader" id = "additionalHeader">
+                    <span>উপদেশঃ</span>
+
+                    <div class="underline">
+
+                    </div>
+                    <ul class="bullet-list kalpurush" id="adviceList" style="display: none">
+                        
+                    </ul>
+                    <div class="adviceHolder">
+                        <input class = "adviceInput" id = "adviceInput" placeholder="নিয়মিত ওষুধ খাবেন..."></input>
+
+                        <div class="adviceSiggestionList" id="adviceSiggestionList">
+                            
+                        </div>
+                        <button class="addDrug" id="addAdvice">Add</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="about-footer" style="text-align: center; margin: 20px 0;">
+        <a href="<?php echo e(url('/about')); ?>" style="color: #1d4ed8; text-decoration: none; font-size: 0.95rem;">About this
+            prescription software</a>
+    </div>
+</body>
+
+</html>
+<?php /**PATH C:\Users\Zubayer\Herd\demo\resources\views/prescription.blade.php ENDPATH**/ ?>
