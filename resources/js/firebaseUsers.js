@@ -88,6 +88,7 @@ const printBtn = document.getElementById('print');
 // template
 const saveTemplateBtn = document.getElementById('saveTemplateBtn');
 const templateList = document.getElementById('templateList');
+const savedHolder = document.getElementById('savedHolder');
 
 //searchRxList 
 const searchRxHolder = document.getElementById('searchRxHolder')
@@ -130,7 +131,7 @@ onAuthStateChanged(auth, (user) => {
         if (user.emailVerified) {
             searchRxHolder.style.visibility = 'visible'
             getUserDocument(userID);
-            getSavedtemplateList();
+            getTemplate(userID);
             signinBtn.innerText = 'Sign out'
             signinBtn.style.background = 'red'
         } else {
@@ -157,7 +158,7 @@ async function checkSession() {
             //     console.log('session live');
             // }
         });
-console.log('session checking..');
+    console.log('session checking..');
 }
 
 
@@ -259,7 +260,7 @@ function getFormattedRxList(rx, searchPrescription) {
         drugList.append(items);
 
         const drugName = document.createElement('strong')
-        drugName.innerHTML = rxArray[0];
+        drugName.innerHTML = rxArray[0].replace(/×/g, '');
 
         const span = document.createElement('span');
         span.innerHTML = "\u00d7";
@@ -637,7 +638,7 @@ function savedPrescription(phoneNumber) {
         const itemObject = {}; // Use a plain object instead of a Map
 
         for (let i = 0; i < li.children.length; i++) {
-            itemObject[i] = li.children[i].textContent;
+            itemObject[i] = li.children[i].textContent.replace(/×/g, '');
         }
 
         return itemObject;
@@ -675,7 +676,8 @@ function savedPrescription(phoneNumber) {
 function saveTemplate(templateName) {
 
     loadingMsg('Saving template...')
-    const prescriptionReference = doc(db, "users", userID, 'template', templateName);
+    const currentTimeMillis = `${Date.now()}`
+    const prescriptionReference = doc(db, 'template', currentTimeMillis);
 
     const invitems = document.querySelectorAll('#advList li');
 
@@ -723,6 +725,8 @@ function saveTemplate(templateName) {
         return li.childNodes[0].textContent.trim();
     });
     const prescriptionData = {
+        nam: templateName,
+        docID: userID,
         inv: invitemTexts,
         rx: rxitemTexts,
         adv: advItemTexts,
@@ -732,7 +736,7 @@ function saveTemplate(templateName) {
     dialog.close();
     setDoc(prescriptionReference, prescriptionData).then(() => {
         loadingContainer.close()
-        getSavedtemplateList(userID);
+        getTemplate(userID)
         showSuccessToast('Template saved !')
     });
 }
@@ -828,34 +832,6 @@ saveSetting.addEventListener('click', () => {
     } else { alertModal.showModal() }
 })
 
-
-async function getSavedtemplateList() {
-
-    const querySnapshot = await getDocs(collection(db, "users", userID, "template"));
-    const savedHolder = document.getElementById('savedHolder');
-
-    templateList.innerHTML = '';
-    if (!querySnapshot.empty) {
-
-        savedHolder.style.visibility = 'visible'
-        querySnapshot.forEach((doc) => {
-
-            const listItems = document.createElement('li');
-            const nameChild = document.createElement('div');
-            const span = document.createElement('span');
-            span.innerHTML = " \u00d7";
-            nameChild.classList.add('selectable');
-            nameChild.innerHTML = doc.id;
-            listItems.appendChild(nameChild)
-                .appendChild(span);
-            templateList.append(listItems);
-        });
-    } else {
-        savedHolder.style.visibility = 'hidden'
-        // console.log('empty')
-    }
-}
-
 async function getRx(phone) {
     loadingMsg('Loading prescription...')
     const myPrescriptions = query(collection(db, "prescription"),
@@ -891,23 +867,54 @@ async function getRx(phone) {
     }
 }
 
+async function getTemplate(userID) {
+   
+    const myPrescriptions = query(collection(db, "template"),
+        where("docID", "==", userID));
+
+    const querySnapshot = await getDocs(myPrescriptions);
+    if (!querySnapshot.empty) {
+        savedHolder.style.visibility = 'visible'
+        templateList.innerHTML = ''
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+
+            const listItems = document.createElement('li');
+            const nameChild = document.createElement('div');
+            const span = document.createElement('span');
+            span.innerHTML = " \u00d7";
+            span.dataset.timesmap = doc.id;
+
+            nameChild.classList.add('selectable');
+            nameChild.innerHTML = doc.data().nam;
+            nameChild.dataset.timesmap = doc.id;
+            listItems.appendChild(nameChild).appendChild(span);
+            templateList.classList.add('templateList')
+            templateList.append(listItems);
+
+            loadingContainer.close();
+        });
+    } else {
+        loadingContainer.close();
+    }
+}
 
 templateList.addEventListener('click', function (e) {
     const li = e.target.closest('li');
     const documentName = li.textContent.replace(/×/g, '').trim(); // if not replaced, takes × as part of document name
+    const timesmap = e.target.dataset.timesmap;
     if (e.target.tagName !== "SPAN") {
-
-        getTemplateData(documentName);
-    } else {
-
-        deleteAlert(documentName);
+        getTemplateData(timesmap);
+    } else { 
+        deleteAlert(timesmap, documentName);
     }
 
 });
 
 searchRxList.addEventListener('click', function (e) {
 
-    console.log(e.target.dataset.timesmap)
+    // console.log(e.target.dataset.timesmap)
     const timesmap = e.target.dataset.timesmap;
     getSavedPrescription(timesmap)
 
@@ -947,20 +954,18 @@ function resetAlert() {
     };
 
 }
-function deleteAlert(documentName) {
+function deleteAlert(timesmap, documentName) {
     const deleteAlert = document.getElementById('deleteAlert');
     const labelText = document.getElementById('labelText');
     const cancelDel = document.getElementById('cancelDel');
     const deleteBtn = document.getElementById('deleteBtn');
 
-    const boldElement = document.createElement('strong')
-    boldElement.innerText = documentName;
     labelText.innerHTML = 'Delete template <strong>' + documentName + '</strong>?';
     deleteAlert.showModal();
 
     deleteBtn.onclick = () => {
         deleteAlert.close();
-        removeTemplate(documentName);
+        removeTemplate(timesmap);
     };
     cancelDel.onclick = () => {
         deleteAlert.close();
@@ -969,20 +974,23 @@ function deleteAlert(documentName) {
 }
 
 async function removeTemplate(templateName) {
-    const templateReference = doc(db, "users", userID, "template", templateName);
+   
+    const templateReference = doc(db, "template", templateName);
     loadingMsg('Deleting template...')
     deleteDoc(templateReference)
         .then(() => {
             loadingContainer.close()
-            getSavedtemplateList();
+            getTemplate(userID);
             // console.log('deleted');
             showSuccessToast('Template deleted !');
         });
 }
 
-async function getTemplateData(templateName) {
+async function getTemplateData(timesmap) {
     loadingMsg('Loading template...');
-    const templateReference = doc(db, "users", userID, "template", templateName)
+    const templateReference = doc(db, "template", timesmap
+
+    )
 
     const documentSnapshot = await getDoc(templateReference);
 
@@ -1323,7 +1331,7 @@ async function createUser(email, password) {
                                 reload.classList.remove('loading')
                                 verifyReloadModal.close();
                                 getUserDocument(userID);
-                                getSavedtemplateList();
+                                getTemplate();
                                 signinBtn.innerText = 'Sign out'
                                 signinBtn.style.background = 'red'
                             } else {
@@ -1380,7 +1388,6 @@ function emailVerifyPopUp(email) {
                             reload.classList.remove('loading')
                             verifyReloadModal.close();
                             getUserDocument(userID);
-                            getSavedtemplateList();
                             signinBtn.innerText = 'Sign out'
                             signinBtn.style.background = 'red'
                         } else {

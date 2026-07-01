@@ -710,7 +710,7 @@ body {
 .sec-heading {
     font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
     letter-spacing: 0.02em;
 }
 
@@ -823,7 +823,7 @@ body {
     align-items: center;
     padding-left: 0;
     margin-left: 0;
-    max-width: 220px;
+    max-width: 230px;
 }
 
 
@@ -1048,7 +1048,7 @@ body {
 .label-small {
     font-size: 0.95rem;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 
 .adviceSiggestionList {
@@ -1351,6 +1351,7 @@ body {
     .bullet-list {
         padding: 0;
         font-family: 'Times New Roman', Times, serif;
+        margin-top: 0;
 
     }
 
@@ -1377,6 +1378,7 @@ body {
         padding-right: 10px !important;
         border-right: 2px solid black !important;
         min-height: 600px;
+        width: 200px;
     }
 
     .cc-input {

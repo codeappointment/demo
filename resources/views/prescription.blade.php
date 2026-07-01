@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://oshudhlikho.com">
     <meta property="og:image"
         content="https://firebasestorage.googleapis.com/v0/b/prescription-f0a87.firebasestorage.app/o/preveiw.PNG?alt=media&token=dea62f14-5c7f-43e2-a396-e69e467349d1">
-    <link rel="stylesheet" href="/build/assets/prescription.css?v=15">
+    
     <script>
         window.investigations = @json($investigations);
         window.brands = @json($brands);
@@ -77,12 +77,12 @@
             Save settings
         </button>
     </div>
-
-
-    <div class="savedHolder" id="savedHolder" style="visibility: hidden">
-        <button class ="saveTemplateBtn", id = "saveTemplateBtn">
+<button class ="saveTemplateBtn", id = "saveTemplateBtn">
             Save Template
         </button>
+
+    <div class="savedHolder" id="savedHolder" style="visibility: hidden">
+        
         <strong class="templateListHeader">My Templates</strong>
         <div class="templateList" id="templateList">
             {{-- 
